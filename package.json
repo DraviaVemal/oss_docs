@@ -1,9 +1,9 @@
 {
-  "name": "",
+  "name": "docs",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --verbose",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -12,6 +12,7 @@
   "dependencies": {
     "@astrojs/starlight": "^0.34.2",
     "astro": "^5.6.1",
-    "sharp": "^0.32.5"
+    "sharp": "^0.32.5",
+    "starlight-versions": "^0.5.3"
   }
 }
