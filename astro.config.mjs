@@ -10,22 +10,22 @@ export default defineConfig({
 	output: "static",
 	integrations: [starlight({
 		title: "OpenXML-Office",
-		social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+		social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/DraviaVemal/OpenXML-Office' }],
+		sidebar: [
+			{
+				label: "Welcome",
+				items: [{ label: 'Getting Started', link: '/getting-started/' },]
+			}
+		],
 		plugins: [starlightVersions({
 			versions: [
 				{
 					slug: "1.0",
 					label: "v1.x"
 				}],
-			current: {
-				label: "v2.x",
-			}
 		})]
 	})],
 	prefetch: true,
-	redirects: {
-		"/[version]": "/[version]/getting started"
-	},
 	server: {
 		host: "0.0.0.0",
 		open: true
