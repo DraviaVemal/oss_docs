@@ -8,7 +8,7 @@ export default defineConfig({
 	site: "https://openxml-office.draviavemal.com",
 	base: "/",
 	output: "static",
-	redirects: { "/": "/getting-started" },
+	redirects: { "/": "/getting-started", "/4.0": "/4.0/getting-started", "/3.0": "/3.0/getting-started", "/1.0": "/1.0/getting-started" },
 	integrations: [starlight({
 		title: "OpenXML-Office",
 		social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/DraviaVemal/OpenXML-Office' }],
@@ -143,18 +143,22 @@ export default defineConfig({
 			versions: [
 				{
 					slug: "4.0",
-					label: "v4.x (Alpha)"
+					label: "v4.x (Alpha)",
+					redirect: "root"
 				},
 				{
 					slug: "3.0",
-					label: "v3.x (Discontinued)"
+					label: "v3.x (Discontinued)",
+					redirect: "root"
 				},
 				{
 					slug: "1.0",
-					label: "v1.x (Discontinued)"
+					label: "v1.x (Discontinued)",
+					redirect: "root"
 				}],
 			current: {
-				label: "v2.x (Stable)"
+				label: "v2.x (Stable)",
+				redirect: "root"
 			}
 		})]
 	})],

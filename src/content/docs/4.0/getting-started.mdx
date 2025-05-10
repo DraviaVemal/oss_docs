@@ -7,107 +7,316 @@ slug: 4.0/getting-started
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-# Getting Started
+## <mark style="text-color:yellow;">Version v4.x is rewrite on current package in rust along with cross language support. Very much in active development in all areas including this documentation.</mark>
 
-### Check out new [release](https://openxml-office.draviavemal.com/). This Version is no longer maintained.
+## <mark style="text-color:yellow;">Version v2.x will be the stable build code.</mark>
 
-## Feel free to start discussion for any new feature requirement. [Discussion Channel](https://github.com/DraviaVemal/OpenXMLOffice/discussions)
+<mark style="text-color:yellow;">Bugfix in v2.x will br priority till v4.x is released</mark>
+
+### Package Version Details
+
+Feel free to start discussion for any new feature requirement. [Discussion Channel](https://github.com/DraviaVemal/OpenXMLOffice/discussions)
 
 <Tabs>
+<TabItem label='Rust'>
+The official release Crate package for openxml-office on Crates.io:
+
+<table><thead><tr>
+<th width="264">Package</th>
+<th width="117" align="center">Maintenance</th>
+<th width="145" align="center">Current Stable Release</th>
+<th align="center">Current Alpha Release</th>
+</tr>
+</thead><tbody><tr>
+<td>
+draviavemal-openxml_office
+</td>
+<td align="center">
+Active
+</td>
+<td align="center"><img src="https://img.shields.io/crates/v/draviavemal-openxml_office?style=flat&#x26;link=https%3A%2F%2Fopenxml-office.draviavemal.com%2Fv4.x-alpha" alt="Crates.io Version" data-size="original"/>
+</td>
+<td align="center"><img src="https://img.shields.io/crates/v/draviavemal-openxml_office?style=flat&#x26;link=https%3A%2F%2Fopenxml-office.draviavemal.com%2Fv4.x-alpha" alt="Crates.io Version" data-size="original"/>
+</td>
+</tr>
+</tbody></table>
+</TabItem>
+
 <TabItem label='C#'>
+The official release NuGet packages for openxml-office on NuGet.org:
+
+Note: `draviavemal.openxml-office` contains all old module included in same package
+
+<table><thead><tr>
+<th width="264">Package</th>
+<th width="117" align="center">Maintenance</th>
+<th width="145" align="center">Current Stable Release</th>
+<th align="center">Current Alpha Release</th>
+</tr>
+</thead><tbody><tr>
+<td>
+draviavemal.openxml-office
+</td>
+<td align="center">
+Active
+</td>
+<td align="center">
+</td>
+<td align="center">
+</td>
+</tr>
+<tr>
+<td>
+OpenXMLOffice.Presentation
+</td>
+<td align="center">
+InActive
+</td>
+<td align="center"><a href="https://www.nuget.org/packages/OpenXMLOffice.Presentation"><img src="https://img.shields.io/nuget/v/OpenXMLOffice.Presentation.svg" alt="NuGet"/></a>
+</td>
+<td align="center"><a href="https://www.nuget.org/packages/OpenXMLOffice.Presentation"><img src="https://img.shields.io/nuget/vpre/OpenXMLOffice.Presentation.svg" alt="NuGet"/></a>
+</td>
+</tr>
+<tr>
+<td>
+OpenXMLOffice.Spreadsheet
+</td>
+<td align="center">
+InActive
+</td>
+<td align="center"><a href="https://www.nuget.org/packages/OpenXMLOffice.Presentation"><img src="https://img.shields.io/nuget/v/OpenXMLOffice.Spreadsheet.svg" alt="NuGet"/></a>
+</td>
+<td align="center"><a href="https://www.nuget.org/packages/OpenXMLOffice.Presentation"><img src="https://img.shields.io/nuget/vpre/OpenXMLOffice.Spreadsheet.svg" alt="NuGet"/></a>
+</td>
+</tr>
+<tr>
+<td>
+OpenXMLOffice.Document
+</td>
+<td align="center">
+InActive
+</td>
+<td align="center"><a href="https://www.nuget.org/packages/OpenXMLOffice.Document"><img src="https://img.shields.io/nuget/v/OpenXMLOffice.Document.svg" alt="NuGet"/></a>
+</td>
+<td align="center"><a href="https://www.nuget.org/packages/OpenXMLOffice.Document"><img src="https://img.shields.io/nuget/vpre/OpenXMLOffice.Document.svg" alt="NuGet"/></a>
+</td>
+</tr>
+</tbody></table>
+</TabItem>
+
+<TabItem label="Python🚧🛠️">
+
+
+<table><thead><tr>
+<th width="264">Package</th>
+<th width="117" align="center">Maintenance</th>
+<th width="145" align="center">Current Stable Release</th>
+<th align="center">Current Alpha Release</th>
+</tr>
+</thead><tbody><tr>
+<td>
+draviavemal-openxml_office
+</td>
+<td align="center">
+Active
+</td>
+<td align="center"><img src="https://img.shields.io/crates/v/draviavemal-openxml_office?style=flat&#x26;link=https%3A%2F%2Fopenxml-office.draviavemal.com%2Fv4.x-alpha" alt="Crates.io Version" data-size="original"/>
+</td>
+<td align="center"><img src="https://img.shields.io/crates/v/draviavemal-openxml_office?style=flat&#x26;link=https%3A%2F%2Fopenxml-office.draviavemal.com%2Fv4.x-alpha" alt="Crates.io Version" data-size="original"/>
+</td>
+</tr>
+</tbody></table>
+</TabItem>
+
+<TabItem label="Go🚧🛠️">
+Phase 2
+</TabItem>
+
+<TabItem label="Java🚧🛠️">
+Phase 2
+</TabItem>
+
+<TabItem label="TS🚧🛠️">
+Phase 2
+</TabItem>
+</Tabs>
+
+<Tabs>
+<TabItem label="Rust">
+The library is available on crates.io. You can install it using the following command
+
+```bash
+#Using Package Manager
+cargo add draviavemal-openxml_office
+```
+
+```bash
+# Cargo.toml add below details
+draviavemal-openxml_office = "4.0.0-alpha.5"
+```
+</TabItem>
+
+<TabItem label="C#">
 The library is available on NuGet. You can install it using the following command
 
 ```shell
 #Using Package Manager
-Install-Package OpenXMLOffice
+Install-Package draviavemal.openxml-office
 ```
+
+{/* <pre class="language-shell"><code class="lang-shell">#Using .NET CLI
+<strong>dotnet add package draviavemal.openxml-office
+</strong></code></pre> */}
 
 ```bash
 # For Pre Release
-dotnet add package OpenXMLOffice.Presentation
-```
-
-```bash
-# For Pre Release
-dotnet add package OpenXMLOffice.Presentation --prerelease
-```
-
-```bash
-#Using .NET CLI
-dotnet add package OpenXMLOffice.Excel
-```
-
-```bash
-# For Pre Release
-dotnet add package OpenXMLOffice.Excel--prerelease
+dotnet add package draviavemal.openxml-office --prerelease
 ```
 </TabItem>
-</Tabs>
 
-### Package Version Details
+<TabItem label="Python🚧🛠️">
 
-<Tabs>
-<TabItem label='C#'>
-The official release NuGet packages for OpenXMLOffice on NuGet.org:
+</TabItem>
 
-<table>
-<thead>
-<tr>
-<th>Package</th>
-<th width="133">Maintanance</th>
-<th>Current Stable Version</th>
-<th>Current Alpha Version</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>OpenXMLOffice.Presentation</td>
-<td>Not Active</td>
-<td><a href="https://www.nuget.org/packages/OpenXMLOffice.Presentation"><img src="https://img.shields.io/nuget/v/OpenXMLOffice.Presentation.svg" alt="NuGet"/></a></td>
-<td><a href="https://www.nuget.org/packages/OpenXMLOffice.Presentation"><img src="https://img.shields.io/nuget/vpre/OpenXMLOffice.Presentation.svg" alt="NuGet"/></a></td>
-</tr>
-<tr>
-<td>OpenXMLOffice.Excel</td><td>Not Active</td>
-<td><a href="https://www.nuget.org/packages/OpenXMLOffice.Excel"><img src="https://img.shields.io/nuget/v/OpenXMLOffice.Excel.svg" alt="NuGet"/></a></td>
-<td><a href="https://www.nuget.org/packages/OpenXMLOffice.Excel"><img src="https://img.shields.io/nuget/vpre/OpenXMLOffice.Excel.svg" alt="NuGet"/></a></td>
-</tr>
-<tr>
-<td>OpenXMLOffice.Document</td>
-<td>Not Active</td>
-<td><a href="https://www.nuget.org/packages/OpenXMLOffice.Document"><img src="https://img.shields.io/nuget/v/OpenXMLOffice.Document.svg" alt="NuGet"/></a></td>
-<td><a href="https://www.nuget.org/packages/OpenXMLOffice.Document"><img src="https://img.shields.io/nuget/vpre/OpenXMLOffice.Document.svg" alt="NuGet"/></a></td>
-</tr>
-</tbody>
-</table>
+<TabItem label="Go🚧🛠️">
+Phase 2
+</TabItem>
+
+<TabItem label="Java🚧🛠️">
+Phase 2
+</TabItem>
+
+<TabItem label="TS🚧🛠️">
+Phase 2
 </TabItem>
 </Tabs>
 
 Once Installed the package should be direct use availabel like below example. More samples can be seen in test project's of the repo or check other parts of the documents
 
 <Tabs>
-<TabItem label='C#'>
+<TabItem label="Rust">
+```rust
+// Create new Excel File in memory
+let mut file = crate::spreadsheet_2007::Excel::new(
+        None,
+        crate::spreadsheet_2007::ExcelPropertiesModel::default(),
+    ).context("Create New File Failed")?;
+
+// Save the created file in destination path
+file.save_as("result.xlsx").context("Save File Failed")?;
+```
+</TabItem>
+
+<TabItem label="C#">
 ```csharp
-using OpenXMLOffice.Presentation;
+using OpenXMLOffice.Spreadsheet_2007;
 
 public static main(){
-    PowerPoint powerPoint = new(string.Format("../../test-{0}.pptx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")), null);
-    powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK);
-    powerPoint.save();
+    Excel excel = new();
+    excel.AddSheet("Sheet1");
+    excel.SaveAs(string.Format("../../test-{0}.xlsx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
 }
 ```
+</TabItem>
+
+<TabItem label="Python🚧🛠️">
+
+</TabItem>
+
+<TabItem label="Go🚧🛠️">
+Phase 2
+</TabItem>
+
+<TabItem label="Java🚧🛠️">
+Phase 2
+</TabItem>
+
+<TabItem label="TS🚧🛠️">
+Phase 2
 </TabItem>
 </Tabs>
 
 <Tabs>
-<TabItem label='C#'>
+<TabItem label="Rust">
+```rust
+// Create new Presentation File in memory
+let file = crate::presentation_2007::PowerPoint::new(
+        None,
+        crate::presentation_2007::PowerPointPropertiesModel::default(),
+    ).context("Create New File Failed");
+
+// Save the created file in destination path
+file.save_as(&get_save_file(None)).context("Failed to save Empty Power Point");
+```
+</TabItem>
+
+<TabItem label="C#">
 ```csharp
-using OpenXMLOffice.Excel;
+using OpenXMLOffice.Presentation_2007;
 
 public static main(){
-    Spreadsheet spreadsheet = new(string.Format("../../test-{0}.xlsx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
-    spreadsheet.AddSheet("Sheet1");
-    spreadsheet.save();
+    PowerPoint powerPoint = new();
+    powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK);
+    powerPoint.SaveAs(string.Format("../../test-{0}.pptx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
 }
 ```
+</TabItem>
+
+<TabItem label="Python🚧🛠️">
+
+</TabItem>
+
+<TabItem label="Go🚧🛠️">
+Phase 2
+</TabItem>
+
+<TabItem label="Java🚧🛠️">
+Phase 2
+</TabItem>
+
+<TabItem label="TS🚧🛠️">
+Phase 2
+</TabItem>
+</Tabs>
+
+<Tabs>
+<TabItem label="Rust">
+```rust
+// Create new Word File in memory
+let file = crate::document_2007::Word::new(
+        None,
+        crate::document_2007::WordPropertiesModel::default()
+     ).context("Create New File Failed");
+        
+// Save the created file in destination path
+file.save_as(&get_save_file(None)).context("Save Result Failed");
+```
+</TabItem>
+
+<TabItem label="C#">
+```csharp
+using OpenXMLOffice.Document_2007;
+
+public static main(){
+    Word word = new();
+    word.SaveAs(string.Format("../../test-{0}.docx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
+}
+```
+</TabItem>
+
+<TabItem label="Python🚧🛠️">
+
+</TabItem>
+
+<TabItem label="Go🚧🛠️">
+Phase 2
+</TabItem>
+
+<TabItem label="Java🚧🛠️">
+Phase 2
+</TabItem>
+
+<TabItem label="TS🚧🛠️">
+Phase 2
 </TabItem>
 </Tabs>
