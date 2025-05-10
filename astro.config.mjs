@@ -33,32 +33,8 @@ export default defineConfig({
 				}]
 			},
 			{
-				label: "Presentation",
+				label: "Global",
 				items: [{
-					label: 'PowerPoint',
-					link: 'presentation/powerpoint'
-				},
-				{
-					label: 'Slide',
-					link: 'presentation/slide'
-				},
-				{
-					label: 'Shape',
-					link: 'presentation/shape'
-				},
-				{
-					label: 'Picture',
-					link: 'presentation/picture'
-				},
-				{
-					label: 'Textbox',
-					link: 'presentation/textbox'
-				},
-				{
-					label: 'Table',
-					link: 'presentation/table'
-				},
-				{
 					label: 'Chart',
 					items: [
 						{
@@ -98,6 +74,68 @@ export default defineConfig({
 							link: 'presentation/table'
 						}
 					]
+				}]
+			},
+			{
+				label: "Presentation",
+				items: [{
+					label: 'PowerPoint',
+					link: 'presentation/powerpoint'
+				},
+				{
+					label: 'Slide',
+					link: 'presentation/slide'
+				},
+				{
+					label: 'Shape',
+					link: 'presentation/shape'
+				},
+				{
+					label: 'Picture',
+					link: 'presentation/picture'
+				},
+				{
+					label: 'Textbox',
+					link: 'presentation/textbox'
+				},
+				{
+					label: 'Table',
+					link: 'presentation/table'
+				},
+				{
+					label: 'Chart',
+					link: 'presentation/chart'
+				}]
+			},
+			{
+				label: "Spreadsheet",
+				items: [{
+					label: 'Excel',
+					link: 'spreadsheet/excel'
+				},
+				{
+					label: 'Worksheet',
+					link: 'spreadsheet/worksheet'
+				},
+				{
+					label: 'Shape',
+					link: 'spreadsheet/shape'
+				},
+				{
+					label: 'Picture',
+					link: 'spreadsheet/picture'
+				},
+				{
+					label: 'Table',
+					link: 'spreadsheet/table'
+				},
+				{
+					label: 'Style',
+					link: 'spreadsheet/style'
+				},
+				{
+					label: 'Chart',
+					link: 'spreadsheet/chart'
 				}]
 			}
 		],
