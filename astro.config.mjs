@@ -37,6 +37,14 @@ export default defineConfig({
             },
             {
                 tag: "script",
+                attrs: {
+                    async: true,
+                    "custom-element": "amp-ad",
+                    src: "https://cdn.ampproject.org/v0/amp-ad-0.1.js",
+                }
+            },
+            {
+                tag: "script",
                 content: "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-EZW1WCYLT4');"
             }
         ],
