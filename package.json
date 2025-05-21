@@ -1,7 +1,7 @@
 {
   "name": "docs",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -11,8 +11,11 @@
   },
   "dependencies": {
     "@astrojs/starlight": "^0.34.2",
+    "@astrojs/starlight-tailwind": "^4.0.1",
+    "@tailwindcss/vite": "^4.1.7",
     "astro": "^5.6.1",
     "sharp": "^0.32.5",
-    "starlight-versions": "^0.5.3"
+    "starlight-versions": "^0.5.3",
+    "tailwindcss": "^4.1.7"
   }
 }
