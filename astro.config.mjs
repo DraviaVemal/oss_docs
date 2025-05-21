@@ -14,6 +14,27 @@ export default defineConfig({
 	},
 	integrations: [starlight({
 		title: "OpenXML-Office",
+		head: [
+			{
+				tag: "meta",
+				attrs: {
+					name: "google-adsense-account",
+					content: "ca-pub-2944495108494397"
+				}
+			},
+			{
+				tag: "script",
+				attrs: {
+					async: true,
+					src: "https://www.googletagmanager.com/gtag/js?id=G-EZW1WCYLT4",
+				}
+			},
+			{
+				tag: "script",
+				content: "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-EZW1WCYLT4');"
+			}
+		],
+		lastUpdated: true,
 		social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/DraviaVemal/OpenXML-Office' }],
 		sidebar: [
 			{
@@ -37,6 +58,7 @@ export default defineConfig({
 			},
 			{
 				label: "Global",
+				collapsed: true,
 				items: [{
 					label: 'Chart',
 					items: [

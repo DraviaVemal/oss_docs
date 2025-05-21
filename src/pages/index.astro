@@ -1,6 +1,19 @@
 ---
-import { LinkButton } from '@astrojs/starlight/components';
+import { LinkButton } from "@astrojs/starlight/components";
 ---
 
+<head>
+  <meta name="google-adsense-account" content="ca-pub-2944495108494397" />
+</head>
+<LinkButton href="/getting-started/">Document</LinkButton>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EZW1WCYLT4"
+></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
 
-<LinkButton  href="/getting-started/">Document</LinkButton>
+  gtag("config", "G-EZW1WCYLT4");
+</script>
