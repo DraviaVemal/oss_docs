@@ -8,6 +8,10 @@ export default defineConfig({
 	site: "https://openxml-office.draviavemal.com",
 	base: "/",
 	output: "static",
+	redirects: {
+		"/1.0/": "/1.0/getting-started",
+		"/3.0/": "/3.0/getting-started"
+	},
 	integrations: [starlight({
 		title: "OpenXML-Office",
 		social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/DraviaVemal/OpenXML-Office' }],
@@ -162,7 +166,6 @@ export default defineConfig({
 	prefetch: true,
 	server: {
 		host: "0.0.0.0",
-		open: true
 	},
 
 });

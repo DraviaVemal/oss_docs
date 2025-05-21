@@ -1,1 +1,117 @@
-{}
+{
+    "title": "OpenXML-Office v4.x(Alpha)",
+    "social": [
+        {
+            "icon": "github",
+            "label": "GitHub",
+            "href": "https://github.com/DraviaVemal/OpenXML-Office"
+        }
+    ],
+    "sidebar": [
+        {
+            "label": "Welcome",
+            "items": [
+                {
+                    "label": "Getting Started",
+                    "link": "/getting-started"
+                },
+                {
+                    "label": "Introduction",
+                    "link": "/introduction"
+                },
+                {
+                    "label": "LICENSE",
+                    "link": "/license"
+                }
+            ]
+        },
+        {
+            "label": "Global",
+            "items": [
+                {
+                    "label": "Chart",
+                    "items": [
+                        {
+                            "label": "Area",
+                            "link": "/global/chart/area"
+                        },
+                        {
+                            "label": "Bar",
+                            "link": "/global/chart/bar"
+                        },
+                        {
+                            "label": "Column",
+                            "link": "/global/chart/column"
+                        },
+                        {
+                            "label": "Line",
+                            "link": "/global/chart/line"
+                        },
+                        {
+                            "label": "Pie",
+                            "link": "/global/chart/pie"
+                        },
+                        {
+                            "label": "Scatter",
+                            "link": "/global/chart/scatter"
+                        },
+                        {
+                            "label": "Combo",
+                            "link": "/global/chart/combo"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "label": "Presentation",
+            "items": [
+                {
+                    "label": "PowerPoint",
+                    "link": "/presentation/powerpoint"
+                },
+                {
+                    "label": "Slide",
+                    "link": "/presentation/slide"
+                },
+                {
+                    "label": "Shape",
+                    "link": "/presentation/shape"
+                },
+                {
+                    "label": "Picture",
+                    "link": "/presentation/picture"
+                },
+                {
+                    "label": "Textbox",
+                    "link": "/presentation/textbox"
+                },
+                {
+                    "label": "Table",
+                    "link": "/presentation/table"
+                },
+                {
+                    "label": "Chart",
+                    "link": "/presentation/chart"
+                }
+            ]
+        },
+        {
+            "label": "Excel",
+            "items": [
+                {
+                    "label": "Spreadsheet",
+                    "link": "/excel/spreadsheet"
+                },
+                {
+                    "label": "Worksheet",
+                    "link": "/excel/worksheet"
+                },
+                {
+                    "label": "Style",
+                    "link": "/excel/style"
+                }
+            ]
+        }
+    ]
+}

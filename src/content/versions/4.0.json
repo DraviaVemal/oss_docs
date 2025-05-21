@@ -38,6 +38,48 @@
             ]
         },
         {
+            "label": "Global 🚧🔨",
+            "items": [
+                {
+                    "label": "Chart 🚧🔨",
+                    "items": [
+                        {
+                            "label": "Area 🚧🔨",
+                            "link": "/global/chart/area"
+                        },
+                        {
+                            "label": "Bar 🚧🔨",
+                            "link": "/global/chart/bar"
+                        },
+                        {
+                            "label": "Column 🚧🔨",
+                            "link": "/global/chart/column"
+                        },
+                        {
+                            "label": "Line 🚧🔨",
+                            "link": "/global/chart/line"
+                        },
+                        {
+                            "label": "Pie 🚧🔨",
+                            "link": "/global/chart/pie"
+                        },
+                        {
+                            "label": "Scatter 🚧🔨",
+                            "link": "/global/chart/scatter"
+                        },
+                        {
+                            "label": "Combo 🚧🔨",
+                            "link": "/global/chart/combo"
+                        },
+                        {
+                            "label": "Waterfall 🚧🔨",
+                            "link": "/global/chart/waterfall"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "label": "Spreadsheet",
             "items": [
                 {
@@ -129,57 +171,11 @@
             ]
         },
         {
-            "label": "Global 🚧🔨",
-            "items": [
-                {
-                    "label": "Chart 🚧🔨",
-                    "items": [
-                        {
-                            "label": "General 🚧🔨",
-                            "link": "/presentation/powerpoint"
-                        },
-                        {
-                            "label": "Area 🚧🔨",
-                            "link": "/presentation/slide"
-                        },
-                        {
-                            "label": "Bar 🚧🔨",
-                            "link": "/presentation/shape"
-                        },
-                        {
-                            "label": "Column 🚧🔨",
-                            "link": "/presentation/picture"
-                        },
-                        {
-                            "label": "Line 🚧🔨",
-                            "link": "/presentation/textbox"
-                        },
-                        {
-                            "label": "Pie 🚧🔨",
-                            "link": "/presentation/table"
-                        },
-                        {
-                            "label": "Scatter 🚧🔨",
-                            "link": "/presentation/picture"
-                        },
-                        {
-                            "label": "Combo 🚧🔨",
-                            "link": "/presentation/textbox"
-                        },
-                        {
-                            "label": "Waterfall 🚧🔨",
-                            "link": "/presentation/table"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
             "label": "FFI 🚧🔨",
             "items": [
                 {
                     "label": "Spreadsheet 🚧🔨",
-                    "link": "/ffi/document"
+                    "link": "/ffi/spreadsheet"
                 },
                 {
                     "label": "Presentation 🚧🔨",
