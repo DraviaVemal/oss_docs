@@ -37,10 +37,6 @@ export default defineConfig({
 					label: 'Chart',
 					items: [
 						{
-							label: 'General',
-							link: 'global/chart/general'
-						},
-						{
 							label: 'Area',
 							link: 'global/chart/area'
 						},
