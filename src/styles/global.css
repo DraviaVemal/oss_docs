@@ -19,3 +19,25 @@ starlight-version-select {
 header {
     opacity: 0.99;
 }
+
+.ads_responsive_1 {
+    display: block;
+    width: 320px;
+    height: 100px;
+}
+
+@media(min-width: 500px) {
+    .ads_responsive_1 {
+        display: block;
+        width: 468px;
+        height: 60px;
+    }
+}
+
+@media(min-width: 800px) {
+    .ads_responsive_1 {
+        display: block;
+        width: 728px;
+        height: 90px;
+    }
+}

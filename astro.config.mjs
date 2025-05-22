@@ -45,7 +45,13 @@ export default defineConfig({
             },
             {
                 tag: "script",
-                content: "window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-EZW1WCYLT4');"
+                content: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){
+                    dataLayer.push(arguments);
+                }
+                gtag('js', new Date());
+                gtag('config', 'G-EZW1WCYLT4');`
             }
         ],
         lastUpdated: true,
