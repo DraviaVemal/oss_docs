@@ -96,3 +96,19 @@ starlight-tabs {
     padding: 1rem;
     margin: 0;
 }
+
+details {
+    ul {
+        padding-left: 10px;
+
+        ul {
+            padding-left: 10px;
+        }
+    }
+}
+
+table {
+    border: 2px solid var(--sl-color-gray-5);
+    border-radius: 10px;
+    padding: 10px;
+}

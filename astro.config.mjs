@@ -14,9 +14,12 @@ export default defineConfig({
         "/1.0/": "/1.0/getting-started",
         "/3.0/": "/3.0/getting-started"
     },
-
     integrations: [starlight({
         title: "OpenXML-Office",
+        logo: {
+            src: "./src/assets/logo.svg",
+            alt: "Logo"
+        },
         head: [
             {
                 tag: "meta",
