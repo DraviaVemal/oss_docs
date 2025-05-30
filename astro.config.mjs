@@ -39,6 +39,14 @@ export default defineConfig({
                 tag: "script",
                 attrs: {
                     async: true,
+                    crossorigin: "anonymous",
+                    src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944495108494397",
+                }
+            },
+            {
+                tag: "script",
+                attrs: {
+                    async: true,
                     "custom-element": "amp-ad",
                     src: "https://cdn.ampproject.org/v0/amp-ad-0.1.js",
                 }
