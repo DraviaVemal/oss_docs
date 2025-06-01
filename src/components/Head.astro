@@ -1,0 +1,44 @@
+---
+const { head } = Astro.locals.starlightRoute;
+---
+
+{
+  head.map(({ tag: Tag, attrs, content }) => (
+    <Tag {...attrs} set:html={content} />
+  ))
+}
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-EZW1WCYLT4");
+</script>
+<script is:inline>
+  (function () {
+    function signalGooglefcPresent() {
+      if (!window.frames["googlefcPresent"]) {
+        if (document.body) {
+          const iframe = document.createElement("iframe");
+          iframe.style =
+            "width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;";
+          iframe.style.display = "none";
+          iframe.name = "googlefcPresent";
+          document.body.appendChild(iframe);
+        } else {
+          setTimeout(signalGooglefcPresent, 0);
+        }
+      }
+    }
+    signalGooglefcPresent();
+  })();
+</script>
+<script is:inline>
+  if (
+    location.hostname !== "localhost" &&
+    location.hostname !== "openxml-office.draviavemal.com"
+  ) {
+    location.href = "https://openxml-office.draviavemal.com";
+  }
+</script>

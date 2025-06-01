@@ -17,6 +17,7 @@ export default defineConfig({
     integrations: [starlight({
         title: "OpenXML-Office",
         components: {
+            Head: "./src/components/Head.astro",
             PageTitle: "./src/components/PageTitle.astro",
             MarkdownContent: "./src/components/MainContent.astro",
             PageSidebar: "./src/components/RightSidebar.astro"
@@ -47,46 +48,6 @@ export default defineConfig({
                     crossorigin: "anonymous",
                     src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944495108494397",
                 }
-            },
-            {
-                tag: "script",
-                content: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){
-                    dataLayer.push(arguments);
-                }
-                gtag('js', new Date());
-                gtag('config', 'G-EZW1WCYLT4');`
-            },
-            {
-                tag: "script",
-                content: `
-                (function () {
-                    function signalGooglefcPresent() {
-                    if (!window.frames["googlefcPresent"]) {
-                        if (document.body) {
-                        const iframe = document.createElement("iframe");
-                        iframe.style =
-                            "width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;";
-                        iframe.style.display = "none";
-                        iframe.name = "googlefcPresent";
-                        document.body.appendChild(iframe);
-                        } else {
-                        setTimeout(signalGooglefcPresent, 0);
-                        }
-                    }
-                    }
-                    signalGooglefcPresent();
-                })();
-                `
-            },
-            {
-                tag: 'script',
-                content: `
-                        if (location.hostname !== "localhost" && location.hostname !== "openxml-office.draviavemal.com") {
-                            location.href = "https://openxml-office.draviavemal.com";
-                        }
-                `
             }
         ],
         lastUpdated: true,
