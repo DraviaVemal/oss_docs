@@ -82,6 +82,14 @@ export default defineConfig({
                     signalGooglefcPresent();
                 })();
                 `
+            },
+            {
+                tag: 'script',
+                content: `
+                        if (location.hostname !== "localhost" && location.hostname !== "openxml-office.draviavemal.com") {
+                            location.href = "https://openxml-office.draviavemal.com";
+                        }
+                `
             }
         ],
         lastUpdated: true,
