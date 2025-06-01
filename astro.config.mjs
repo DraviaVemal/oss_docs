@@ -19,7 +19,6 @@ export default defineConfig({
         components: {
             Head: "./src/components/Head.astro",
             PageTitle: "./src/components/PageTitle.astro",
-            MarkdownContent: "./src/components/MainContent.astro",
             PageSidebar: "./src/components/RightSidebar.astro"
         },
         logo: {
@@ -37,14 +36,12 @@ export default defineConfig({
             {
                 tag: "script",
                 attrs: {
-                    async: true,
                     src: "https://www.googletagmanager.com/gtag/js?id=G-EZW1WCYLT4",
                 }
             },
             {
                 tag: "script",
                 attrs: {
-                    async: true,
                     crossorigin: "anonymous",
                     src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944495108494397",
                 }
