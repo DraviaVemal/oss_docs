@@ -21,6 +21,7 @@ export default defineConfig({
             Head: "./src/components/Head.astro",
             PageSidebar: "./src/components/RightSidebar.astro",
             PageTitle: "./src/components/PageTitle.astro",
+            ThemeSelect: "./src/components/ThemeSelect.astro",
         },
         logo: {
             src: "./src/assets/logo.svg",
