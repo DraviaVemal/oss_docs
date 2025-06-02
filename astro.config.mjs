@@ -17,9 +17,10 @@ export default defineConfig({
     integrations: [starlight({
         title: "OpenXML-Office",
         components: {
+            Banner: "./src/components/Banner.astro",
             Head: "./src/components/Head.astro",
+            PageSidebar: "./src/components/RightSidebar.astro",
             PageTitle: "./src/components/PageTitle.astro",
-            PageSidebar: "./src/components/RightSidebar.astro"
         },
         logo: {
             src: "./src/assets/logo.svg",
