@@ -6,8 +6,6 @@ slug: 4.0/spreadsheet/worksheet
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Note: New features related to this feature is been worked on release v2.8.x. Document is not upto date
-
 Adding, Modifying a sheet from spreadsheet is handled by this class object
 
 ### Methods
@@ -19,6 +17,24 @@ Adding, Modifying a sheet from spreadsheet is handled by this class object
 To add, remove and get sheet from excel
 
 <Tabs>
+<TabItem label='Rust'>
+```rust
+    let mut file = crate::spreadsheet_2007::Excel::new(
+        None,
+        crate::spreadsheet_2007::ExcelPropertiesModel::default(),
+    )
+    .expect("Create New File Failed");
+	// Add Sheet with custom name
+    file.add_sheet_mut(Some("Test".to_string()))
+        .expect("Failed to add static Sheet");
+	// Add Sheet with default name
+	file.add_sheet_mut(None)
+        .expect("Failed to add static Sheet");
+	// Save the result file
+	file.save_as(&get_save_file(None))
+        .expect("File Save Failed");
+```
+</TabItem>
 <TabItem label='C#'>
 ```csharp
 // Adding new sheet to excel

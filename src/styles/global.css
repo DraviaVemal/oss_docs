@@ -37,12 +37,6 @@
     --color-gray-950: var(--color-zinc-950);
 }
 
-starlight-version-select {
-    select {
-        width: auto;
-    }
-}
-
 .sl-container {
     max-width: none;
 }

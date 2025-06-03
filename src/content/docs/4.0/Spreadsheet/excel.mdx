@@ -6,23 +6,57 @@ slug: 4.0/spreadsheet/excel
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-The `Excel` class, an integral part of the `OpenXMLOffice.Spreadsheet` library, facilitates seamless interaction with Excel workbooks. Designed to simplify the creation and manipulation of Excel (.xlsx) files, this class provides a user-friendly interface for developers to efficiently handle data, worksheets, and formatting.
+The `Excel` class/struct, an integral part of the library, facilitates seamless interaction with Excel workbooks. Designed to simplify the creation and manipulation of Excel (.xlsx) files, this class/struct provides a user-friendly interface for developers to efficiently handle data, worksheets, and formatting.
 
 #### Key Features
 
-1. **Effortless Initialization:** Initializing a new Excel workbook is simplified with the `Excel` class. Developers can swiftly create new workbooks or open existing ones, setting the stage for easy data management.
-2. **Worksheet Manipulation:** The class offers intuitive methods for adding, deleting, and manipulating worksheets within a workbook. Developers can efficiently organize data and structure it across multiple sheets.
+1. **Effortless Initialization:** Initializing a new Excel workbook is simplified with the `Excel` class/struct. Developers can swiftly create new workbooks or open existing ones, setting the stage for easy data management.
+2. **Worksheet Manipulation:** The class/struct offers intuitive methods for adding, deleting, and manipulating worksheets within a workbook. Developers can efficiently organize data and structure it across multiple sheets.
 3. **Cell-Level Operations:** Granular control over individual cells is provided, allowing developers to set values, apply formatting, and perform various operations on specific cells within a worksheet.
-4. **Data Import and Export:** The `Excel` class supports seamless data import from external sources and export to various formats. This enables efficient integration with external data sets and applications.
+4. **Data Import and Export:** The `Excel` class/struct supports seamless data import from external sources and export to various formats. This enables efficient integration with external data sets and applications.
 
 ### Basic Code Samples
 
-<Tabs>
+<Tabs syncKey='language'>
+<TabItem label='Rust'>
+```rust
+let mut file = crate::spreadsheet_2007::Excel::new(
+        None,
+        crate::spreadsheet_2007::ExcelPropertiesModel::default(),
+    )
+.expect("File Created Failed");
+// Add Sheet with custom name
+file.add_sheet_mut(Some("Test".to_string()))
+    .expect("Failed to add static Sheet");
+// Add Sheet with default name
+file.add_sheet_mut(None)
+    .expect("Failed to add static Sheet");
+// Save the result file
+file.save_as(&get_save_file(None))
+    .expect("File Save Failed");
+```
+</TabItem>
 <TabItem label='C#'>
 ```csharp
-Excel excel = new();
+Excel excel = new Excel();
 Worksheet worksheet = excel.AddSheet();
 excel.SaveAs(string.Format("../../test-{0}.xlsx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
 ```
+</TabItem>
+
+<TabItem label="Python🚧🛠️">
+TODO
+</TabItem>
+
+<TabItem label="Go🚧🛠️">
+Phase 2
+</TabItem>
+
+<TabItem label="Java🚧🛠️">
+Phase 2
+</TabItem>
+
+<TabItem label="TS🚧🛠️">
+Phase 2
 </TabItem>
 </Tabs>
