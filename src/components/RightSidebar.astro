@@ -4,7 +4,7 @@ import TableOfContents from "@astrojs/starlight/components/TableOfContents.astro
 ---
 
 {
-  Astro.locals.starlightRoute.toc && (
+  (Astro.locals as any).starlightRoute.toc && (
     <>
       <div class="lg:sl-hidden">
         <MobileTableOfContents />

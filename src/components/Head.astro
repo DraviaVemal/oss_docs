@@ -1,5 +1,5 @@
 ---
-const { head } = Astro.locals.starlightRoute;
+const { head } = (Astro.locals as any).starlightRoute;
 ---
 
 {

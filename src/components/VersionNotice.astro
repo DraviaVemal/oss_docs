@@ -10,7 +10,7 @@ import {
 const pageVersion = getVersionFromSlug(
   starlightVersionsConfig,
   starlightConfig,
-  Astro.locals.starlightRoute.entry.slug
+  (Astro.locals as any).starlightRoute.entry.slug
 );
 ---
 
@@ -28,7 +28,6 @@ const pageVersion = getVersionFromSlug(
 }
 
 <style>
-
   p {
     display: block;
     text-align: center;

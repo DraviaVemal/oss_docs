@@ -1,5 +1,5 @@
 ---
-const { banner } = Astro.locals.starlightRoute.entry.data;
+const { banner } = (Astro.locals as any).starlightRoute.entry.data;
 import VersionBanner from "./VersionBanner.astro";
 ---
 
