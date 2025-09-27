@@ -1,15 +1,13 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightVersions from 'starlight-versions';
-
 import tailwindcss from '@tailwindcss/vite';
 
-// https://astro.build/config
 export default defineConfig({
-    site: "https://openxml-office.draviavemal.com",
-    base: "/",
+    site: "https://docs.draviavemal.com/openxml-office",
+    base: "/openxml-office",
     output: "static",
+    outDir: "../dist/openxml-office",
     redirects: {
         "/1.0/": "/1.0/getting-started",
         "/3.0/": "/3.0/getting-started"

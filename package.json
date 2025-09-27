@@ -1,22 +1,30 @@
 {
   "name": "docs",
+  "version": "1.0.0",
+  "description": "Central Repo For All Docs",
+  "repository": "https://github.com/DraviaVemal/oss_docs",
+  "author": "Dravia Vemal <contact@draviavemal.com>",
+  "license": "AGPL-3.0",
   "type": "module",
-  "version": "0.1.0",
+  "module": "node",
+  "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "build": "cd docs && npx astro build && cd ../openxml-office && npx astro build && cd ../tauri-remote-ui && npx astro build && cd ../xml_rs && npx astro build"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.6.0",
     "@astrojs/starlight": "^0.34.2",
     "@astrojs/starlight-tailwind": "^4.0.1",
     "@tailwindcss/vite": "^4.1.7",
     "astro": "^5.6.1",
     "sharp": "^0.32.5",
-    "starlight-versions": "^0.5.3",
+    "starlight-versions": "^0.5.4",
     "tailwindcss": "^4.1.7"
   },
-  "module": "node"
+  "devDependencies": {
+    "astro": "^5.6.1",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.7"
+  }
 }
