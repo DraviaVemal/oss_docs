@@ -1,4 +1,6 @@
 import { defineConfig } from 'astro/config';
+import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
 import starlightVersions from 'starlight-versions';
 import tailwindcss from '@tailwindcss/vite';
@@ -12,7 +14,14 @@ export default defineConfig({
         "/1.0/": "/1.0/getting-started",
         "/3.0/": "/3.0/getting-started"
     },
-    integrations: [starlight({
+    prefetch: true,
+    server: {
+        host: "0.0.0.0",
+    },
+    vite: {
+        plugins: [tailwindcss()],
+    },
+    integrations: [sitemap(), starlight({
         title: "OpenXML-Office",
         components: {
             Banner: "./src/components/Banner.astro",
@@ -198,15 +207,5 @@ export default defineConfig({
                 }
             })],
         customCss: ["./src/styles/global.css"]
-    })],
-
-    prefetch: true,
-
-    server: {
-        host: "0.0.0.0",
-    },
-
-    vite: {
-        plugins: [tailwindcss()],
-    },
+    })]
 });
