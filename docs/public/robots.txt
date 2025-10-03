@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://docs.draviavemal.com/sitemap-0.xml

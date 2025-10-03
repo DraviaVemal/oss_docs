@@ -1,8 +1,6 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import starlight from '@astrojs/starlight';
-import starlightVersions from 'starlight-versions';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
@@ -16,6 +14,9 @@ export default defineConfig({
 		host: "0.0.0.0",
 	},
 	vite: {
+		css: {
+			postcss: "../postcss.config.js"
+		},
 		plugins: [tailwindcss()],
 	},
 });

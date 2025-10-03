@@ -19,6 +19,9 @@ export default defineConfig({
         host: "0.0.0.0",
     },
     vite: {
+        css: {
+            postcss: "../postcss.config.js"
+        },
         plugins: [tailwindcss()],
     },
     integrations: [sitemap(), starlight({
