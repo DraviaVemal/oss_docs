@@ -2,6 +2,11 @@
     "title": "tauri-remote-ui v1.x(Alpha)",
     "social": [
         {
+            "icon": "document",
+            "label": "Documentation",
+            "href": "/"
+        },
+        {
             "icon": "github",
             "label": "GitHub",
             "href": "https://github.com/DraviaVemal/tauri-remote-ui"

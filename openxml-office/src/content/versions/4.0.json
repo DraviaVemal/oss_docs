@@ -2,6 +2,11 @@
     "title": "OpenXML-Office v4.x(Alpha)",
     "social": [
         {
+            "icon": "document",
+            "label": "Documentation",
+            "href": "/"
+        },
+        {
             "icon": "github",
             "label": "GitHub",
             "href": "https://github.com/DraviaVemal/OpenXML-Office"

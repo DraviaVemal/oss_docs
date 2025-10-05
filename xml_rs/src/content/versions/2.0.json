@@ -1,4 +1,17 @@
 {
+  "title": "xml_rs v2.x(Alpha)",
+  "social": [
+    {
+      "icon": "document",
+      "label": "Documentation",
+      "href": "/"
+    },
+    {
+      "icon": "github",
+      "label": "GitHub",
+      "href": "https://github.com/DraviaVemal/xml_rs"
+    }
+  ],
   "sidebar": [
     {
       "label": "Welcome",

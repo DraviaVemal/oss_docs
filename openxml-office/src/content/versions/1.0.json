@@ -2,6 +2,11 @@
     "title": "OpenXML-Office v1.x(Discontinued)",
     "social": [
         {
+            "icon": "document",
+            "label": "Documentation",
+            "href": "/"
+        },
+        {
             "icon": "github",
             "label": "GitHub",
             "href": "https://github.com/DraviaVemal/OpenXML-Office"
