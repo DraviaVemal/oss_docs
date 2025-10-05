@@ -1,8 +1,9 @@
-import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
-import starlightVersions from 'starlight-versions';
 import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'astro/config';
+import starlightVersions from 'starlight-versions';
+import { sidebar } from './sidebar';
 
 export default defineConfig({
 	site: "https://docs.draviavemal.com/tauri-remote-ui",
@@ -59,28 +60,21 @@ export default defineConfig({
 					}
 				}
 			],
-			sidebar: [
-				{
-					label: 'Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
-					],
-				}
-			],
+			sidebar: sidebar,
 			plugins: [starlightVersions({
 				versions: [
 					{
 						slug: "1.0",
-						label: "v1.x (Discontinued)",
+						label: "v1.x (Alpha)",
 						redirect: "root"
 					}
 				],
 				current: {
-					label: "v2.x (Stable)",
+					label: "v0.x (Stable)",
 					redirect: "root"
 				}
-			})]
+			})],
+			customCss: ["./src/styles/global.css"]
 		}),
 	],
 });

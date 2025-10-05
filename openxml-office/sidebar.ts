@@ -1,0 +1,124 @@
+export const sidebar = [
+    {
+        label: "Welcome",
+        items: [{
+            label: 'Getting Started',
+            link: '/getting-started'
+        },
+        {
+            label: 'Introduction',
+            link: '/introduction'
+        },
+        {
+            label: 'Privacy Policy',
+            link: '/privacy-policy'
+        },
+        {
+            label: 'License',
+            link: '/license'
+        }]
+    },
+    {
+        label: "Global",
+        collapsed: true,
+        items: [{
+            label: 'Chart',
+            items: [
+                {
+                    label: 'Area',
+                    link: 'global/chart/area'
+                },
+                {
+                    label: 'Bar',
+                    link: 'global/chart/bar'
+                },
+                {
+                    label: 'Column',
+                    link: 'global/chart/column'
+                },
+                {
+                    label: 'Line',
+                    link: 'global/chart/line'
+                },
+                {
+                    label: 'Pie',
+                    link: 'global/chart/pie'
+                },
+                {
+                    label: 'Scatter',
+                    link: 'global/chart/scatter'
+                },
+                {
+                    label: 'Combo',
+                    link: 'global/chart/combo'
+                },
+                {
+                    label: 'Waterfall',
+                    link: 'global/chart/waterfall'
+                }
+            ]
+        }]
+    },
+    {
+        label: "Presentation",
+        items: [{
+            label: 'PowerPoint',
+            link: 'presentation/powerpoint'
+        },
+        {
+            label: 'Slide',
+            link: 'presentation/slide'
+        },
+        {
+            label: 'Shape',
+            link: 'presentation/shape'
+        },
+        {
+            label: 'Picture',
+            link: 'presentation/picture'
+        },
+        {
+            label: 'Textbox',
+            link: 'presentation/textbox'
+        },
+        {
+            label: 'Table',
+            link: 'presentation/table'
+        },
+        {
+            label: 'Chart',
+            link: 'presentation/chart'
+        }]
+    },
+    {
+        label: "Spreadsheet",
+        items: [{
+            label: 'Excel',
+            link: 'spreadsheet/excel'
+        },
+        {
+            label: 'Worksheet',
+            link: 'spreadsheet/worksheet'
+        },
+        {
+            label: 'Shape',
+            link: 'spreadsheet/shape'
+        },
+        {
+            label: 'Picture',
+            link: 'spreadsheet/picture'
+        },
+        {
+            label: 'Table',
+            link: 'spreadsheet/table'
+        },
+        {
+            label: 'Style',
+            link: 'spreadsheet/style'
+        },
+        {
+            label: 'Chart',
+            link: 'spreadsheet/chart'
+        }]
+    }
+]

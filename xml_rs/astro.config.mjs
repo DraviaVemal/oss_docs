@@ -1,8 +1,9 @@
-import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
-import starlightVersions from 'starlight-versions';
 import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'astro/config';
+import starlightVersions from 'starlight-versions';
+import { sidebar } from "./sidebar";
 
 export default defineConfig({
 	site: "https://docs.draviavemal.com/xml_rs",
@@ -59,32 +60,19 @@ export default defineConfig({
 					}
 				}
 			],
-			sidebar: [
-				{
-					label: 'Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
-					],
-				},
-				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
-				},
-			],
+			sidebar: sidebar,
 			plugins: [starlightVersions({
-				versions: [
-					{
-						slug: "1.0",
-						label: "v1.x (Discontinued)",
-						redirect: "root"
-					}
-				],
+				versions: [{
+					slug: "2.0",
+					label: "v2.x (Alpha)",
+					redirect: "root"
+				}],
 				current: {
-					label: "v2.x (Stable)",
+					label: "v1.x (Stable)",
 					redirect: "root"
 				}
-			})]
+			})],
+			customCss: ["./src/styles/global.css"]
 		}),
 	]
 });
