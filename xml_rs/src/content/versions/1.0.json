@@ -1,0 +1,29 @@
+{
+    "title": "xml_rs v1.x(Discontinued)",
+    "social": [
+        {
+            "icon": "github",
+            "label": "GitHub",
+            "href": "https://github.com/DraviaVemal/xml_rs"
+        }
+    ],
+    "sidebar": [
+        {
+            "label": "Welcome",
+            "items": [
+                {
+                    "label": "Getting Started",
+                    "link": "/getting-started"
+                },
+                {
+                    "label": "Introduction",
+                    "link": "/introduction"
+                },
+                {
+                    "label": "LICENSE",
+                    "link": "/license"
+                }
+            ]
+        }
+    ]
+}

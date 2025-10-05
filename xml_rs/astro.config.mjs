@@ -23,8 +23,43 @@ export default defineConfig({
 	integrations: [
 		sitemap(),
 		starlight({
-			title: 'XML_RS',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			title: 'xml_rs',
+			components: {
+				Banner: "../components/Banner.astro",
+				Head: "../components/Head.astro",
+				PageSidebar: "../components/RightSidebar.astro",
+				PageTitle: "../components/PageTitle.astro",
+				Sidebar: "../components/Sidebar.astro",
+				ThemeSelect: "../components/ThemeSelect.astro",
+			},
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/DraviaVemal/xml_rs' }],
+			lastUpdated: true,
+			logo: {
+				src: "../assets/logo.svg",
+				alt: "Logo"
+			},
+			head: [
+				{
+					tag: "meta",
+					attrs: {
+						name: "google-adsense-account",
+						content: "ca-pub-2944495108494397"
+					}
+				},
+				{
+					tag: "script",
+					attrs: {
+						src: "https://www.googletagmanager.com/gtag/js?id=G-EZW1WCYLT4",
+					}
+				},
+				{
+					tag: "script",
+					attrs: {
+						crossorigin: "anonymous",
+						src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944495108494397",
+					}
+				}
+			],
 			sidebar: [
 				{
 					label: 'Guides',
@@ -38,28 +73,19 @@ export default defineConfig({
 					autogenerate: { directory: 'reference' },
 				},
 			],
+			plugins: [starlightVersions({
+				versions: [
+					{
+						slug: "1.0",
+						label: "v1.x (Discontinued)",
+						redirect: "root"
+					}
+				],
+				current: {
+					label: "v2.x (Stable)",
+					redirect: "root"
+				}
+			})]
 		}),
-	],
-	head: [
-		{
-			tag: "meta",
-			attrs: {
-				name: "google-adsense-account",
-				content: "ca-pub-2944495108494397"
-			}
-		},
-		{
-			tag: "script",
-			attrs: {
-				src: "https://www.googletagmanager.com/gtag/js?id=G-EZW1WCYLT4",
-			}
-		},
-		{
-			tag: "script",
-			attrs: {
-				crossorigin: "anonymous",
-				src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2944495108494397",
-			}
-		}
-	],
+	]
 });

@@ -24,20 +24,20 @@ export default defineConfig({
 		sitemap(),
 		starlight({
 			title: 'Tauri Remote UI',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
-			sidebar: [
-				{
-					label: 'Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
-					],
-				},
-				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
-				},
-			],
+			components: {
+				Banner: "../components/Banner.astro",
+				Head: "../components/Head.astro",
+				PageSidebar: "../components/RightSidebar.astro",
+				PageTitle: "../components/PageTitle.astro",
+				Sidebar: "../components/Sidebar.astro",
+				ThemeSelect: "../components/ThemeSelect.astro",
+			},
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/DraviaVemal/tauri-remote-ui' }],
+			lastUpdated: true,
+			logo: {
+				src: "../assets/logo.svg",
+				alt: "Logo"
+			},
 			head: [
 				{
 					tag: "meta",
@@ -60,6 +60,28 @@ export default defineConfig({
 					}
 				}
 			],
+			sidebar: [
+				{
+					label: 'Guides',
+					items: [
+						// Each item here is one entry in the navigation menu.
+						{ label: 'Example Guide', slug: 'guides/example' },
+					],
+				}
+			],
+			plugins: [starlightVersions({
+				versions: [
+					{
+						slug: "1.0",
+						label: "v1.x (Discontinued)",
+						redirect: "root"
+					}
+				],
+				current: {
+					label: "v2.x (Stable)",
+					redirect: "root"
+				}
+			})]
 		}),
 	],
 });
