@@ -37,7 +37,16 @@ export default defineConfig({
                 ThemeSelect: "../components/ThemeSelect.astro",
             },
             lastUpdated: true,
-            social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/DraviaVemal/OpenXML-Office' }],
+            social: [
+                {
+                    icon: 'document',
+                    label: 'Documentation',
+                    href: '/'
+                }, {
+                    icon: 'github',
+                    label: 'GitHub',
+                    href: 'https://github.com/DraviaVemal/OpenXML-Office'
+                }],
             logo: {
                 src: "../assets/logo.svg",
                 alt: "Logo"

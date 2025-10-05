@@ -32,7 +32,16 @@ export default defineConfig({
 				Sidebar: "../components/Sidebar.astro",
 				ThemeSelect: "../components/ThemeSelect.astro",
 			},
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/DraviaVemal/xml_rs' }],
+			social: [
+				{
+					icon: 'document',
+					label: 'Documentation',
+					href: '/'
+				}, {
+					icon: 'github',
+					label: 'GitHub',
+					href: 'https://github.com/DraviaVemal/xml_rs'
+				}],
 			lastUpdated: true,
 			logo: {
 				src: "../assets/logo.svg",

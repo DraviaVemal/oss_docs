@@ -32,7 +32,15 @@ export default defineConfig({
 				Sidebar: "../components/Sidebar.astro",
 				ThemeSelect: "../components/ThemeSelect.astro",
 			},
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/DraviaVemal/tauri-remote-ui' }],
+			social: [{
+				icon: 'document',
+				label: 'Documentation',
+				href: '/'
+			}, {
+				icon: 'github',
+				label: 'GitHub',
+				href: 'https://github.com/DraviaVemal/tauri-remote-ui'
+			}],
 			lastUpdated: true,
 			logo: {
 				src: "../assets/logo.svg",
