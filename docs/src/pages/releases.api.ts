@@ -15,7 +15,7 @@ export const releaseFeed = async () => {
         const url = `https://api.github.com/repos/DraviaVemal/${repo}/releases`;
         const response = await axios.get(url, {
             headers: {
-                Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+                Authorization: `Bearer ${process.env.RELEASE_TOKEN}`,
                 Accept: 'application/vnd.github.v3+json',
             },
         });
