@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { releaseFeed } from "./releases.api";
+import { marked } from "marked";
+
+// Fetch data at build time
+const releaseItems = await releaseFeed();
+---
+
+<Layout>
+    <main class="release-container">
+        <ul>
+            {
+                releaseItems.map((item) => (
+                    <li>
+                        <h1>
+                            {item.repo}: {item.name}
+                        </h1>
+                        <h2>{item.published_at}</h2>
+                        <div set:html={marked(item.body)} />
+                        <a href={item.url}>Github Release</a>
+                    </li>
+                ))
+            }
+        </ul>
+    </main>
+</Layout>

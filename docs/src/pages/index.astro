@@ -1,44 +1,32 @@
 ---
-import BaseHead from "../components/BaseHead.astro";
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header.astro";
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import Layout from "../layouts/Layout.astro";
 import "./index.scss";
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>Good Day! 🌄</h1>
-			<p>
-				Welcome to the official documentation for Dravia Vemal's open
-				source projects, licensed under AGPL-3.0 and MIT.
-			</p>
-			<h3>
-				If you find this repository helpful, please consider giving it a
-				star ⭐. Your support encourages ongoing development and
-				improvement.
-			</h3>
-			<h3>
-				Commercial users are invited to sponsor 💵 the respective
-				repositories to get MIT version. Sponsorship enables me to
-				prioritize and plan future development.
-			</h3>
-			<br />
-			<p>
-				This documentation is a work in progress 🚧🔨 as I continue to
-				refine my workflow and organize resources for greater
-				efficiency. Information may be distributed across the site
-				during this process. For any questions or clarifications, please
-				open a discussion in the project repository.
-			</p>
-		</main>
-
-		<Footer />
-	</body>
-</html>
+<Layout>
+	<main>
+		<h1>Good Day! 🌄</h1>
+		<p>
+			Welcome to the official documentation for Dravia Vemal's open source
+			projects, licensed under AGPL-3.0 and MIT.
+		</p>
+		<h3>
+			If you find this repository helpful, please consider giving it a
+			star ⭐. Your support encourages ongoing development and
+			improvement.
+		</h3>
+		<h3>
+			Commercial users are invited to sponsor 💵 the respective
+			repositories to get MIT version. Sponsorship enables me to
+			prioritize and plan future development.
+		</h3>
+		<br />
+		<p>
+			This documentation is a work in progress 🚧🔨 as I continue to
+			refine my workflow and organize resources for greater efficiency.
+			Information may be distributed across the site during this process.
+			For any questions or clarifications, please open a discussion in the
+			project repository.
+		</p>
+	</main>
+</Layout>

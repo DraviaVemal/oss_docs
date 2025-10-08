@@ -14,8 +14,6 @@ const { head } = (Astro.locals as any).starlightRoute;
   }
   gtag("js", new Date());
   gtag("config", "G-EZW1WCYLT4");
-</script>
-<script is:inline>
   (function () {
     function signalGooglefcPresent() {
       if (!window.frames["googlefcPresent"]) {
@@ -33,10 +31,9 @@ const { head } = (Astro.locals as any).starlightRoute;
     }
     signalGooglefcPresent();
   })();
-</script>
-<script is:inline>
   if (
     location.hostname !== "localhost" &&
+    location.hostname !== "127.0.0.1" &&
     location.hostname !== "docs.draviavemal.com"
   ) {
     location.href = "https://docs.draviavemal.com";
