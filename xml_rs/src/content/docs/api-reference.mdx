@@ -1,0 +1,104 @@
+---
+title: API Reference
+description: Public types and methods of the draviavemal-xml_rs crate — XmlDeserializer, XmlSerializer, XmlDocument, XmlElement, XmlAttribute.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Summary of the public surface. For the always-current, fully generated
+reference see [docs.rs/draviavemal-xml_rs](https://docs.rs/draviavemal-xml_rs).
+
+```rust
+use draviavemal_xml_rs::{
+    XmlDeserializer, XmlSerializer, XmlDocument, XmlElement,
+    XmlAttribute, XmlElementContentType,
+};
+```
+
+## Types
+
+| Type | Description |
+| --- | --- |
+| `NodeId` | `u32` identifier of a node within a document. |
+| `Tag` / `NsTag` | `String` aliases for a local and namespaced tag name. |
+
+## `XmlDeserializer`
+
+XML → [`XmlDocument`](#xmldocument). Stateless; call the associated functions.
+
+| Function | Returns |
+| --- | --- |
+| `vec_to_xml_doc_tree(xml: Vec<u8>)` | `Result<XmlDocument>` |
+| `file_to_xml_doc_tree(path: &str)` | `Result<XmlDocument>` |
+
+## `XmlSerializer`
+
+[`XmlDocument`](#xmldocument) → XML. Round-trip safe.
+
+| Function | Returns |
+| --- | --- |
+| `xml_tree_to_vec(doc: &mut XmlDocument)` | `Result<Vec<u8>>` |
+| `xml_doc_tree_to_file(doc: &mut XmlDocument, path: &str)` | `Result<()>` |
+
+## `XmlDocument`
+
+The DOM tree and node store.
+
+| Method | Purpose |
+| --- | --- |
+| `new()` / `default()` | Create an empty document (version `1.0`, encoding `UTF-8`). |
+| `get_root_id()` | `NodeId` of the root element. |
+| `get_element(id)` / `get_element_mut(id)` | Look up an element (immutable / mutable). |
+| `create_root_element_mut(tag, attrs)` | Create the root element. |
+| `append_child_element_mut(parent, tag, attrs)` | Append a child; returns its `NodeId`. |
+| `inser_child_element_after_last_tag_mut(...)` | Insert after the last matching local tag. |
+| `inser_child_element_before_first_tag_mut(...)` | Insert before the first matching local tag. |
+| `inser_child_element_after_last_tag_ns_mut(...)` | Insert after the last matching namespaced tag. |
+| `inser_child_element_before_first_tag_ns_mut(...)` | Insert before the first matching namespaced tag. |
+| `find_first_child(parent, tag)` | First child with the given local tag. |
+| `find_all_child(parent, tag)` | All children with the given local tag. |
+| `find_first_by_attribute(start, name, value)` | First descendant matching an attribute. |
+| `set_version_mut` / `get_version` | XML declaration version. |
+| `set_encoding_mut` / `get_encoding` | XML declaration encoding. |
+
+## `XmlElement`
+
+A single element node.
+
+| Method | Purpose |
+| --- | --- |
+| `get_id()` / `get_parent_id()` | Node id / parent id. |
+| `get_tag()` / `get_tag_ns()` | Local / namespaced tag name. |
+| `get_attribute(name)` / `get_attribute_ns(ns_name)` | Read an attribute. |
+| `get_child_contents()` | The list of [`XmlElementContentType`](#xmlelementcontenttype). |
+| `get_child_element_count()` | Count of child elements only. |
+| `find_first_child(tag)` | First child element by local tag. |
+| `add_attribute_mut(attr)` | Add an attribute. |
+| `remove_attribute_mut(name)` / `remove_attribute_ns_mut(ns_name)` | Remove an attribute. |
+| `clear_attribute_mut()` | Remove all attributes. |
+| `add_text_mut(text)` | Add a text node. |
+| `add_comments_mut(comment)` | Add a comment node. |
+
+## `XmlAttribute`
+
+| Member | Purpose |
+| --- | --- |
+| `new(name, value)` | Construct; a `prefix:name` is split into prefix + local name. |
+| `get_name()` | Local name without prefix. |
+| `get_ns_name()` | Namespaced name (`prefix:name`) when a prefix is present. |
+| `get_value()` | Attribute value. |
+
+## `XmlElementContentType`
+
+Enum of an element's possible children:
+
+| Variant | Holds |
+| --- | --- |
+| `Element((NodeId, Tag, NsTag))` | A child element reference. |
+| `Text(String)` | A text node. |
+| `Comment(String)` | A comment node. |
+
+<Aside type="note">
+Method names containing `inser_` reflect the current crate spelling and are kept
+verbatim so the docs match the compiled API.
+</Aside>

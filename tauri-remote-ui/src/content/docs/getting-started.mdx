@@ -1,19 +1,164 @@
 ---
 title: Getting Started
-description: The page furnishes comprehensive installation instructions, guiding you
-  through the process of incorporating the package dependency.
+description: Install the crate and npm package, register the plugin, and start your first remote UI session.
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components';
 
-Feel free to start discussion for any new feature requirement. [Discussion Channel](https://github.com/DraviaVemal/tauri-remote-ui/discussions)
+`tauri-remote-ui` has two halves that work together:
 
-<Tabs>
-<TabItem label='Rust'>
-The library is available on crates.io. You can install it using the following command
+- a **Rust crate** (`tauri-remote-ui`) that registers the Tauri plugin and runs the HTTP/WebSocket server, and
+- an **npm package** (`tauri-remote-ui`) that provides `invoke` / `listen` shims for your frontend.
 
-```shell
-cargo add tauri-remote-ui
+| Resource | Link |
+| --- | --- |
+| Crate | [crates.io/crates/tauri-remote-ui](https://crates.io/crates/tauri-remote-ui) |
+| API docs (Rust) | [docs.rs/tauri-remote-ui](https://docs.rs/tauri-remote-ui) |
+| npm package | [npmjs.com/package/tauri-remote-ui](https://www.npmjs.com/package/tauri-remote-ui) |
+| Source & issues | [github.com/DraviaVemal/tauri-remote-ui](https://github.com/DraviaVemal/tauri-remote-ui) |
+
+<Aside type="caution" title="Keep versions aligned">
+The crate and the npm package perform a version handshake when a remote client
+connects and log a warning on mismatch. Install matching releases of both and
+upgrade them together.
+</Aside>
+
+## Requirements
+
+- Tauri **2.x**
+- Rust **1.77.2** or newer
+- A bundled frontend (the plugin serves your built assets, e.g. `frontendDist`)
+
+## 1. Install the packages
+
+<Steps>
+
+1. **Add the Rust crate** to your Tauri app (`src-tauri`):
+
+   ```shell
+   cargo add tauri-remote-ui
+   ```
+
+2. **Add the npm package** to your frontend:
+
+   <Tabs syncKey="pkg">
+   <TabItem label="npm">
+   ```shell
+   npm install tauri-remote-ui
+   ```
+   </TabItem>
+   <TabItem label="yarn">
+   ```shell
+   yarn add tauri-remote-ui
+   ```
+   </TabItem>
+   <TabItem label="pnpm">
+   ```shell
+   pnpm add tauri-remote-ui
+   ```
+   </TabItem>
+   </Tabs>
+
+</Steps>
+
+## 2. Register the plugin
+
+Add the plugin in your Tauri builder, then expose commands to start and stop the
+remote UI server from the frontend.
+
+```rust title="src-tauri/src/lib.rs"
+use tauri::AppHandle;
+use tauri_remote_ui::{RemoteUiConfig, RemoteUiExt};
+
+#[tauri::command]
+async fn enable_server(app: AppHandle) -> Result<(), String> {
+    app.start_remote_ui(RemoteUiConfig::default().set_port(Some(9090)))
+        .await
+        .map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+async fn disable_server(app: AppHandle) -> Result<(), String> {
+    app.stop_remote_ui().await.map_err(|e| e.to_string())
+}
+
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_remote_ui::init())
+        .invoke_handler(tauri::generate_handler![enable_server, disable_server])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
 ```
-</TabItem>
-</Tabs>
+
+<Aside type="note">
+`start_remote_ui` is configured with [`RemoteUiConfig`](/tauri-remote-ui/configuration/).
+Passing `set_port(None)` (the default) lets the OS choose a free port, which you
+can then read back with `app.remote_ui_port().await`.
+</Aside>
+
+## 3. Use the frontend shims
+
+Replace `@tauri-apps/api` imports with the matching `tauri-remote-ui` entry
+points. The shims call native Tauri IPC when inside the webview and
+transparently fall back to a WebSocket transport when loaded through a browser.
+
+```ts title="src/app.ts"
+import { invoke } from "tauri-remote-ui/api/core";
+import { listen } from "tauri-remote-ui/api/event";
+
+await listen<{ result: number }>("counter", (event) => {
+  console.log("counter is now", event.payload.result);
+});
+
+await invoke("increment");
+```
+
+## 4. Emit events from Rust
+
+To deliver events to both the native window **and** any connected remote client,
+import [`EmitterExt`](/tauri-remote-ui/api/rust/#emitterext) and call its async
+`emit` on a `WebviewWindow`:
+
+```rust
+use tauri::Manager;
+use tauri_remote_ui::EmitterExt;
+
+let window = app.get_webview_window("main").unwrap();
+window.emit("counter", serde_json::json!({ "result": 42 })).await?;
+```
+
+## 5. Develop with a dev server (optional)
+
+When running a frontend dev server (Vite, etc.), proxy the plugin's endpoints so
+the browser can reach the running Tauri host:
+
+```ts title="vite.config.ts"
+export default defineConfig({
+  server: {
+    port: 3001,
+    proxy: {
+      "/remote_ui_info": { target: "http://localhost:9090", changeOrigin: true },
+      "/remote_ui_disconnect": { target: "http://localhost:9090", changeOrigin: true },
+      "/remote_ui_ws": { target: "http://localhost:9090", changeOrigin: true, ws: true },
+    },
+  },
+});
+```
+
+## What happens next
+
+1. Start your app and trigger `enable_server`.
+2. The native window shows a **blocking screen** listing every URL the server is
+   reachable on (unless you [keep the app UI active](/tauri-remote-ui/configuration/#enable_application_ui)).
+3. Open one of those URLs in a browser — your app loads and is fully interactive.
+4. Closing the tab redirects to the **disconnect screen**; restart or call
+   `disable_server` to resume normal operation.
+
+Continue with [Concepts](/tauri-remote-ui/concepts/) to understand how the bridge
+works, or jump to [Configuration](/tauri-remote-ui/configuration/) and
+[Security](/tauri-remote-ui/security/).
+
+Have an idea or question? Start a thread in the
+[Discussion Channel](https://github.com/DraviaVemal/tauri-remote-ui/discussions).
+

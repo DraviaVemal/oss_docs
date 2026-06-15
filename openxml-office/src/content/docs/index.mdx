@@ -1,6 +1,6 @@
 ---
 title: Stable
-description: This is stable version document detail
+description: Create Presentation (pptx), Excel (xlsx) & Word (docx) files with ease — a Rust core delivered to multiple languages.
 template: splash
 lastUpdated: false
 banner:
@@ -9,17 +9,106 @@ banner:
     <a class="link-ul" href="//openxml-office/4.0">
       Learn upcoming features
     </a>
-hero:
-  title: Make Simple Office Documents
-  tagline: Create Presentation (pptx), Excel (xlsx) & Word (docx) file with ease.
-  image:
-    file: ../../../../assets/logo.svg
-  actions:
-    - text: Documents
-      icon: right-arrow
-      link: /openxml-office/getting-started/
-    - text: View on GitHub
-      icon: external
-      variant: minimal
-      link: https://github.com/DraviaVemal/openxml-office/tree/stable
 ---
+
+import logo from '../../../../assets/logo.svg';
+
+<div class="oss-landing">
+
+<section class="oss-hero">
+	<img class="oss-hero-logo" src={logo.src} alt="openxml-office logo" />
+	<p class="eyebrow">Rust core · Multi-language</p>
+	<h1>Make simple Office documents</h1>
+	<p class="lede">
+		Create Presentation (<code>.pptx</code>), Excel (<code>.xlsx</code>) and
+		Word (<code>.docx</code>) files with ease. A single Rust core, delivered
+		to .NET, Go, Node.js and Python so you ship the same behaviour everywhere.
+	</p>
+	<div class="oss-hero-actions">
+		<a class="oss-btn primary" href="/openxml-office/getting-started/">Get started</a>
+		<a class="oss-btn" href="https://github.com/DraviaVemal/openxml-office/tree/stable" target="_blank" rel="noopener">View on GitHub</a>
+		<a class="oss-btn" href="https://crates.io/crates/draviavemal-openxml_office" target="_blank" rel="noopener">crates.io</a>
+		<a class="oss-btn" href="https://www.nuget.org/packages/draviavemal.openxml-office" target="_blank" rel="noopener">NuGet</a>
+	</div>
+</section>
+
+<section>
+	<h2>What you can build</h2>
+	<div class="oss-grid">
+		<article class="oss-card">
+			<h3>Spreadsheets</h3>
+			<p>
+				Build <code>.xlsx</code> workbooks — sheets, rows, styles and
+				formulas — without wrestling the raw OpenXML markup.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Presentations</h3>
+			<p>
+				Generate <code>.pptx</code> decks programmatically with slides,
+				shapes and charts driven straight from your data.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Documents</h3>
+			<p>
+				Compose <code>.docx</code> documents with structured content and
+				consistent formatting from a clean, intuitive API.
+			</p>
+		</article>
+	</div>
+</section>
+
+<section>
+	<h2>Why openxml-office</h2>
+	<div class="oss-grid">
+		<article class="oss-card">
+			<h3>One Rust core</h3>
+			<p>
+				A single, well-tested engine does the heavy lifting, so behaviour
+				stays consistent no matter which language you call it from.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Multi-language bindings</h3>
+			<p>
+				Native packages for .NET, Go, Node.js and Python ship through each
+				ecosystem's own package manager — no extra runtime dependencies.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Developer-first API</h3>
+			<p>
+				Intuitive namespaces and helpers, designed for IDE auto-completion
+				and an efficient, in-process workflow.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Office-compatible output</h3>
+			<p>
+				Targets Microsoft Office 2013 and newer, producing files that open
+				cleanly in the apps your users already have.
+			</p>
+		</article>
+	</div>
+</section>
+
+<section>
+	<h2>Next steps</h2>
+	<div class="oss-grid">
+		<a class="oss-card" href="/openxml-office/getting-started/">
+			<h3>Install &amp; run →</h3>
+			<p>Add the package for your language and create your first document.</p>
+		</a>
+		<a class="oss-card" href="/openxml-office/introduction/">
+			<h3>Introduction →</h3>
+			<p>Understand the goals, scope and design behind the library.</p>
+		</a>
+		<a class="oss-card" href="/openxml-office/4.0/getting-started/">
+			<h3>Try the alpha →</h3>
+			<p>Preview the upcoming features taking shape in the next major version.</p>
+		</a>
+	</div>
+</section>
+
+</div>

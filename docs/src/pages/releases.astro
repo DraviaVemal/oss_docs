@@ -1,27 +1,70 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { releaseFeed } from "./releases.api";
+import { releaseFeed } from "../lib/releases";
 import { marked } from "marked";
+import "./releases.scss";
 
 // Fetch data at build time
 const releaseItems = await releaseFeed();
+
+const dateFmt = new Intl.DateTimeFormat("en", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+});
+
+const repoUrl = (repo: string) => `https://github.com/DraviaVemal/${repo}`;
 ---
 
-<Layout>
+<Layout
+    title="Releases"
+    description="A live, combined feed of GitHub releases across Dravia Vemal's open source projects — openxml-office, tauri-remote-ui and xml_rs."
+    type="article"
+>
     <main class="release-container">
-        <ul>
+        <header class="release-head">
+            <h1>Releases</h1>
+            <p class="subtitle">
+                A combined, newest-first feed pulled from GitHub across all
+                projects. Pre-releases are <span class="badge alpha">alpha</span>
+                previews; see <a href="/versioning">versioning</a> for what that
+                means.
+            </p>
+        </header>
+
+        {
+            releaseItems.length === 0 && (
+                <p class="empty">No releases to show right now.</p>
+            )
+        }
+
+        <ul class="release-list">
             {
                 releaseItems.map((item) => (
-                    <li>
-                        <h1>
-                            {item.repo}: {item.name}
-                        </h1>
-                        <h2>{item.published_at}</h2>
-                        <div set:html={marked(item.body)} />
-                        <a href={item.url}>Github Release</a>
+                    <li class="release">
+                        <div class="release-meta">
+                            <a class="repo" href={repoUrl(item.repo)} target="_blank" rel="noopener">
+                                {item.repo}
+                            </a>
+                            <span class="tag">{item.tag_name}</span>
+                            {item.preRelease ? (
+                                <span class="badge alpha">alpha</span>
+                            ) : (
+                                <span class="badge stable">stable</span>
+                            )}
+                            <time class="date">{dateFmt.format(new Date(item.published_at))}</time>
+                        </div>
+                        <h2>{item.name || item.tag_name}</h2>
+                        {item.body && (
+                            <div class="body" set:html={marked(item.body)} />
+                        )}
+                        <a class="release-link" href={item.url} target="_blank" rel="noopener">
+                            View on GitHub →
+                        </a>
                     </li>
                 ))
             }
         </ul>
     </main>
 </Layout>
+

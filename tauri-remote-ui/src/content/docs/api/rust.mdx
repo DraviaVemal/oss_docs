@@ -1,0 +1,124 @@
+---
+title: Rust API
+description: Reference for the Rust crate — RemoteUiExt, EmitterExt, RemoteUiConfig, OriginType and Error.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Reference for the public surface of the `tauri-remote-ui` crate. Bring the
+extension traits into scope to call their methods:
+
+```rust
+use tauri_remote_ui::{EmitterExt, OriginType, RemoteUiConfig, RemoteUiExt};
+```
+
+## `init`
+
+```rust
+pub fn init() -> tauri::plugin::TauriPlugin<tauri::Wry>
+```
+
+Creates the plugin. Register it on your builder:
+
+```rust
+tauri::Builder::default()
+    .plugin(tauri_remote_ui::init())
+    // ...
+```
+
+## `RemoteUiExt`
+
+Extension trait implemented for `tauri::AppHandle` that manages the server
+lifecycle. All methods are `async`.
+
+| Method | Returns | Description |
+| --- | --- | --- |
+| `start_remote_ui(config: RemoteUiConfig)` | `Result<(), tauri::Error>` | Starts the server. Errors if already running. |
+| `stop_remote_ui()` | `Result<(), tauri::Error>` | Stops the server if running and reloads the window. |
+| `is_remote_ui_running()` | `bool` | Whether the server is currently active. |
+| `remote_ui_port()` | `Option<u16>` | The bound port, or `None` if not running. |
+
+```rust
+app.start_remote_ui(RemoteUiConfig::default().set_port(Some(9090))).await?;
+let port = app.remote_ui_port().await; // Some(9090)
+let running = app.is_remote_ui_running().await; // true
+app.stop_remote_ui().await?;
+```
+
+<Aside type="tip">
+Use `remote_ui_port()` when you start with `set_port(None)` and need to surface
+the OS-chosen port to the user or a test harness.
+</Aside>
+
+## `EmitterExt`
+
+Extension trait implemented for `tauri::WebviewWindow<R>`. Use it to emit events
+that reach both the native window and any connected remote client.
+
+| Method | Notes |
+| --- | --- |
+| `emit(event, payload)` *(async)* | Emits over WebSocket (if remote active) **and** via Tauri's event system. |
+| `emit_to(target, event, payload)` | Standard targeted emit. |
+| `emit_str(event, payload)` | Emit with a `String` payload. |
+| `emit_str_to(target, event, payload)` | Targeted string emit. |
+| `emit_filter(event, payload, filter)` | Emit to targets passing a filter. |
+| `emit_str_filter(event, payload, filter)` | String payload variant of `emit_filter`. |
+
+```rust
+use tauri::Manager;
+use tauri_remote_ui::EmitterExt;
+
+let window = app.get_webview_window("main").unwrap();
+window.emit("counter", serde_json::json!({ "result": 42 })).await?;
+```
+
+<Aside type="caution">
+Only the async `emit` forwards to remote clients. The synchronous helpers
+(`emit_to`, `emit_str`, …) delegate to Tauri's standard emitter and reach the
+native window only.
+</Aside>
+
+## `RemoteUiConfig`
+
+Builder for server configuration. See [Configuration](/tauri-remote-ui/configuration/)
+for full details. Summary:
+
+- `set_port(Option<u16>)`, `set_allowed_origin(OriginType)`,
+  `set_bundle_path(Option<String>)`, `set_primary_window_label(impl Into<String>)`
+- `enable_application_ui()`, `minimize_app()`, `disable_info_url()`
+- `set_custom_blocking_ui(Option<String>)`, `set_custom_disconnect_ui(Option<String>)`
+- getters: `allowed_origin()`, `port()`, `bundle_path()`, `primary_window_label()`
+
+## `OriginType`
+
+Network access scope. See [Security](/tauri-remote-ui/security/).
+
+```rust
+pub enum OriginType { Localhost, Subnet, Any }
+```
+
+- `Localhost` — binds `127.0.0.1`; local machine only (default).
+- `Subnet` — binds `0.0.0.0`; same-subnet peers + loopback.
+- `Any` — binds `0.0.0.0`; no peer filtering.
+
+`OriginType::bind_address()` returns the bind address string for the scope.
+
+## `Error`
+
+The crate's error type (`tauri_remote_ui::Error`, with
+`tauri_remote_ui::Result<T>`):
+
+| Variant | When |
+| --- | --- |
+| `Io` | Wrapped `std::io::Error`. |
+| `Tauri` | Wrapped `tauri::Error`. |
+| `Json` | Wrapped `serde_json::Error`. |
+| `Http` | Wrapped `hyper::http::Error`. |
+| `ServerAlreadyRunning` | `start_remote_ui` called while already running. |
+| `PrimaryWindowNotFound` | Configured primary window label does not exist. |
+| `InvalidFrontendDist` | `frontendDist` is a remote URL; a local path is required. |
+| `WebSocket` | WebSocket transport error. |
+| `Plugin` | Generic plugin error with context. |
+
+`Error` converts into `tauri::Error`, so it can be returned from the extension
+trait methods that mirror Tauri's signatures.

@@ -1,0 +1,136 @@
+---
+title: Configuration
+description: Configure the remote UI server with the RemoteUiConfig builder — port, origin, window, bundle path and custom screens.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+The remote UI server is configured with `RemoteUiConfig`, a builder you pass to
+[`start_remote_ui`](/tauri-remote-ui/api/rust/#remoteuiext). Start from
+`RemoteUiConfig::default()` and chain the builder methods you need.
+
+```rust
+use tauri_remote_ui::{OriginType, RemoteUiConfig, RemoteUiExt};
+
+app.start_remote_ui(
+    RemoteUiConfig::default()
+        .set_port(Some(9090))
+        .set_allowed_origin(OriginType::Subnet)
+        .minimize_app(),
+)
+.await?;
+```
+
+## Defaults
+
+| Field | Default | Meaning |
+| --- | --- | --- |
+| `allowed_origin` | `OriginType::Localhost` | Only the local machine may connect. |
+| `port` | `None` | OS picks a free port. |
+| `bundle_path` | `None` | Falls back to `frontendDist`, then `../dist`. |
+| `primary_window_label` | `"main"` | Window the remote UI controls. |
+| `application_ui` | `false` | Native window shows the blocking screen. |
+| `minimize_app` | `false` | Host window is **not** minimized on start. |
+| `enable_info_url` | `true` | `/remote_ui_info` endpoint is available. |
+| `custom_blocking_ui` | `None` | Built-in blocking screen is used. |
+| `custom_disconnect_ui` | `None` | Built-in disconnect screen is used. |
+
+## Builder methods
+
+### `set_port`
+
+```rust
+RemoteUiConfig::default().set_port(Some(9090))
+```
+
+Sets the TCP port to listen on. Pass `None` (default) to let the OS choose a
+free port; read it back afterwards with `app.remote_ui_port().await`.
+
+### `set_allowed_origin`
+
+```rust
+RemoteUiConfig::default().set_allowed_origin(OriginType::Subnet)
+```
+
+Controls **who** may connect. See [Security](/tauri-remote-ui/security/) for the
+full breakdown of [`OriginType`](/tauri-remote-ui/api/rust/#origintype)
+(`Localhost`, `Subnet`, `Any`).
+
+### `set_bundle_path`
+
+```rust
+RemoteUiConfig::default().set_bundle_path(Some("../dist".into()))
+```
+
+Overrides the static asset directory served to remote clients. Defaults to the
+Tauri-configured `frontendDist`, falling back to `../dist`.
+
+### `set_primary_window_label`
+
+```rust
+RemoteUiConfig::default().set_primary_window_label("main")
+```
+
+The label of the Tauri webview window the remote UI controls and replaces.
+Defaults to `"main"`.
+
+### `enable_application_ui`
+
+```rust
+RemoteUiConfig::default().enable_application_ui()
+```
+
+Keeps the native Tauri UI active and lets it navigate alongside the remote
+client, instead of replacing it with the blocking screen. Useful when you want
+to drive the app from a browser while still watching the desktop window.
+
+### `minimize_app`
+
+```rust
+RemoteUiConfig::default().minimize_app()
+```
+
+Minimizes the host Tauri window when the server starts.
+
+### `disable_info_url`
+
+```rust
+RemoteUiConfig::default().disable_info_url()
+```
+
+Disables the `/remote_ui_info` endpoint; requests to it then return
+`404 Not Found`.
+
+### `set_custom_blocking_ui`
+
+```rust
+RemoteUiConfig::default().set_custom_blocking_ui(Some(html))
+```
+
+Injects custom HTML/CSS/JS shown on the host window while a remote session is
+active. The following placeholders are substituted before injection:
+
+| Placeholder | Replaced with |
+| --- | --- |
+| `%URLS%` | Comma-separated list of every reachable URL. |
+| `%URLS_LIST%` | Pre-rendered `<li><a href="…">…</a></li>` items for a `<ul>`/`<ol>`. |
+| `%URL_INFO%` | The `/remote_ui_info` URL. |
+
+### `set_custom_disconnect_ui`
+
+```rust
+RemoteUiConfig::default().set_custom_disconnect_ui(Some(html))
+```
+
+Injects custom HTML/CSS/JS shown in the remote browser tab once the connection
+closes.
+
+<Aside type="tip">
+Both custom-screen setters take an `Option<String>`. Pass `None` to keep the
+built-in screen.
+</Aside>
+
+## Reading configuration back
+
+`RemoteUiConfig` exposes getters for inspection: `allowed_origin()`, `port()`,
+`bundle_path()` and `primary_window_label()`.

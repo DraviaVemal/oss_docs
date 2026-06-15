@@ -1,0 +1,51 @@
+---
+title: Parsing
+description: Parse XML strings, byte vectors and files into an xml_rs document tree.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+[`XmlDeserializer`](/xml_rs/api-reference/#xmldeserializer) turns XML input into
+an [`XmlDocument`](/xml_rs/api-reference/#xmldocument) tree. It reads the XML
+declaration, normalizes line breaks, resolves namespaces and preserves comments.
+
+## From a byte vector or string
+
+```rust
+use draviavemal_xml_rs::XmlDeserializer;
+
+let xml = r#"<note><to>World</to></note>"#;
+let document = XmlDeserializer::vec_to_xml_doc_tree(xml.as_bytes().to_vec())?;
+```
+
+`vec_to_xml_doc_tree` takes a `Vec<u8>`, so pass `your_string.as_bytes().to_vec()`
+for an in-memory string.
+
+## From a file
+
+```rust
+use draviavemal_xml_rs::XmlDeserializer;
+
+let document = XmlDeserializer::file_to_xml_doc_tree("catalog.xml")?;
+```
+
+## What is preserved
+
+| Input | Handling |
+| --- | --- |
+| XML declaration | `version` and `encoding` are read onto the document (encoding defaults to `utf-8`). |
+| Namespaces | Prefix → URI mappings are resolved; QNames keep their prefix. |
+| Attributes | Kept in source order. |
+| Text & mixed content | Unescaped and stored as text nodes. |
+| Comments | Preserved as comment nodes and re-emitted on serialize. |
+| Self-closing tags | Parsed as empty elements. |
+
+<Aside type="caution">
+Input is treated as UTF-8. A mismatched start/end tag fails parsing with a
+descriptive `anyhow` error, so handle the `Result`.
+</Aside>
+
+## Next
+
+- [Navigating & querying](/xml_rs/guides/navigating/) the parsed tree.
+- [Building & editing](/xml_rs/guides/building/) documents from scratch.

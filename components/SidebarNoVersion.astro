@@ -1,0 +1,20 @@
+---
+/**
+ * Sidebar override for single-version docs sites (no `starlight-versions`).
+ * Identical to `Sidebar.astro` but without the version selector, so it can be
+ * used by projects that do not register the versions plugin.
+ */
+import MobileMenuFooter from "@astrojs/starlight/components/MobileMenuFooter.astro";
+import SidebarPersister from "@astrojs/starlight/components/SidebarPersister.astro";
+import SidebarSublist from "@astrojs/starlight/components/SidebarSublist.astro";
+
+const { sidebar } = (Astro.locals as any).starlightRoute;
+---
+
+<SidebarPersister>
+  <SidebarSublist sublist={sidebar} />
+</SidebarPersister>
+
+<div class="md:sl-hidden">
+  <MobileMenuFooter />
+</div>

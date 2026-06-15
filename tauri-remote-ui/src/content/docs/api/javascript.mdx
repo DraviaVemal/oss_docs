@@ -1,0 +1,110 @@
+---
+title: JavaScript API
+description: Reference for the npm package — the core, event and app entry points and the invoke/listen shims.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+The `tauri-remote-ui` npm package mirrors the relevant parts of `@tauri-apps/api`
+with shims that work both inside the Tauri webview and over the remote WebSocket
+transport. Import from the per-area entry points:
+
+```ts
+import { invoke } from "tauri-remote-ui/api/core";
+import { listen, latencyMs } from "tauri-remote-ui/api/event";
+import { getVersion } from "tauri-remote-ui/api/app";
+```
+
+<Aside type="note">
+Inside the Tauri webview the shims delegate to native IPC. Loaded through the
+remote server, they use the WebSocket bridge automatically — your code is
+identical in both environments.
+</Aside>
+
+## `tauri-remote-ui/api/core`
+
+### `invoke`
+
+```ts
+function invoke<T>(cmd: string, args?: InvokeArgs, options?: InvokeOptions): Promise<T>
+```
+
+Invokes a Tauri command. Native IPC when available; otherwise sends the request
+over the WebSocket and resolves with the result.
+
+- Rejects with the command's error on failure.
+- Rejects with a timeout error if no response arrives within **30 seconds**.
+- Throws if neither native IPC nor an open WebSocket is available.
+
+```ts
+const result = await invoke<number>("increment");
+```
+
+## `tauri-remote-ui/api/event`
+
+### `listen`
+
+```ts
+function listen<T>(event: EventName, handler: EventCallback<T>, options?: Options): Promise<UnlistenFn>
+```
+
+Subscribes to an event. Native listener when inside Tauri; otherwise backed by a
+WebSocket-fed `EventTarget`. Returns an unlisten function.
+
+```ts
+const unlisten = await listen<{ result: number }>("counter", (e) => {
+  console.log(e.payload.result);
+});
+// later
+unlisten();
+```
+
+<Aside type="tip">
+For remote clients to receive an event, emit it from Rust with
+[`EmitterExt::emit`](/tauri-remote-ui/api/rust/#emitterext).
+</Aside>
+
+### `latencyMs`
+
+```ts
+let latencyMs: number
+```
+
+The most recent WebSocket round-trip latency in milliseconds, updated by the
+ping/pong heartbeat (every 10 s). Useful for surfacing connection quality in
+your UI; values above 200 ms also log a console warning.
+
+```ts
+import { latencyMs } from "tauri-remote-ui/api/event";
+console.log(`round trip: ${latencyMs} ms`);
+```
+
+### `UnlistenFn`
+
+Re-exported from `@tauri-apps/api/event` for convenience.
+
+## `tauri-remote-ui/api/app`
+
+Application-metadata helpers mirroring `@tauri-apps/api/app`, routed through the
+remote-aware `invoke`. Includes `getVersion`, `getName`, `getTauriVersion`,
+`getIdentifier`, `show`, `hide`, `defaultWindowIcon`, `setTheme`,
+`setDockVisibility`, `getBundleType`, and more.
+
+```ts
+import { getVersion, getName } from "tauri-remote-ui/api/app";
+
+const [version, name] = await Promise.all([getVersion(), getName()]);
+```
+
+## Detecting the environment
+
+To branch on where your UI is running:
+
+```ts
+const isDesktop =
+  typeof window !== "undefined" &&
+  Boolean((window as any).__TAURI_INTERNALS__ || (window as any).__TAURI__);
+```
+
+This is exactly the check the shims use internally to decide between native IPC
+and the WebSocket bridge.

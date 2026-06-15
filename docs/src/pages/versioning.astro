@@ -1,0 +1,200 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "./prose.scss";
+---
+
+<Layout
+	title="Versioning, Branching & Licensing"
+	description="The shared versioning strategy, Git branching model and licensing terms that apply to every Dravia Vemal open source project."
+	type="article"
+>
+	<main class="prose">
+		<h1>Versioning, branching &amp; licensing</h1>
+		<p class="subtitle">
+			The shared conventions behind <a href="/openxml-office"
+				>openxml-office</a
+			>, <a href="/tauri-remote-ui">tauri-remote-ui</a>,
+			<a href="/xml_rs">xml_rs</a> and future projects. Versioning and
+			branching are consistent everywhere; <a href="#licensing">licensing</a>
+			can vary per project and per version, so always check the one you're
+			using.
+		</p>
+
+		<h2 id="versioning">Versioning strategy</h2>
+		<p>
+			Releases follow <a
+				href="https://semver.org/"
+				target="_blank"
+				rel="noopener">Semantic Versioning</a
+			> (<code>MAJOR.MINOR.PATCH</code>) with three lifecycle stages.
+			A single minor line can exist in more than one stage at the same time
+			— for example <code>1.4</code> can be the current <em>stable</em>
+			release while <code>1.5-alpha</code> previews what's next.
+		</p>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Stage</th>
+					<th>Version form</th>
+					<th>What it means</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><strong>Stable</strong></td>
+					<td><code>1.4.0</code></td>
+					<td>
+						The present, supported release. This is what the
+						<em>current</em> documentation describes and what you should
+						use in production.
+					</td>
+				</tr>
+				<tr>
+					<td><strong>Alpha</strong></td>
+					<td><code>1.5.0-alpha</code></td>
+					<td>
+						A preview of the <em>next</em> release. Note there is no
+						numeric counter on the suffix — it is simply
+						<code>-alpha</code>. APIs may change without notice.
+					</td>
+				</tr>
+				<tr>
+					<td><strong>Deprecated</strong></td>
+					<td><code>0.x</code>, older majors</td>
+					<td>
+						Older releases that are no longer maintained and receive
+						no security or bug fixes. Migrate to the current stable
+						release.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h3 id="alpha-to-stable">How an alpha becomes stable</h3>
+		<p>
+			Alpha builds are published from the <code>alpha</code> branch using a
+			<code>-alpha</code> pre-release version. When an alpha is deemed
+			ready, its code is merged into the <code>stable</code> branch and
+			tagged with a direct, final version (dropping the suffix), which is
+			then published as the new stable release.
+		</p>
+
+		<h3 id="docs-versions">How this maps to the docs</h3>
+		<ul>
+			<li>
+				The <strong>current</strong> page of each project's docs always
+				describes the latest <strong>stable</strong> release.
+			</li>
+			<li>
+				When active alpha work exists, an <strong>alpha</strong> entry is
+				added to the project's version selector so you can preview
+				upcoming changes.
+			</li>
+			<li>
+				<strong>Deprecated</strong> versions remain available in the
+				version selector for reference but are clearly marked.
+			</li>
+		</ul>
+
+		<h2 id="branching">Branching model</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Branch</th>
+					<th>Purpose</th>
+					<th>Publishes</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><code>stable</code></td>
+					<td>Production-ready code.</td>
+					<td>Final versions, e.g. <code>1.4.0</code>.</td>
+				</tr>
+				<tr>
+					<td><code>alpha</code></td>
+					<td>Active development of the next release.</td>
+					<td>Pre-releases, e.g. <code>1.5.0-alpha</code>.</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>
+			Contributions are raised against the <code>alpha</code> branch. See
+			the <a href="/community">contribution guide</a> for the workflow.
+		</p>
+
+		<h2 id="licensing">Licensing</h2>
+		<p>
+			<strong>Licensing is not one-size-fits-all.</strong> It can differ
+			from project to project, and even between versions of the same
+			project, as terms evolve over time. Always check the license that
+			applies to the <em>specific project and version</em> you're using —
+			don't assume.
+		</p>
+		<p>Where to find the authoritative terms for what you're using:</p>
+		<ul>
+			<li>
+				The <strong>License page</strong> in that project's docs (each
+				version has its own).
+			</li>
+			<li>
+				The <code>LICENSE</code> file in the project's repository for the
+				tag/branch you depend on.
+			</li>
+			<li>
+				The license field on the package itself (crates.io, npm, NuGet,
+				etc.) for the exact version.
+			</li>
+		</ul>
+
+		<h3 id="common-model">The model most projects follow</h3>
+		<p>
+			Many — though not all — of my projects use a <strong>dual-license</strong>
+			model. Treat this as a guide, not a guarantee; the per-version
+			license is the source of truth.
+		</p>
+		<ul>
+			<li>
+				<strong>Open source — AGPL-3.0.</strong> Free to use, study and
+				modify. Derivative works (forks, integrations, SaaS) must also be
+				released under AGPL-3.0. See the
+				<a
+					href="https://opensource.org/license/agpl-v3"
+					target="_blank"
+					rel="noopener">full AGPL-3.0 text</a
+				>.
+			</li>
+			<li>
+				<strong>Commercial — sponsorware (MIT terms).</strong>
+				Commercial use requires
+				<a
+					href="https://github.com/sponsors/DraviaVemal"
+					target="_blank"
+					rel="noopener">sponsorship</a
+				>, which grants access to a private repository under a
+				commercial-friendly (MIT-terms) license, plus priority support.
+			</li>
+		</ul>
+
+		<h3 id="who-needs-what">If a project uses the dual-license model</h3>
+		<ul>
+			<li>
+				<strong>Individuals, students, hobbyists, open source</strong> →
+				use under AGPL-3.0.
+			</li>
+			<li>
+				<strong>Businesses, organizations, contractors</strong> →
+				sponsor to obtain commercial rights.
+			</li>
+		</ul>
+		<p>
+			Some releases (for example older or differently-licensed lines) may
+			ship under other terms entirely. When in doubt, the per-version
+			License page and <code>LICENSE</code> file win. For commercial
+			licensing questions, contact <a
+				href="mailto:contact@draviavemal.com">contact@draviavemal.com</a
+			>.
+		</p>
+	</main>
+</Layout>

@@ -1,20 +1,91 @@
 ---
 title: Getting Started
-description: The page furnishes comprehensive installation instructions, guiding you
-  through the process of incorporating the package dependency.
+description: Install draviavemal-xml_rs and parse, navigate and serialize your first XML document in Rust.
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside, Steps } from '@astrojs/starlight/components';
 
-Feel free to start discussion for any new feature requirement. [Discussion Channel](https://github.com/DraviaVemal/xml_rs/discussions)
+`xml_rs` is published on crates.io as **`draviavemal-xml_rs`** and imported in
+code as `draviavemal_xml_rs`.
 
-<Tabs>
-<TabItem label='Rust'>
-The library is available on crates.io. You can install it using the following command
+| Resource | Link |
+| --- | --- |
+| Crate | [crates.io/crates/draviavemal-xml_rs](https://crates.io/crates/draviavemal-xml_rs) |
+| API docs | [docs.rs/draviavemal-xml_rs](https://docs.rs/draviavemal-xml_rs) |
+| Source & issues | [github.com/DraviaVemal/xml_rs](https://github.com/DraviaVemal/xml_rs) |
 
-```shell
-cargo add draviavemal-xml_rs
+## Requirements
+
+- Rust (2021 edition)
+- UTF-8 encoded XML input
+
+## Install
+
+<Steps>
+
+1. Add the crate to your project:
+
+   ```shell
+   cargo add draviavemal-xml_rs
+   ```
+
+2. Import the types you need:
+
+   ```rust
+   use draviavemal_xml_rs::{
+       XmlDeserializer, XmlSerializer, XmlDocument, XmlAttribute, XmlElementContentType,
+   };
+   ```
+
+</Steps>
+
+## Parse, read and serialize
+
+The three building blocks are
+[`XmlDeserializer`](/xml_rs/api-reference/#xmldeserializer) (XML → DOM),
+[`XmlDocument`](/xml_rs/api-reference/#xmldocument) (the tree) and
+[`XmlSerializer`](/xml_rs/api-reference/#xmlserializer) (DOM → XML).
+
+```rust
+use draviavemal_xml_rs::{XmlDeserializer, XmlSerializer};
+
+fn main() -> anyhow::Result<()> {
+    let xml = r#"<catalog xmlns:t="http://example.org/test">
+        <book id="bk101"><title>XML Basics</title></book>
+    </catalog>"#;
+
+    // Parse bytes into a document tree.
+    let mut document = XmlDeserializer::vec_to_xml_doc_tree(xml.as_bytes().to_vec())?;
+
+    // Read the root element.
+    let root_id = document.get_root_id();
+    let root = document.get_element(root_id)?;
+    println!("root tag: {}", root.get_tag()); // "catalog"
+
+    // Serialize back to XML bytes (round-trip safe).
+    let bytes = XmlSerializer::xml_tree_to_vec(&mut document)?;
+    println!("{}", String::from_utf8_lossy(&bytes));
+    Ok(())
+}
 ```
 
-</TabItem>
-</Tabs>
+<Aside type="note">
+Fallible operations return `anyhow::Result`. Use `?` in a function returning
+`anyhow::Result<()>`, or handle the `Err` explicitly.
+</Aside>
+
+## Read from / write to files
+
+```rust
+use draviavemal_xml_rs::{XmlDeserializer, XmlSerializer};
+
+let mut document = XmlDeserializer::file_to_xml_doc_tree("input.xml")?;
+XmlSerializer::xml_doc_tree_to_file(&mut document, "output.xml")?;
+```
+
+## Where to next
+
+- [Parsing](/xml_rs/guides/parsing/) — turn XML into a document tree.
+- [Navigating & querying](/xml_rs/guides/navigating/) — walk the DOM and find nodes.
+- [Building & editing](/xml_rs/guides/building/) — construct and modify documents.
+- [API Reference](/xml_rs/api-reference/) — the full public surface.

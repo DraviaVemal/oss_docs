@@ -5,9 +5,40 @@ export const sidebar = [
             {
                 label: "Getting Started",
                 link: "/getting-started"
+            }
+        ]
+    },
+    {
+        label: "Guides",
+        items: [
+            {
+                label: "Parsing",
+                link: "/guides/parsing"
             },
             {
-                label: "LICENSE",
+                label: "Navigating & Querying",
+                link: "/guides/navigating"
+            },
+            {
+                label: "Building & Editing",
+                link: "/guides/building"
+            }
+        ]
+    },
+    {
+        label: "Reference",
+        items: [
+            {
+                label: "API Reference",
+                link: "/api-reference"
+            }
+        ]
+    },
+    {
+        label: "About",
+        items: [
+            {
+                label: "License",
                 link: "/license"
             }
         ]

@@ -1,33 +1,150 @@
 ---
 title: Tauri Remote UI Plugin
-description: Plugin enables you to forward client UI to web browser with all tauri features.
+description: Forward a Tauri app's UI to a web browser and interact with it remotely while the native app keeps running.
 template: splash
-hero:
-  tagline: Tauri Remote UI Plugin
-  image:
-    file: ../../../../assets/houston.webp
-  actions:
-    - text: Document
-      link: /tauri-remote-ui/getting-started/
-      icon: right-arrow
-    - text: GitHub Repo
-      link: https://github.com/draviavemal/tauri-remote-ui
-      icon: external
-      variant: minimal
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+import logo from '../../../../assets/logo.svg';
 
-## Features
+<div class="oss-landing">
 
-<CardGrid stagger>
-	<Card title="UI/UX Development" icon="pencil">
-		Fast track UI/UX development with modern debug tool direct attachment.
-	</Card>
-	<Card title="Automate Test" icon="add-document">
-		Its not 100% Similar as the test browser will be different. But 99% more it covers from nothing.
-	</Card>
-	<Card title="Configure your host" icon="setting">
-		Allow you to configure the Tauri host settings.
-	</Card>
-</CardGrid>
+<section class="oss-hero">
+	<img class="oss-hero-logo" src={logo.src} alt="tauri-remote-ui logo" />
+	<p class="eyebrow">Tauri 2 plugin · Rust + npm</p>
+	<h1>Drive your Tauri app from any browser</h1>
+	<p class="lede">
+		<code>tauri-remote-ui</code> serves your app's existing frontend over an
+		HTTP/WebSocket server. A remote browser loads the same UI and transparently
+		bridges <code>invoke</code> calls and event listeners back to the running
+		native app — live, while the native window keeps running.
+	</p>
+	<div class="oss-hero-actions">
+		<a class="oss-btn primary" href="/tauri-remote-ui/getting-started/">Get started</a>
+		<a class="oss-btn" href="https://github.com/DraviaVemal/tauri-remote-ui" target="_blank" rel="noopener">View on GitHub</a>
+		<a class="oss-btn" href="https://crates.io/crates/tauri-remote-ui" target="_blank" rel="noopener">crates.io</a>
+		<a class="oss-btn" href="https://www.npmjs.com/package/tauri-remote-ui" target="_blank" rel="noopener">npm</a>
+	</div>
+</section>
+
+<section>
+	<h2>Features</h2>
+	<div class="oss-grid">
+		<article class="oss-card">
+			<h3>Faster UI/UX development</h3>
+			<p>
+				Open your app in a real browser and attach modern devtools,
+				responsive emulation and design tooling while the native backend
+				keeps running.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Browser-based E2E testing</h3>
+			<p>
+				Point Playwright, Cypress or any web testing tool at the remote URL
+				to exercise your real app without modifying it.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Transparent IPC bridge</h3>
+			<p>
+				<code>invoke</code> and <code>listen</code> automatically fall back
+				to a WebSocket transport when running outside the webview — your
+				frontend code stays the same.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Network access control</h3>
+			<p>
+				Bind to localhost, your local subnet, or anywhere — with per-peer
+				address filtering and a localhost-only default.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Latency tracking</h3>
+			<p>
+				A built-in ping/pong heartbeat surfaces live round-trip latency to
+				your frontend so you can monitor connection quality.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Drop-in npm package</h3>
+			<p>
+				Swap <code>@tauri-apps/api</code> imports for
+				<code>tauri-remote-ui/api/*</code> and you are ready for both desktop
+				and remote sessions.
+			</p>
+		</article>
+	</div>
+</section>
+
+<section>
+	<h2>Use cases</h2>
+	<div class="oss-grid">
+		<article class="oss-card">
+			<h3>Development debugging</h3>
+			<p>
+				Drive your app from a browser and attach full devtools without
+				modifying app logic.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>End-to-end testing</h3>
+			<p>
+				Exercise the real app with standard web automation tools such as
+				Playwright. UI matches the native webview most closely on Windows;
+				on other platforms expect up to ~10% rendering difference.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Remote access</h3>
+			<p>
+				Reach a local, closed-circuit hardware-connected application from
+				another device on the network.
+			</p>
+		</article>
+	</div>
+</section>
+
+<section>
+	<h2>Platform support</h2>
+
+	<div class="oss-platforms">
+
+	| Platform | Supported |
+	| --- | --- |
+	| Windows | ✅ |
+	| macOS | ✅ |
+	| Linux | ✅ |
+	| Android | ❌ |
+	| iOS | ❌ |
+
+	</div>
+
+	<Aside type="danger" title="Read this before exposing the server">
+	The plugin currently has **no authentication, authorization or TLS**. Anyone who
+	can reach the bound port can invoke any command your app exposes. Keep the
+	default localhost scope, or place the server behind your own auth/TLS layer.
+	See [Security](/tauri-remote-ui/security/) for the full model.
+	</Aside>
+</section>
+
+<section>
+	<h2>Next steps</h2>
+	<div class="oss-grid">
+		<a class="oss-card" href="/tauri-remote-ui/getting-started/">
+			<h3>Install &amp; run →</h3>
+			<p>
+				Add the crate and npm package, register the plugin and start a
+				session.
+			</p>
+		</a>
+		<a class="oss-card" href="/tauri-remote-ui/concepts/">
+			<h3>Understand the model →</h3>
+			<p>Learn how the bridge works end to end.</p>
+		</a>
+	</div>
+</section>
+
+</div>
+

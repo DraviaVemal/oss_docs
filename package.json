@@ -9,7 +9,8 @@
   "module": "node",
   "private": true,
   "scripts": {
-    "build": "cd docs && npx astro build && cd ../openxml-office && npx astro build && cd ../tauri-remote-ui && npx astro build && cd ../xml_rs && npx astro build"
+    "build": "cd docs && npx astro build && cd ../openxml-office && npx astro build && cd ../tauri-remote-ui && npx astro build && cd ../xml_rs && npx astro build && cd .. && node scripts/build-sitemap-index.mjs",
+    "postbuild": "node scripts/build-sitemap-index.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.12",

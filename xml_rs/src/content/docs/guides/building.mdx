@@ -1,0 +1,81 @@
+---
+title: Building & Editing
+description: Construct xml_rs documents from scratch, add elements, attributes, text and comments, then serialize.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+You can build a document programmatically and serialize it, or edit a parsed
+tree in place. Mutating methods end in `_mut` and most return the new node's
+[`NodeId`](/xml_rs/api-reference/#types).
+
+## Create a document and root
+
+```rust
+use draviavemal_xml_rs::{XmlDocument, XmlAttribute};
+
+let mut document = XmlDocument::new();
+
+let root_id = document.create_root_element_mut(
+    "root",
+    Some(vec![XmlAttribute::new("version".into(), "1.0".into())]),
+)?;
+```
+
+## Append children
+
+```rust
+let child_id = document.append_child_element_mut(
+    root_id,
+    "child",
+    Some(vec![XmlAttribute::new("id".into(), "child1".into())]),
+)?;
+```
+
+### Positioned inserts
+
+When element order matters, insert relative to a sibling tag instead of always
+appending:
+
+| Method | Inserts the new element… |
+| --- | --- |
+| `inser_child_element_after_last_tag_mut` | after the last child with the given local tag |
+| `inser_child_element_before_first_tag_mut` | before the first child with the given local tag |
+| `inser_child_element_after_last_tag_ns_mut` | after the last child with the given namespaced tag |
+| `inser_child_element_before_first_tag_ns_mut` | before the first child with the given namespaced tag |
+
+```rust
+let id = document.inser_child_element_before_first_tag_mut(
+    root_id, "header", "body", None,
+)?;
+```
+
+## Add text, comments and attributes
+
+```rust
+let element = document.get_element_mut(child_id)?;
+element.add_text_mut("Hello World")?;
+element.add_comments_mut("a note")?;
+element.add_attribute_mut(XmlAttribute::new("lang".into(), "en".into()))?;
+
+// Remove attributes
+element.remove_attribute_mut("lang");        // by local name
+element.remove_attribute_ns_mut("t:lang");   // by namespaced name
+element.clear_attribute_mut()?;              // remove all
+```
+
+## Serialize
+
+```rust
+use draviavemal_xml_rs::XmlSerializer;
+
+let bytes = XmlSerializer::xml_tree_to_vec(&mut document)?;
+// or write straight to disk
+XmlSerializer::xml_doc_tree_to_file(&mut document, "out.xml")?;
+```
+
+<Aside type="note">
+Serialization is **round-trip safe**: original namespace prefixes and attribute
+order are preserved, and comments are re-emitted. Text content is XML-escaped
+automatically.
+</Aside>

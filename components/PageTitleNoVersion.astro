@@ -1,10 +1,12 @@
 ---
-import VersionNotice from "./VersionNotice.astro";
-
+/**
+ * PageTitle override for single-version docs sites (no `starlight-versions`).
+ * Renders the page `<h1>` (important for SEO) without the version notice, so it
+ * can be used by projects that do not register the versions plugin.
+ */
 const { entry } = (Astro.locals as any).starlightRoute;
 ---
 
-<VersionNotice />
 <h1 id="_top" data-page-title>{entry.data.title}</h1>
 
 <style>

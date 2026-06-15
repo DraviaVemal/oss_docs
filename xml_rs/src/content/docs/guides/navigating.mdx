@@ -1,0 +1,88 @@
+---
+title: Navigating & Querying
+description: Walk the xml_rs DOM tree, read attributes and find elements by tag or attribute value.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Every node in an [`XmlDocument`](/xml_rs/api-reference/#xmldocument) has a
+[`NodeId`](/xml_rs/api-reference/#types) (a `u32`). You start from the root and
+look up elements by id.
+
+## Start at the root
+
+```rust
+let root_id = document.get_root_id();
+let root = document.get_element(root_id)?;
+println!("{}", root.get_tag());     // local name, e.g. "catalog"
+println!("{}", root.get_tag_ns());  // namespaced, e.g. "t:catalog"
+```
+
+## Find children
+
+```rust
+// First child with a given local tag → Option<NodeId>
+if let Some(title_id) = document.find_first_child(book_id, "title")? {
+    let title = document.get_element(title_id)?;
+}
+
+// All children with a given tag → Vec<NodeId>
+if let Some(book_ids) = document.find_all_child(root_id, "book")? {
+    println!("{} books", book_ids.len());
+}
+```
+
+## Find by attribute
+
+```rust
+// First descendant whose attribute matches → Option<NodeId>
+if let Some(book_id) = document.find_first_by_attribute(root_id, "id", "bk101")? {
+    let book = document.get_element(book_id)?;
+}
+```
+
+## Read attributes
+
+```rust
+let element = document.get_element(book_id)?;
+
+// By local name
+if let Some(attr) = element.get_attribute("id") {
+    println!("{}", attr.get_value());
+}
+
+// By namespaced name, e.g. "t:lang"
+if let Some(attr) = element.get_attribute_ns("t:lang") {
+    println!("{}", attr.get_value());
+}
+```
+
+## Read content (text, elements, comments)
+
+An element's children are a list of
+[`XmlElementContentType`](/xml_rs/api-reference/#xmlelementcontenttype) values.
+Match on the variant you care about:
+
+```rust
+use draviavemal_xml_rs::XmlElementContentType;
+
+if let Some(contents) = element.get_child_contents() {
+    for content in contents {
+        match content {
+            XmlElementContentType::Text(text) => println!("text: {text}"),
+            XmlElementContentType::Comment(c) => println!("comment: {c}"),
+            XmlElementContentType::Element((id, tag, _ns)) => {
+                println!("child <{tag}> id={id}");
+            }
+        }
+    }
+}
+
+// Count only child elements
+let child_count = element.get_child_element_count()?;
+```
+
+<Aside type="tip">
+`get_element` returns an immutable reference for reading. Use
+[`get_element_mut`](/xml_rs/api-reference/#xmldocument) when you intend to edit.
+</Aside>

@@ -1,0 +1,139 @@
+---
+title: Example — Counter App
+description: A complete, minimal Tauri app wired for remote UI with start/stop controls and live events.
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+This walkthrough mirrors the [`examples/tauri-app`](https://github.com/DraviaVemal/tauri-remote-ui/tree/main/examples/tauri-app)
+in the repository: a counter you can drive from the desktop window **or** a
+remote browser, with the count pushed live to every connected client.
+
+## Backend (Rust)
+
+```rust title="src-tauri/src/lib.rs"
+use serde_json::json;
+use std::sync::{Arc, RwLock};
+use tauri::{AppHandle, Manager};
+use tauri_remote_ui::{EmitterExt, RemoteUiConfig, RemoteUiExt};
+
+#[tauri::command]
+async fn enable_server(app: AppHandle) -> String {
+    match app
+        .start_remote_ui(RemoteUiConfig::default().set_port(Some(9090)))
+        .await
+    {
+        Ok(()) => "Server started.".into(),
+        Err(err) => format!("Server error {err:?}"),
+    }
+}
+
+#[tauri::command]
+async fn disable_server(app: AppHandle) -> String {
+    match app.stop_remote_ui().await {
+        Ok(()) => "Server stopped.".into(),
+        Err(err) => format!("Server error {err:?}"),
+    }
+}
+
+#[tauri::command]
+async fn increment(app: AppHandle) {
+    app.state::<Arc<RwLock<Counter>>>().write().unwrap().now += 1;
+    let counter = app.state::<Arc<RwLock<Counter>>>().read().unwrap().now;
+    // EmitterExt::emit reaches both the native window and remote clients.
+    app.get_webview_window("main")
+        .unwrap()
+        .emit("counter", json!({ "result": counter }))
+        .await
+        .unwrap();
+}
+
+pub struct Counter {
+    pub now: i32,
+}
+
+pub fn run() {
+    tauri::Builder::default()
+        .plugin(tauri_remote_ui::init())
+        .invoke_handler(tauri::generate_handler![
+            increment,
+            enable_server,
+            disable_server,
+        ])
+        .setup(|app| {
+            app.manage(Arc::new(RwLock::new(Counter { now: 0 })));
+            Ok(())
+        })
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+```
+
+## Frontend (React)
+
+```tsx title="src/App.tsx"
+import React, { useEffect, useState } from "react";
+import { invoke } from "tauri-remote-ui/api/core";
+import { listen, latencyMs } from "tauri-remote-ui/api/event";
+
+const App: React.FC = () => {
+  const [counter, setCounter] = useState(0);
+  const [latency, setLatency] = useState(latencyMs);
+
+  // True in the desktop webview, false when loaded via the remote server.
+  const isDesktop =
+    typeof window !== "undefined" &&
+    Boolean((window as any).__TAURI_INTERNALS__ || (window as any).__TAURI__);
+
+  useEffect(() => {
+    const id = setInterval(() => setLatency(latencyMs), 500);
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    const unlistenPromise = listen<{ result: number }>("counter", (e) => {
+      setCounter(e.payload.result);
+    });
+    return () => {
+      unlistenPromise.then((unlisten) => unlisten());
+    };
+  }, []);
+
+  const call = (cmd: string) => invoke(cmd).catch(console.error);
+
+  return (
+    <div>
+      <h1>tauri-remote-ui</h1>
+      <p>Counter: {counter}</p>
+      <button onClick={() => call("increment")}>Increment</button>
+
+      {isDesktop ? (
+        <button onClick={() => call("enable_server")}>Start remote UI</button>
+      ) : (
+        <button onClick={() => call("disable_server")}>Stop remote UI</button>
+      )}
+
+      <p>Latency: {latency} ms</p>
+    </div>
+  );
+};
+
+export default App;
+```
+
+<Aside type="tip">
+The same component renders correctly in both environments. On the desktop the
+**Start** button is shown; loaded remotely it shows **Stop**, because the
+`__TAURI_INTERNALS__` global is absent in the browser.
+</Aside>
+
+## Try it
+
+1. Run the app and click **Start remote UI** in the desktop window.
+2. The native window shows the blocking screen with reachable URLs.
+3. Open `http://localhost:9090` (or your LAN URL) in a browser.
+4. Click **Increment** in either place — the counter updates everywhere live.
+5. Close the browser tab to hit the disconnect screen, or click **Stop**.
+
+See the full example, including styling and the exit/disconnect flows, in the
+[repository](https://github.com/DraviaVemal/tauri-remote-ui/tree/main/examples/tauri-app).

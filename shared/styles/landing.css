@@ -1,0 +1,209 @@
+/*
+ * Landing-page (Starlight `template: splash`) styling for the project docs
+ * sites (openxml-office, tauri-remote-ui, xml_rs).
+ *
+ * This intentionally mirrors the UI of the docs hub landing page
+ * (`docs/src/pages/index.scss`): a centred hero with an eyebrow, oversized
+ * title, lede and pill buttons, followed by grids of rounded, softly shadowed
+ * cards. Colours are expressed through Starlight theme variables so the same
+ * markup looks correct in both light and dark mode and follows the shared
+ * brand-blue accent palette.
+ */
+
+.oss-landing {
+	max-width: 1100px;
+	margin: 0 auto;
+	padding: 1rem 0 3rem;
+}
+
+.oss-landing section {
+	margin-bottom: 3.5rem;
+}
+
+.oss-landing h2 {
+	font-size: 1.9rem;
+	margin-bottom: 1.25rem;
+	color: var(--sl-color-white);
+}
+
+.oss-landing a {
+	color: var(--sl-color-text-accent);
+	text-decoration: none;
+}
+
+.oss-landing a:hover {
+	text-decoration: underline;
+}
+
+/* Hero ------------------------------------------------------------------- */
+.oss-hero {
+	text-align: center;
+	padding: 1.5rem 0 0.5rem;
+}
+
+.oss-hero .oss-hero-logo {
+	width: 88px;
+	height: auto;
+	margin: 0 auto 1.25rem;
+	border-radius: 0;
+}
+
+.oss-hero .eyebrow {
+	text-transform: uppercase;
+	letter-spacing: 0.12em;
+	font-size: 0.85rem;
+	color: var(--sl-color-gray-3);
+	margin-bottom: 0.75rem;
+}
+
+.oss-hero h1 {
+	font-size: clamp(2.2rem, 6vw, 3.6rem);
+	line-height: 1.1;
+	margin-bottom: 1rem;
+	color: var(--sl-color-white);
+}
+
+.oss-hero .lede {
+	max-width: 720px;
+	margin: 0 auto 1.75rem;
+	font-size: 1.15rem;
+	color: var(--sl-color-gray-2);
+}
+
+.oss-hero-actions {
+	display: flex;
+	gap: 0.75rem;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+/* Buttons ---------------------------------------------------------------- */
+.oss-btn {
+	display: inline-block;
+	padding: 0.65rem 1.2rem;
+	border-radius: 0.6rem;
+	border: 1px solid var(--sl-color-gray-5);
+	background: var(--sl-color-gray-6);
+	color: var(--sl-color-white) !important;
+	font-weight: 600;
+	text-decoration: none !important;
+	transition:
+		transform 0.08s ease,
+		box-shadow 0.15s ease;
+}
+
+.oss-btn:hover {
+	transform: translateY(-1px);
+	box-shadow: var(--sl-shadow-md);
+}
+
+.oss-btn.primary {
+	background: var(--sl-color-accent);
+	border-color: var(--sl-color-accent);
+	color: var(--sl-color-white) !important;
+}
+
+.oss-btn.primary:hover {
+	background: var(--sl-color-accent-high);
+}
+
+/* Card grids ------------------------------------------------------------- */
+.oss-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: 1.25rem;
+}
+
+.oss-card {
+	background: var(--sl-color-gray-6);
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.8rem;
+	padding: 1.5rem;
+	box-shadow: var(--sl-shadow-sm);
+	transition:
+		transform 0.1s ease,
+		box-shadow 0.15s ease;
+}
+
+.oss-card h3 {
+	font-size: 1.25rem;
+	margin-bottom: 0.5rem;
+	color: var(--sl-color-white);
+}
+
+.oss-card p {
+	margin: 0;
+	font-size: 1rem;
+	color: var(--sl-color-gray-2);
+}
+
+.oss-card p + p {
+	margin-top: 0.75rem;
+}
+
+/* Link cards lift on hover, like the hub's project/standard cards. */
+a.oss-card {
+	display: block;
+	color: inherit !important;
+	text-decoration: none !important;
+}
+
+a.oss-card:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--sl-shadow-md);
+}
+
+a.oss-card h3 {
+	color: var(--sl-color-text-accent);
+}
+
+/* Chips ------------------------------------------------------------------ */
+.oss-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: 1rem;
+}
+
+.oss-chip {
+	display: inline-block;
+	padding: 0.3rem 0.7rem;
+	border-radius: 999px;
+	font-size: 0.85rem;
+	font-weight: 600;
+	border: 1px solid var(--sl-color-gray-5);
+	background: var(--sl-color-gray-6);
+	color: var(--sl-color-gray-1) !important;
+	text-decoration: none !important;
+}
+
+.oss-chip:hover {
+	border-color: var(--sl-color-accent);
+}
+
+.oss-chip.primary {
+	background: var(--sl-color-accent);
+	border-color: var(--sl-color-accent);
+	color: var(--sl-color-white) !important;
+}
+
+/* Support / call-out panel ---------------------------------------------- */
+.oss-panel {
+	background: var(--sl-color-gray-6);
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.8rem;
+	padding: 1.75rem;
+	text-align: center;
+}
+
+.oss-panel p {
+	max-width: 720px;
+	margin: 0 auto;
+	color: var(--sl-color-gray-2);
+}
+
+/* Simple feature table inside the landing flow. */
+.oss-landing .oss-platforms {
+	max-width: 520px;
+	margin: 0 auto;
+}

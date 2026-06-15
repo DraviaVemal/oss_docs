@@ -1,6 +1,128 @@
 .release-container {
-    li:not(:last-child) {
-        border-bottom: 1px solid #000000;
-        margin-bottom: 1em;
-    }
+	max-width: 860px;
+	margin: 0 auto;
+	padding: 2.5rem 1.5rem 4rem;
+
+	a {
+		color: var(--accent);
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+}
+
+.release-head {
+	margin-bottom: 2rem;
+
+	h1 {
+		font-size: clamp(1.9rem, 5vw, 2.6rem);
+		margin-bottom: 0.4rem;
+	}
+
+	.subtitle {
+		color: rgb(var(--gray-dark));
+		font-size: 1.1rem;
+	}
+}
+
+.release-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.release {
+	background: #fff;
+	border: 1px solid rgba(var(--gray), 0.18);
+	border-radius: 0.8rem;
+	padding: 1.5rem;
+	margin-bottom: 1.5rem;
+	box-shadow: 0 1px 3px rgba(var(--gray), 0.12);
+
+	h2 {
+		font-size: 1.4rem;
+		margin: 0.5rem 0 0.75rem;
+	}
+
+	.body {
+		font-size: 0.98rem;
+		color: rgb(var(--gray-dark));
+
+		:global(h1),
+		:global(h2),
+		:global(h3) {
+			font-size: 1.1rem;
+			margin: 1rem 0 0.4rem;
+		}
+		:global(ul) {
+			padding-left: 1.4rem;
+		}
+		:global(code) {
+			font-family: var(--font-mono, monospace);
+			background: rgba(var(--gray-light), 0.6);
+			padding: 0.1rem 0.35rem;
+			border-radius: 0.3rem;
+			font-size: 0.9em;
+		}
+		:global(pre) {
+			overflow-x: auto;
+			padding: 0.75rem;
+			background: rgba(var(--gray-light), 0.5);
+			border-radius: 0.5rem;
+		}
+	}
+}
+
+.release-meta {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+	font-size: 0.9rem;
+
+	.repo {
+		font-family: var(--font-mono, monospace);
+		font-weight: 700;
+	}
+
+	.tag {
+		font-family: var(--font-mono, monospace);
+		color: rgb(var(--gray-dark));
+	}
+
+	.date {
+		color: rgb(var(--gray));
+		margin-left: auto;
+	}
+}
+
+.badge {
+	display: inline-block;
+	padding: 0.1rem 0.55rem;
+	border-radius: 999px;
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+.badge.stable {
+	background: #e6f7ec;
+	color: #1a7f43;
+}
+.badge.alpha {
+	background: #fff3e0;
+	color: #b45309;
+}
+
+.release-link {
+	display: inline-block;
+	margin-top: 0.75rem;
+	font-weight: 600;
+}
+
+.empty {
+	text-align: center;
+	color: rgb(var(--gray));
+	padding: 2rem 0;
 }

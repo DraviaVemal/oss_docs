@@ -1,0 +1,115 @@
+---
+title: Security
+description: Understand origin scopes, peer filtering and the safety model of the remote UI server.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+The remote UI server gives a browser full control of your running app. Before
+exposing it beyond localhost, understand the scope controls below.
+
+<Aside type="danger" title="No authentication, authorization or encryption">
+The plugin ships with **no login, no API key, no TLS and no rate limit**. Anyone
+who can reach the bound port can invoke **any** Tauri command your app exposes.
+The only access control is the network-scope filter
+([`OriginType`](#origin-scopes)) applied to the peer IP at connect time.
+
+Until built-in auth/TLS lands (see [Roadmap](#roadmap)), only expose the server
+beyond localhost behind your own auth layer — a mutual-TLS reverse proxy,
+[WireGuard](https://www.wireguard.com/), [Tailscale](https://tailscale.com/),
+[Cloudflare Access](https://www.cloudflare.com/zero-trust/products/access/) or
+similar.
+</Aside>
+
+## Origin scopes
+
+The [`OriginType`](/tauri-remote-ui/api/rust/#origintype) you pass to
+[`set_allowed_origin`](/tauri-remote-ui/configuration/#set_allowed_origin)
+controls **who** may connect. It governs both the bind address and a per-request
+peer-address allow-list.
+
+| Scope | Binds to | Who can connect |
+| --- | --- | --- |
+| `Localhost` *(default)* | `127.0.0.1` | Only the local machine. Most secure. |
+| `Subnet` | `0.0.0.0` | Loopback **plus** peers within one of this host's local interface subnets. |
+| `Any` | `0.0.0.0` | Any host that can route to this machine. No peer filtering. |
+
+### `Localhost`
+
+Binds to `127.0.0.1`. Only processes on the same machine can connect. This is
+the default and the right choice for attaching browser devtools or running local
+end-to-end tests.
+
+### `Subnet`
+
+Binds to `0.0.0.0` but rejects any peer whose address is not within one of the
+host's **bounded** local subnets. Use it to test from another device (a phone or
+a second laptop) on the same Wi-Fi/LAN.
+
+The subnet check ignores entries that would match everyone and offer no real
+restriction:
+
+- unspecified interface IPs (`0.0.0.0`, `::`),
+- zero netmasks (a `/0` default-route entry), and
+- IPv6 link-local addresses (`fe80::/10`).
+
+Loopback is always allowed so you can still connect from the host itself.
+IPv4-mapped IPv6 peers (`::ffff:a.b.c.d`) are matched against IPv4 subnets.
+
+### `Any`
+
+Binds to `0.0.0.0` with **no** peer filtering. Only use this on trusted,
+isolated networks (for example a dedicated CI runner network).
+
+## Peer-filtering audit log
+
+Every connection decision is logged so you can audit why a peer was accepted or
+rejected:
+
+- accepted/denied peers are logged at `debug` with the active scope, and
+- on start, the server logs CIDR-style descriptions of each trusted local
+  subnet.
+
+Initialize a logger in your host app (e.g.
+[`tauri-plugin-log`](https://github.com/tauri-apps/tauri-plugin-log) or
+[`env_logger`](https://crates.io/crates/env_logger)) and run with the crate's
+log target enabled to see every accept/reject decision with the peer IP and the
+active scope:
+
+```shell
+RUST_LOG=tauri_remote_ui=debug
+```
+
+## Command-injection hardening
+
+When a remote `invoke` is executed, the host runs it inside the webview via
+`window.eval`. Every interpolated value — the command name, arguments and
+options — is **JSON-encoded first**, so untrusted strings arriving over the
+socket cannot escape their JavaScript string context. This is handled for you;
+no action required.
+
+## Recommendations
+
+- Keep the default `Localhost` scope unless you need remote access; prefer
+  `Subnet` over `Any` when testing from another device.
+- Run the server only while you need it — stop it with
+  [`stop_remote_ui`](/tauri-remote-ui/api/rust/#remoteuiext) when done.
+- Use [`disable_info_url`](/tauri-remote-ui/configuration/#disable_info_url) if
+  you do not want the `/remote_ui_info` endpoint exposed.
+- For any non-loopback exposure, front the server with your own auth and TLS.
+
+## Roadmap
+
+Authentication and transport security are planned but **not yet available**. The
+project's roadmap includes:
+
+- An authentication system for remote access (user id / password).
+- SSO integration.
+- SSL/TLS certificate integration.
+- Dynamic port mapping.
+- Multiple-window support in the remote UI.
+- Configurable starting window name.
+
+Track progress and discuss priorities on the
+[GitHub repository](https://github.com/DraviaVemal/tauri-remote-ui) and in
+[Discussions](https://github.com/DraviaVemal/tauri-remote-ui/discussions).

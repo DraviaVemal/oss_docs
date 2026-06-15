@@ -1,0 +1,112 @@
+---
+title: Concepts
+description: How the remote UI bridge works — the server, the WebSocket transport, the IPC bridge and the host screens.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+This page explains the moving parts so you can reason about behaviour, security
+and debugging.
+
+## The big picture
+
+When you call `start_remote_ui`, the plugin starts a small HTTP server inside
+your Tauri process. That server:
+
+- serves your **built frontend assets** (the same bundle the native webview
+  loads), and
+- upgrades a `/remote_ui_ws` connection to a **WebSocket** used as an IPC bridge.
+
+A remote browser loads the served frontend. Because the page is now running
+outside the Tauri webview, the `tauri-remote-ui` shims detect the missing native
+IPC and route `invoke` / `listen` over the WebSocket back to the host, which
+executes them against the real webview window.
+
+```
+┌──────────────────────────┐         ┌─────────────────────────────┐
+│  Remote browser / tester │         │   Tauri host application    │
+│                          │         │                             │
+│  your frontend bundle    │  HTTP   │  RpcServer (hyper)          │
+│  tauri-remote-ui shims   │ <─────> │   ├─ serves assets          │
+│                          │   WS    │   ├─ /remote_ui_ws bridge   │
+│  invoke() ───────────────┼────────►│   └─ runs cmд in webview    │
+│  listen() ◄──────────────┼─────────┤  EmitterExt::emit           │
+└──────────────────────────┘         └─────────────────────────────┘
+```
+
+## The IPC bridge
+
+### `invoke`
+
+`tauri-remote-ui/api/core#invoke` first checks for a native Tauri runtime
+(`window.__TAURI_INTERNALS__`). When present (desktop), it delegates to the real
+`@tauri-apps/api` `invoke`. Otherwise it:
+
+1. opens the WebSocket (once) and waits for it to be ready,
+2. sends a JSON message `{ id, cmd, args, options }` with a monotonic id,
+3. resolves the returned promise when the matching response arrives, or rejects
+   after a **30-second timeout**.
+
+On the host, the request is executed against the primary webview window and the
+result (or error) is emitted back over the socket.
+
+<Aside type="note" title="Why it is safe">
+The host JSON-encodes every interpolated value (`cmd`, `args`, `options`) before
+running the invoke inside the webview, so untrusted strings from the socket
+cannot break out of the JavaScript string context.
+</Aside>
+
+### `listen`
+
+`tauri-remote-ui/api/event#listen` behaves the same way: native listener on
+desktop, WebSocket-backed `EventTarget` in the browser. To make an event reach
+remote clients, emit it with [`EmitterExt`](/tauri-remote-ui/api/rust/#emitterext)
+— its async `emit` sends over the socket *and* through Tauri's normal event
+system.
+
+## Connection lifecycle
+
+- **Handshake** — on open, the client sends `version:<npm version>`; the host
+  replies with its crate version. A mismatch logs a warning (behaviour is
+  undefined across mismatched releases).
+- **Heartbeat** — the client sends `ping` every 10 seconds; the host replies
+  `pong`. Round-trip latency is tracked and exposed as
+  [`latencyMs`](/tauri-remote-ui/api/javascript/#latencyms); values above 200 ms
+  log a warning.
+- **Disconnect** — when the socket closes, the browser navigates to
+  `/remote_ui_disconnect` (the disconnect screen).
+
+## Host screens
+
+While a session is active, the native window shows one of two things:
+
+- **Blocking screen** (default) — replaces the app UI with a notice listing
+  every reachable URL plus the info URL. Restart the app or stop the server to
+  resume. Customise it with
+  [`set_custom_blocking_ui`](/tauri-remote-ui/configuration/#set_custom_blocking_ui).
+- **Application UI kept active** — if you call
+  [`enable_application_ui`](/tauri-remote-ui/configuration/#enable_application_ui),
+  the native window stays usable and navigates alongside the remote client
+  instead of being blocked.
+
+## HTTP endpoints
+
+| Path | Purpose |
+| --- | --- |
+| `/` (and your asset paths) | Serves the built frontend bundle. |
+| `/remote_ui_ws` | WebSocket upgrade for the IPC bridge. |
+| `/remote_ui_info` | Connection info endpoint (disable with [`disable_info_url`](/tauri-remote-ui/configuration/#disable_info_url)). |
+| `/remote_ui_disconnect` | Disconnect screen the browser is sent to on close. |
+
+## Where assets come from
+
+The server serves static assets from, in order of preference:
+
+1. the [`bundle_path`](/tauri-remote-ui/configuration/#set_bundle_path) you set,
+2. otherwise the Tauri-configured `frontendDist`,
+3. falling back to `../dist`.
+
+<Aside type="caution">
+`frontendDist` must be a **local path**. If it is configured as a remote URL the
+server returns an error ([`InvalidFrontendDist`](/tauri-remote-ui/api/rust/#error)).
+</Aside>
