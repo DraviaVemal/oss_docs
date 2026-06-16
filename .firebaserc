@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "dravia-prod"
+  },
+  "targets": {
+    "dravia-prod": {
+      "hosting": {
+        "alpha": [
+          "dravia-docs-alpha"
+        ],
+        "stable": [
+          "dravia-docs"
+        ]
+      }
+    }
   }
 }

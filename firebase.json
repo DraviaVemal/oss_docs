@@ -1,22 +1,44 @@
 {
-  "hosting": {
-    "public": "dist",
-    "site": "dravia-docs",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "headers": [
-      {
-        "source": "/",
-        "headers": [
-          {
-            "key": "Content-Security-Policy",
-            "value": "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.googlesyndication.com; object-src 'none';"
-          }
-        ]
-      }
-    ]
-  }
+  "hosting": [
+    {
+      "target": "alpha",
+      "public": "dist",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "headers": [
+        {
+          "source": "/",
+          "headers": [
+            {
+              "key": "Content-Security-Policy",
+              "value": "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.googlesyndication.com; object-src 'none';"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "target": "stable",
+      "public": "dist",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "headers": [
+        {
+          "source": "/",
+          "headers": [
+            {
+              "key": "Content-Security-Policy",
+              "value": "default-src 'self'; script-src 'self' https://www.googletagmanager.com https://www.googlesyndication.com; object-src 'none';"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
