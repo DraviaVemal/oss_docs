@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export interface ReleaseItem {
     repo: string;
     url: string;
@@ -24,12 +22,14 @@ export const releaseFeed = async (): Promise<ReleaseItem[]> => {
     for (const repo of repos) {
         const url = `https://api.github.com/repos/DraviaVemal/${repo}/releases`;
         try {
-            const response = await axios.get(url, { headers });
-            if (response.status !== 200 || !Array.isArray(response.data)) {
+            const response = await fetch(url, { headers });
+            if (!response.ok) {
                 console.warn(`Skipping releases for ${repo}: HTTP ${response.status}`);
                 continue;
             }
-            for (const release of response.data) {
+            const releases = await response.json();
+            if (!Array.isArray(releases)) continue;
+            for (const release of releases) {
                 result.push({
                     repo,
                     url: release.html_url,
@@ -41,7 +41,6 @@ export const releaseFeed = async (): Promise<ReleaseItem[]> => {
                 });
             }
         } catch (err) {
-            // Don't fail the whole build if GitHub is unreachable or rate-limited.
             const message = err instanceof Error ? err.message : String(err);
             console.warn(`Failed to fetch releases for ${repo}: ${message}`);
         }

@@ -2,6 +2,7 @@ import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
+import rehypeExternalLinks from 'rehype-external-links';
 import { sidebar } from "./sidebar";
 
 export default defineConfig({
@@ -12,6 +13,11 @@ export default defineConfig({
 	prefetch: true,
 	server: {
 		host: "0.0.0.0",
+	},
+	markdown: {
+		rehypePlugins: [
+			[rehypeExternalLinks, { target: "_blank", rel: ["noopener", "noreferrer"] }],
+		],
 	},
 	vite: {
 		css: {
