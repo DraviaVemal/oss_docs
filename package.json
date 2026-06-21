@@ -9,7 +9,7 @@
   "module": "node",
   "private": true,
   "scripts": {
-    "build": "cd docs && npx astro build && cd ../openxml-office && npx astro build && cd ../tauri-remote-ui && npx astro build && cd ../xml_rs && npx astro build && cd .. && node scripts/build-sitemap-index.mjs",
+    "build": "cd docs && npx astro build && cd ../openxml-office && npx astro build && cd ../tauri-remote-ui && npx astro build && cd ../xml_rs && npx astro build",
     "postbuild": "node scripts/build-sitemap-index.mjs"
   },
   "dependencies": {
@@ -19,7 +19,6 @@
     "@astrojs/starlight-tailwind": "^4.0.1",
     "@tailwindcss/vite": "^4.1.7",
     "astro": "^5.6.1",
-    "axios": "^1.12.2",
     "marked": "^16.4.0",
     "sharp": "^0.32.5",
     "starlight-versions": "^0.5.4",
@@ -29,6 +28,7 @@
     "astro": "^5.6.1",
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.6",
+    "rehype-external-links": "^3.0.0",
     "sass-embedded": "^1.93.2",
     "typescript": "^5.9.2",
     "vite": "^7.1.7"
