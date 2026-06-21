@@ -1,5 +1,130 @@
 ---
-import Default from "@astrojs/starlight/components/ThemeSelect.astro";
 ---
 
-<Default><slot /></Default>
+<button
+  class="theme-toggle"
+  type="button"
+  aria-label="Toggle color theme"
+  aria-pressed="false"
+  title="Toggle color theme"
+>
+  <svg
+    class="theme-icon theme-icon-sun"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    width="20"
+    height="20"
+  >
+    <circle cx="12" cy="12" r="4.5" fill="currentColor"></circle>
+    <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="12" y1="2" x2="12" y2="5"></line>
+      <line x1="12" y1="19" x2="12" y2="22"></line>
+      <line x1="2" y1="12" x2="5" y2="12"></line>
+      <line x1="19" y1="12" x2="22" y2="12"></line>
+      <line x1="4.5" y1="4.5" x2="6.6" y2="6.6"></line>
+      <line x1="17.4" y1="17.4" x2="19.5" y2="19.5"></line>
+      <line x1="4.5" y1="19.5" x2="6.6" y2="17.4"></line>
+      <line x1="17.4" y1="6.6" x2="19.5" y2="4.5"></line>
+    </g>
+  </svg>
+  <svg
+    class="theme-icon theme-icon-moon"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    width="20"
+    height="20"
+  >
+    <path
+      fill="currentColor"
+      d="M20.742 13.045A8.088 8.088 0 0 1 12.957 4a8.082 8.082 0 0 0 1.6 15.967 8.082 8.082 0 0 0 6.185-6.922z"
+    ></path>
+  </svg>
+</button>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    color: var(--sl-color-text-accent, var(--sl-color-white));
+    transition:
+      background-color 0.15s ease,
+      border-color 0.15s ease,
+      transform 0.08s ease;
+  }
+
+  .theme-toggle:hover {
+    background: var(--sl-color-gray-6);
+    border-color: var(--sl-color-accent);
+  }
+
+  .theme-toggle:active {
+    transform: translateY(1px);
+  }
+
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+
+  .theme-icon {
+    display: none;
+  }
+
+  :global(:root[data-theme="light"]) .theme-icon-moon {
+    display: block;
+  }
+
+  :global(:root[data-theme="dark"]) .theme-icon-sun {
+    display: block;
+  }
+</style>
+
+<script>
+  const STARLIGHT_THEME_STORAGE_KEY = "starlight-theme";
+  const documentRoot = document.documentElement;
+  const themeToggleButtons =
+    document.querySelectorAll<HTMLButtonElement>(".theme-toggle");
+
+  const readActiveTheme = (): "light" | "dark" =>
+    documentRoot.dataset.theme === "dark" ? "dark" : "light";
+
+  const syncThemeButtonState = () => {
+    const isDarkActive = readActiveTheme() === "dark";
+    themeToggleButtons.forEach((themeButton) => {
+      themeButton.setAttribute("aria-pressed", String(isDarkActive));
+      themeButton.setAttribute(
+        "aria-label",
+        isDarkActive ? "Switch to light theme" : "Switch to dark theme",
+      );
+    });
+  };
+
+  syncThemeButtonState();
+
+  const themeAttributeObserver = new MutationObserver(syncThemeButtonState);
+  themeAttributeObserver.observe(documentRoot, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
+
+  themeToggleButtons.forEach((themeButton) => {
+    themeButton.addEventListener("click", () => {
+      const nextTheme = readActiveTheme() === "dark" ? "light" : "dark";
+      documentRoot.dataset.theme = nextTheme;
+      try {
+        localStorage.setItem(STARLIGHT_THEME_STORAGE_KEY, nextTheme);
+      } catch (localStorageError) {
+        void localStorageError;
+      }
+      syncThemeButtonState();
+    });
+  });
+</script>

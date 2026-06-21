@@ -7,15 +7,19 @@ import {
   getVersionURL,
 } from "../node_modules/starlight-versions/libs/versions";
 
+const { entry } = (Astro.locals as any).starlightRoute;
+
 const pageVersion = getVersionFromSlug(
   starlightVersionsConfig,
   starlightConfig,
-  (Astro.locals as any).starlightRoute.entry.slug
+  entry.slug
 );
+
+const isLandingPage = entry.data.template === "splash";
 ---
 
 {
-  pageVersion && (
+  pageVersion && !isLandingPage && (
     <p>
       <span>
         This content is for{" "}

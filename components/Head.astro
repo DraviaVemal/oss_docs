@@ -7,6 +7,21 @@ const { head } = (Astro.locals as any).starlightRoute;
     <Tag {...attrs} set:html={content} />
   ))
 }
+
+<link
+  rel="preload"
+  href="/fonts/atkinson-regular.woff"
+  as="font"
+  type="font/woff"
+  crossorigin
+/>
+<link
+  rel="preload"
+  href="/fonts/atkinson-bold.woff"
+  as="font"
+  type="font/woff"
+  crossorigin
+/>
 <script is:inline>
   window.dataLayer = window.dataLayer || [];
   function gtag() {
@@ -34,7 +49,7 @@ const { head } = (Astro.locals as any).starlightRoute;
   if (
     location.hostname !== "localhost" &&
     location.hostname !== "127.0.0.1" &&
-    location.hostname !== "docs.draviavemal.com"
+    location.hostname !== "docs.draviavemal.com" &&
     location.hostname !== "docs-alpha.draviavemal.com"
   ) {
     location.href = "https://docs.draviavemal.com";

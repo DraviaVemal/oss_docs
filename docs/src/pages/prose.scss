@@ -11,7 +11,7 @@
 
 	.subtitle {
 		font-size: 1.15rem;
-		color: rgb(var(--gray-dark));
+		color: var(--text);
 		margin-bottom: 2rem;
 	}
 
@@ -44,7 +44,7 @@
 
 	code {
 		font-family: var(--font-mono, monospace);
-		background: rgba(var(--gray-light), 0.6);
+		background: var(--surface-2);
 		padding: 0.1rem 0.35rem;
 		border-radius: 0.3rem;
 		font-size: 0.9em;
@@ -60,10 +60,11 @@
 	td {
 		text-align: left;
 		padding: 0.6rem 0.75rem;
-		border: 1px solid rgba(var(--gray), 0.25);
+		border: 1px solid var(--border-strong);
 		vertical-align: top;
 	}
 	th {
-		background: rgba(var(--gray-light), 0.5);
+		background: var(--surface-2);
 	}
 }
+

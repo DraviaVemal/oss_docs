@@ -5,19 +5,19 @@ import Header from "../components/Header.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 
 interface Props {
-    title?: string;
-    description?: string;
-    keywords?: string[];
-    type?: "website" | "article";
-    noindex?: boolean;
+  title?: string;
+  description?: string;
+  keywords?: string[];
+  type?: "website" | "article";
+  noindex?: boolean;
 }
 
 const {
-    title,
-    description = SITE_DESCRIPTION,
-    keywords,
-    type,
-    noindex,
+  title,
+  description = SITE_DESCRIPTION,
+  keywords,
+  type,
+  noindex,
 } = Astro.props;
 
 const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
@@ -25,50 +25,51 @@ const pageTitle = title ? `${title} · ${SITE_TITLE}` : SITE_TITLE;
 
 <!doctype html>
 <html lang="en">
-    <head>
-        <BaseHead
-            title={pageTitle}
-            description={description}
-            keywords={keywords}
-            type={type}
-            noindex={noindex}
-        />
-        <script is:inline>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
+  <head>
+    <BaseHead
+      title={pageTitle}
+      description={description}
+      keywords={keywords}
+      type={type}
+      noindex={noindex}
+    />
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-EZW1WCYLT4");
+      (function () {
+        function signalGooglefcPresent() {
+          if (!window.frames["googlefcPresent"]) {
+            if (document.body) {
+              const iframe = document.createElement("iframe");
+              iframe.style =
+                "width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;";
+              iframe.style.display = "none";
+              iframe.name = "googlefcPresent";
+              document.body.appendChild(iframe);
+            } else {
+              setTimeout(signalGooglefcPresent, 0);
             }
-            gtag("js", new Date());
-            gtag("config", "G-EZW1WCYLT4");
-            (function () {
-                function signalGooglefcPresent() {
-                    if (!window.frames["googlefcPresent"]) {
-                        if (document.body) {
-                            const iframe = document.createElement("iframe");
-                            iframe.style =
-                                "width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;";
-                            iframe.style.display = "none";
-                            iframe.name = "googlefcPresent";
-                            document.body.appendChild(iframe);
-                        } else {
-                            setTimeout(signalGooglefcPresent, 0);
-                        }
-                    }
-                }
-                signalGooglefcPresent();
-            })();
-            if (
-                location.hostname !== "localhost" &&
-                location.hostname !== "127.0.0.1" &&
-                location.hostname !== "docs.draviavemal.com"
-            ) {
-                location.href = "https://docs.draviavemal.com";
-            }
-        </script>
-    </head>
-    <body>
-        <Header />
-        <slot />
-        <Footer />
-    </body>
+          }
+        }
+        signalGooglefcPresent();
+      })();
+      if (
+        location.hostname !== "localhost" &&
+        location.hostname !== "127.0.0.1" &&
+        location.hostname !== "docs.draviavemal.com" &&
+        location.hostname !== "docs-alpha.draviavemal.com"
+      ) {
+        location.href = "https://docs.draviavemal.com";
+      }
+    </script>
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+  </body>
 </html>

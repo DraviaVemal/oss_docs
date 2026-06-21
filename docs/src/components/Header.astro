@@ -7,7 +7,62 @@ import "./Header.scss";
 <header>
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
+
+		<div class="nav-actions">
+			<button
+				class="theme-toggle"
+				type="button"
+				aria-label="Toggle color theme"
+				aria-pressed="false"
+				title="Toggle color theme"
+			>
+				<svg
+					class="theme-icon theme-icon-sun"
+					viewBox="0 0 24 24"
+					aria-hidden="true"
+					width="20"
+					height="20"
+				>
+					<circle cx="12" cy="12" r="4.5" fill="currentColor"></circle>
+					<g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+						<line x1="12" y1="2" x2="12" y2="5"></line>
+						<line x1="12" y1="19" x2="12" y2="22"></line>
+						<line x1="2" y1="12" x2="5" y2="12"></line>
+						<line x1="19" y1="12" x2="22" y2="12"></line>
+						<line x1="4.5" y1="4.5" x2="6.6" y2="6.6"></line>
+						<line x1="17.4" y1="17.4" x2="19.5" y2="19.5"></line>
+						<line x1="4.5" y1="19.5" x2="6.6" y2="17.4"></line>
+						<line x1="17.4" y1="6.6" x2="19.5" y2="4.5"></line>
+					</g>
+				</svg>
+				<svg
+					class="theme-icon theme-icon-moon"
+					viewBox="0 0 24 24"
+					aria-hidden="true"
+					width="20"
+					height="20"
+				>
+					<path
+						fill="currentColor"
+						d="M20.742 13.045A8.088 8.088 0 0 1 12.957 4a8.082 8.082 0 0 0 1.6 15.967 8.082 8.082 0 0 0 6.185-6.922z"
+					></path>
+				</svg>
+			</button>
+
+			<button
+				class="nav-toggle"
+				type="button"
+				aria-label="Toggle navigation menu"
+				aria-controls="primary-navigation"
+				aria-expanded="false"
+			>
+				<span class="nav-toggle-bar"></span>
+				<span class="nav-toggle-bar"></span>
+				<span class="nav-toggle-bar"></span>
+			</button>
+		</div>
+
+		<div class="internal-links" id="primary-navigation">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/openxml-office">openxml-office</HeaderLink>
 			<HeaderLink href="/xml_rs">xml_rs</HeaderLink>
@@ -33,3 +88,83 @@ import "./Header.scss";
 		</div>
 	</nav>
 </header>
+
+<script>
+	const siteHeader = document.querySelector("header");
+	const navMenuToggle = siteHeader?.querySelector<HTMLButtonElement>(".nav-toggle");
+	const navMenuPanel = siteHeader?.querySelector<HTMLElement>("#primary-navigation");
+
+	if (navMenuToggle && navMenuPanel && siteHeader) {
+		const setNavMenuOpen = (shouldOpen: boolean) => {
+			navMenuToggle.setAttribute("aria-expanded", String(shouldOpen));
+			siteHeader.classList.toggle("is-open", shouldOpen);
+		};
+
+		navMenuToggle.addEventListener("click", () => {
+			const shouldOpen = navMenuToggle.getAttribute("aria-expanded") !== "true";
+			setNavMenuOpen(shouldOpen);
+		});
+
+		navMenuPanel.addEventListener("click", (clickEvent) => {
+			if ((clickEvent.target as HTMLElement).closest("a")) setNavMenuOpen(false);
+		});
+
+		document.addEventListener("keydown", (keyboardEvent) => {
+			if (keyboardEvent.key === "Escape") setNavMenuOpen(false);
+		});
+	}
+
+	const themeToggleButtons = document.querySelectorAll<HTMLButtonElement>(".theme-toggle");
+	const documentRoot = document.documentElement;
+
+	const syncThemeButtonState = () => {
+		const isDarkActive = documentRoot.getAttribute("data-theme") === "dark";
+		themeToggleButtons.forEach((themeButton) => {
+			themeButton.setAttribute("aria-pressed", String(isDarkActive));
+			themeButton.setAttribute(
+				"aria-label",
+				isDarkActive ? "Switch to light theme" : "Switch to dark theme",
+			);
+		});
+	};
+
+	syncThemeButtonState();
+
+	themeToggleButtons.forEach((themeButton) => {
+		themeButton.addEventListener("click", () => {
+			const nextTheme =
+				documentRoot.getAttribute("data-theme") === "dark" ? "light" : "dark";
+			documentRoot.setAttribute("data-theme", nextTheme);
+			try {
+				localStorage.setItem("docs-theme", nextTheme);
+			} catch (localStorageError) {
+				void localStorageError;
+			}
+			syncThemeButtonState();
+		});
+	});
+
+	if (window.matchMedia) {
+		window
+			.matchMedia("(prefers-color-scheme: dark)")
+			.addEventListener("change", (preferenceChangeEvent) => {
+				let storedThemePreference: string | null = null;
+				try {
+					storedThemePreference = localStorage.getItem("docs-theme");
+				} catch (localStorageError) {
+					void localStorageError;
+				}
+				if (
+					storedThemePreference !== "light" &&
+					storedThemePreference !== "dark"
+				) {
+					documentRoot.setAttribute(
+						"data-theme",
+						preferenceChangeEvent.matches ? "dark" : "light",
+					);
+					syncThemeButtonState();
+				}
+			});
+	}
+</script>
+

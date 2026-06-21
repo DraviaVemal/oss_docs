@@ -49,7 +49,8 @@ const jsonLd = {
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="theme-color" content="#0f1219" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0b0f17" media="(prefers-color-scheme: dark)" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
@@ -107,4 +108,22 @@ const jsonLd = {
 
 <!-- Structured data -->
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+<script is:inline>
+	(function applyPersistedTheme() {
+		try {
+			var storedThemePreference = localStorage.getItem("docs-theme");
+			var resolvedTheme =
+				storedThemePreference === "light" || storedThemePreference === "dark"
+					? storedThemePreference
+					: window.matchMedia &&
+						  window.matchMedia("(prefers-color-scheme: dark)").matches
+						? "dark"
+						: "light";
+			document.documentElement.setAttribute("data-theme", resolvedTheme);
+		} catch (localStorageError) {
+			void localStorageError;
+		}
+	})();
+</script>
 
