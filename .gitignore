@@ -20,3 +20,8 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# Deployment config is managed centrally in the azure-pipeline repo
+# (oss/oss_docs/deploy/). Ignore any local copies used for firebase emulators.
+firebase.json
+.firebaserc
