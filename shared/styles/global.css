@@ -15,14 +15,30 @@
 @import 'tailwindcss/utilities.css' layer(utilities);
 @import "./landing.css";
 
+@font-face {
+    font-family: "Atkinson";
+    src: url("/fonts/atkinson-regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Atkinson";
+    src: url("/fonts/atkinson-bold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
     --tw-white: #ffffff;
     --tw-black: #000000;
 }
 
 @theme {
-    --font-sans: 'Atkinson Hyperlegible';
-    --font-mono: 'IBM Plex Mono';
+    --font-sans: "Atkinson", "Atkinson Hyperlegible", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
     /*
      * Brand accent — kept in sync with the docs hub landing page
      * (`docs/src/consts`/`global.css`, brand blue #2337ff) so the whole
@@ -50,6 +66,11 @@
     --color-gray-800: var(--color-zinc-800);
     --color-gray-900: var(--color-zinc-900);
     --color-gray-950: var(--color-zinc-950);
+}
+
+body,
+.sl-markdown-content {
+    font-family: var(--font-sans);
 }
 
 .sl-container {
@@ -126,3 +147,53 @@ table {
 .link-ul {
     text-decoration: underline;
 }
+
+.sl-markdown-content :where(table) {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.sl-markdown-content :where(pre) {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+ins.adsbygoogle {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+@media (max-width: 50rem) {
+    [role="tab"] {
+        height: auto;
+        padding: 0.5rem 0.75rem;
+    }
+
+    [role="tabpanel"] {
+        padding: 0.75rem;
+    }
+
+    .sl-markdown-content :where(table) th,
+    .sl-markdown-content :where(table) td {
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    ins.adsbygoogle {
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 30rem) {
+    starlight-tabs {
+        border-width: 1px;
+    }
+
+    table {
+        padding: 6px;
+    }
+}
+

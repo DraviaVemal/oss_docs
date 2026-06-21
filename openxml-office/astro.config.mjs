@@ -10,10 +10,6 @@ export default defineConfig({
     base: "/openxml-office",
     output: "static",
     outDir: "../dist/openxml-office",
-    redirects: {
-        "/1.0/": "/1.0/getting-started",
-        "/3.0/": "/3.0/getting-started"
-    },
     prefetch: true,
     server: {
         host: "0.0.0.0",

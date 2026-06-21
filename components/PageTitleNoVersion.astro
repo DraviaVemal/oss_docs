@@ -5,6 +5,8 @@
  * can be used by projects that do not register the versions plugin.
  */
 const { entry } = (Astro.locals as any).starlightRoute;
+
+const isLandingPage = entry.data.template === "splash";
 ---
 
 <h1 id="_top" data-page-title>{entry.data.title}</h1>
@@ -20,14 +22,21 @@ const { entry } = (Astro.locals as any).starlightRoute;
     }
   }
 </style>
-<ins
-  class="adsbygoogle"
-  style="display:block"
-  data-ad-client="ca-pub-2944495108494397"
-  data-ad-slot="9072889243"
-  data-ad-format="auto"
-  data-full-width-responsive="true"></ins>
-<script>
-  // @ts-ignore
-  (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+{
+  !isLandingPage && (
+    <>
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-2944495108494397"
+        data-ad-slot="9072889243"
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+      <script>
+        // @ts-ignore
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </>
+  )
+}

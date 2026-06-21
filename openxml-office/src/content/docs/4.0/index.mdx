@@ -1,20 +1,105 @@
 ---
-title: Alpha
-description: This is stable version document detail
+title: openxml-office (v4.x Alpha)
+description: A complete rewrite of openxml-office in Rust with cross-language bindings for .NET, Python and more. In active development — preview features and APIs here.
 template: splash
 lastUpdated: false
-hero:
-  title: Make Simple Office Documents
-  tagline: Create Presentation (pptx), Excel (xlsx) & Word (docx) file with ease with multi language support. Version v4.x is rewrite on v2.x package in rust along with cross language support. Very much in active development in all areas including this documentation.
-  image:
-    file: ../../../../../assets/logo.svg
-  actions:
-    - text: Documents
-      icon: right-arrow
-      link: /openxml-office/4.0/getting-started/
-    - text: View on GitHub
-      icon: external
-      variant: minimal
-      link: https://github.com/DraviaVemal/openxml-office
 slug: "4.0"
 ---
+
+import logo from '../../../../../assets/logo.svg';
+
+<div class="oss-landing">
+
+<section class="oss-hero">
+	<img class="oss-hero-logo" src={logo.src} alt="openxml-office logo" />
+	<p class="eyebrow">Rust rewrite · Cross-language alpha</p>
+	<h1>openxml-office v4.x</h1>
+	<p class="lede">
+		A complete rewrite of <code>openxml-office</code> in Rust, with cross-language
+		bindings shipped through each ecosystem's own package manager. Very much
+		in active development — APIs, docs and language support are still
+		evolving.
+	</p>
+	<div class="oss-version-meta">
+		<span class="oss-status alpha">v4.x · Alpha</span>
+		<span class="oss-meta-item">In active development</span>
+	</div>
+	<div class="oss-hero-actions">
+		<a class="oss-btn primary" href="/openxml-office/4.0/getting-started/">Get started</a>
+		<a class="oss-btn" href="https://github.com/DraviaVemal/openxml-office" target="_blank" rel="noopener">View on GitHub</a>
+		<a class="oss-btn" href="https://crates.io/crates/draviavemal-openxml_office" target="_blank" rel="noopener">crates.io</a>
+		<a class="oss-btn" href="https://www.nuget.org/packages/draviavemal.openxml-office" target="_blank" rel="noopener">NuGet</a>
+	</div>
+</section>
+
+<section>
+	<h2>What's new in v4.x</h2>
+	<div class="oss-grid">
+		<article class="oss-card">
+			<h3>Rust core</h3>
+			<p>
+				A single Rust engine replaces the .NET-based v2.x/v3.x core, with
+				no <code>unsafe</code> code in the public path.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Cross-language bindings</h3>
+			<p>
+				Stage 1 ships native packages for .NET and Python through a Rust
+				FFI layer. Go, TypeScript and Java land in Stage 2.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Consistent behaviour</h3>
+			<p>
+				Because every language calls the same Rust core, output stays
+				identical across .NET, Python and friends.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Office 2007+ compatible</h3>
+			<p>
+				The output targets Microsoft Office 2007 and newer, broadening
+				compatibility versus the earlier release lines.
+			</p>
+		</article>
+	</div>
+</section>
+
+<section>
+	<h2>Browse other versions</h2>
+	<div class="oss-grid">
+		<a class="oss-card" href="/openxml-office/">
+			<h3>v2.x (Stable) →</h3>
+			<p>The current recommended release for production today.</p>
+		</a>
+		<a class="oss-card" href="/openxml-office/3.0/">
+			<h3>v3.x (Discontinued) →</h3>
+			<p>Older .NET line, kept for historical reference.</p>
+		</a>
+		<a class="oss-card" href="/openxml-office/1.0/">
+			<h3>v1.x (Discontinued) →</h3>
+			<p>Initial .NET release, kept for historical reference.</p>
+		</a>
+	</div>
+</section>
+
+<section>
+	<h2>Next steps</h2>
+	<div class="oss-grid">
+		<a class="oss-card" href="/openxml-office/4.0/getting-started/">
+			<h3>Install &amp; run →</h3>
+			<p>Add the package for your language and create your first document.</p>
+		</a>
+		<a class="oss-card" href="/openxml-office/4.0/introduction/">
+			<h3>Introduction →</h3>
+			<p>Understand the goals, scope and design of the v4.x rewrite.</p>
+		</a>
+		<a class="oss-card" href="/openxml-office/4.0/benchmark/">
+			<h3>Benchmarks →</h3>
+			<p>See where the Rust core stands today (work in progress).</p>
+		</a>
+	</div>
+</section>
+
+</div>
