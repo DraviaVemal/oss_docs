@@ -47,16 +47,19 @@ import "./prose.scss";
 					<td>
 						The present, supported release. This is what the
 						<em>current</em> documentation describes and what you should
-						use in production.
+						use in production. Cut by a maintainer pushing a
+						<code>vX.Y.Z</code> git tag once an alpha line is judged
+						ready.
 					</td>
 				</tr>
 				<tr>
 					<td><strong>Alpha</strong></td>
-					<td><code>1.5.0-alpha</code></td>
+					<td><code>1.5.0-alpha.3</code></td>
 					<td>
-						A preview of the <em>next</em> release. Note there is no
-						numeric counter on the suffix — it is simply
-						<code>-alpha</code>. APIs may change without notice.
+						A preview of the <em>next</em> release, auto-published
+						from every successful merge to <code>release</code>. The
+						counter increments per merge and resets when the core
+						version changes. APIs may change without notice.
 					</td>
 				</tr>
 				<tr>
@@ -73,11 +76,19 @@ import "./prose.scss";
 
 		<h3 id="alpha-to-stable">How an alpha becomes stable</h3>
 		<p>
-			Alpha builds are published from the <code>alpha</code> branch using a
-			<code>-alpha</code> pre-release version. When an alpha is deemed
-			ready, its code is merged into the <code>stable</code> branch and
-			tagged with a direct, final version (dropping the suffix), which is
-			then published as the new stable release.
+			Every merge into the <code>release</code> branch is automatically
+			built, versioned as <code>X.Y.Z-alpha.&lt;n&gt;</code>, published to
+			the alpha channel and tagged. There is no separate stable branch —
+			alpha and stable are two <em>publish channels</em> off the same
+			line of code.
+		</p>
+		<p>
+			When a maintainer judges the current alpha line ready, they confirm
+			the stability release by pushing a plain <code>vX.Y.Z</code> git tag
+			(no <code>-alpha</code> suffix) at the chosen commit on
+			<code>release</code>. That tag triggers the stable publish stage and
+			marks the GitHub release as <em>latest</em>. The tag itself is the
+			stability confirmation; no merge or branch promotion is involved.
 		</p>
 
 		<h3 id="docs-versions">How this maps to the docs</h3>
@@ -98,30 +109,52 @@ import "./prose.scss";
 		</ul>
 
 		<h2 id="branching">Branching model</h2>
+		<p>
+			There is a single long-lived branch, <code>release</code>. Stable and
+			alpha are publish channels — not branches — so the same commits flow
+			to both without a separate promotion step.
+		</p>
 		<table>
 			<thead>
 				<tr>
-					<th>Branch</th>
-					<th>Purpose</th>
+					<th>Trigger</th>
+					<th>Version produced</th>
 					<th>Publishes</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td><code>stable</code></td>
-					<td>Production-ready code.</td>
-					<td>Final versions, e.g. <code>1.4.0</code>.</td>
+					<td>Pull request → <code>release</code></td>
+					<td><code>X.Y.Z-alpha.&lt;n&gt;.pr.&lt;pr&gt;.&lt;build&gt;</code></td>
+					<td>
+						Nothing for libraries; web projects deploy a throw-away
+						preview channel for review.
+					</td>
 				</tr>
 				<tr>
-					<td><code>alpha</code></td>
-					<td>Active development of the next release.</td>
-					<td>Pre-releases, e.g. <code>1.5.0-alpha</code>.</td>
+					<td>Merge → <code>release</code></td>
+					<td><code>X.Y.Z-alpha.&lt;n&gt;</code></td>
+					<td>
+						Alpha channel (registries / alpha docs site). A matching
+						<code>vX.Y.Z-alpha.&lt;n&gt;</code> git tag is created
+						automatically.
+					</td>
+				</tr>
+				<tr>
+					<td>Maintainer pushes <code>vX.Y.Z</code> tag</td>
+					<td><code>X.Y.Z</code> (verbatim from the tag)</td>
+					<td>
+						Stable channel and GitHub <em>latest</em> release. No
+						extra tag is created — the pushed tag <em>is</em> the
+						stability confirmation.
+					</td>
 				</tr>
 			</tbody>
 		</table>
 		<p>
-			Contributions are raised against the <code>alpha</code> branch. See
-			the <a href="/community">contribution guide</a> for the workflow.
+			Contributions are raised as pull requests against the
+			<code>release</code> branch. See the
+			<a href="/community">contribution guide</a> for the workflow.
 		</p>
 
 		<h2 id="licensing">Licensing</h2>
