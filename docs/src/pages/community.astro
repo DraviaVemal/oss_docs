@@ -78,18 +78,23 @@ import "./prose.scss";
 		<p>
 			All projects share the same <a href="/versioning#branching"
 				>branching model</a
-			>. Contributions target the <code>alpha</code> branch:
+			>. Contributions target the single <code>release</code> branch:
 		</p>
 		<ol>
-			<li>Fork the repository and create a branch from <code>alpha</code>.</li>
+			<li>
+				Fork the repository and create a feature branch from
+				<code>release</code>.
+			</li>
 			<li>
 				Make your change with clear, focused commits (e.g.
 				<code>feat: add waterfall chart</code>).
 			</li>
 			<li>Add or update tests and docs where relevant.</li>
 			<li>
-				Open a pull request against <code>alpha</code> describing the
-				change and the motivation.
+				Open a pull request against <code>release</code> describing the
+				change and the motivation. Merging the PR automatically
+				publishes a new alpha; stable releases are cut later by a
+				maintainer pushing a <code>vX.Y.Z</code> tag.
 			</li>
 		</ol>
 
