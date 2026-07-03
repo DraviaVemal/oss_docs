@@ -58,10 +58,28 @@ element.add_text_mut("Hello World")?;
 element.add_comments_mut("a note")?;
 element.add_attribute_mut(XmlAttribute::new("lang".into(), "en".into()))?;
 
+// Add-or-replace instead of erroring on a duplicate name
+element.add_replace_attribute_mut(XmlAttribute::new("lang".into(), "fr".into()))?;
+
+// Set the initial attribute list (only when the element has none yet)
+element.set_attribute_mut(vec![XmlAttribute::new("id".into(), "c1".into())])?;
+
 // Remove attributes
 element.remove_attribute_mut("lang");        // by local name
 element.remove_attribute_ns_mut("t:lang");   // by namespaced name
-element.clear_attribute_mut()?;              // remove all
+element.clear_attribute_mut()?;              // remove all (returns the count)
+```
+
+## Remove elements and clear content
+
+Operate on the document to remove nodes or empty an element:
+
+```rust
+// Remove all children of an element but keep the element itself
+document.clear_element_content_mut(child_id)?;
+
+// Remove an element and its entire subtree
+document.remove_element_mut(child_id)?;
 ```
 
 ## Serialize
