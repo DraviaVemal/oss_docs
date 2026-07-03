@@ -21,6 +21,7 @@ use draviavemal_xml_rs::{
 | --- | --- |
 | `NodeId` | `u32` identifier of a node within a document. |
 | `Tag` / `NsTag` | `String` aliases for a local and namespaced tag name. |
+| `NsAlias` / `NsUrl` | `String` aliases for a namespace prefix and its URI. |
 
 ## `XmlDeserializer`
 
@@ -47,6 +48,7 @@ The DOM tree and node store.
 | Method | Purpose |
 | --- | --- |
 | `new()` / `default()` | Create an empty document (version `1.0`, encoding `UTF-8`). |
+| `clone()` | Deep-clone the document and its node store. |
 | `get_root_id()` | `NodeId` of the root element. |
 | `get_element(id)` / `get_element_mut(id)` | Look up an element (immutable / mutable). |
 | `create_root_element_mut(tag, attrs)` | Create the root element. |
@@ -55,11 +57,15 @@ The DOM tree and node store.
 | `inser_child_element_before_first_tag_mut(...)` | Insert before the first matching local tag. |
 | `inser_child_element_after_last_tag_ns_mut(...)` | Insert after the last matching namespaced tag. |
 | `inser_child_element_before_first_tag_ns_mut(...)` | Insert before the first matching namespaced tag. |
-| `find_first_child(parent, tag)` | First child with the given local tag. |
-| `find_all_child(parent, tag)` | All children with the given local tag. |
-| `find_first_by_attribute(start, name, value)` | First descendant matching an attribute. |
+| `find_first_child(parent, tag)` / `find_first_child_ns(parent, tag_ns)` | First child by local / namespaced tag. |
+| `find_all_child(parent, tag)` / `find_all_child_ns(parent, tag_ns)` | All children by local / namespaced tag. |
+| `find_first_by_attribute(parent, name, value)` / `find_first_by_attribute_ns(parent, ns_name, value)` | First child matching an attribute (local / namespaced). |
+| `find_all_by_attribute(parent, name, value)` / `find_all_by_attribute_ns(parent, ns_name, value)` | All children matching an attribute (local / namespaced). |
+| `clear_element_content_mut(id)` | Remove all children of an element, keeping the element. |
+| `remove_element_mut(id)` | Remove an element and its entire subtree. |
 | `set_version_mut` / `get_version` | XML declaration version. |
 | `set_encoding_mut` / `get_encoding` | XML declaration encoding. |
+| `query_xpath(path)` | XPath querying — **experimental / work in progress**. |
 
 ## `XmlElement`
 
@@ -70,12 +76,15 @@ A single element node.
 | `get_id()` / `get_parent_id()` | Node id / parent id. |
 | `get_tag()` / `get_tag_ns()` | Local / namespaced tag name. |
 | `get_attribute(name)` / `get_attribute_ns(ns_name)` | Read an attribute. |
-| `get_child_contents()` | The list of [`XmlElementContentType`](#xmlelementcontenttype). |
+| `get_child_contents()` / `get_child_contents_mut()` | The list of [`XmlElementContentType`](#xmlelementcontenttype) (immutable / mutable). |
 | `get_child_element_count()` | Count of child elements only. |
-| `find_first_child(tag)` | First child element by local tag. |
-| `add_attribute_mut(attr)` | Add an attribute. |
+| `find_first_child(tag)` / `find_first_child_ns(tag_ns)` | First child element by local / namespaced tag. |
+| `find_all_child(tag)` / `find_all_child_ns(tag_ns)` | All child elements by local / namespaced tag. |
+| `add_attribute_mut(attr)` | Add an attribute; errors if the name already exists. |
+| `add_replace_attribute_mut(attr)` | Add an attribute, replacing any existing one with the same name. |
+| `set_attribute_mut(attrs)` | Set initial attributes; errors if attributes already exist. |
 | `remove_attribute_mut(name)` / `remove_attribute_ns_mut(ns_name)` | Remove an attribute. |
-| `clear_attribute_mut()` | Remove all attributes. |
+| `clear_attribute_mut()` | Remove all attributes; returns the count removed. |
 | `add_text_mut(text)` | Add a text node. |
 | `add_comments_mut(comment)` | Add a comment node. |
 

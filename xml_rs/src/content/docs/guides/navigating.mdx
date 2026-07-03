@@ -26,20 +26,37 @@ if let Some(title_id) = document.find_first_child(book_id, "title")? {
     let title = document.get_element(title_id)?;
 }
 
-// All children with a given tag → Vec<NodeId>
+// All children with a given tag → Option<Vec<NodeId>>
 if let Some(book_ids) = document.find_all_child(root_id, "book")? {
     println!("{} books", book_ids.len());
 }
 ```
 
+Each finder has a namespaced (`_ns`) counterpart that matches the full
+`prefix:tag` name instead of just the local name:
+
+```rust
+// Match "t:book" rather than any "book"
+let first = document.find_first_child_ns(root_id, "t:book")?;
+let all = document.find_all_child_ns(root_id, "t:book")?;
+```
+
 ## Find by attribute
 
 ```rust
-// First descendant whose attribute matches → Option<NodeId>
+// First child whose attribute matches → Option<NodeId>
 if let Some(book_id) = document.find_first_by_attribute(root_id, "id", "bk101")? {
     let book = document.get_element(book_id)?;
 }
+
+// All children whose attribute matches → Option<Vec<NodeId>>
+if let Some(ids) = document.find_all_by_attribute(root_id, "type", "fiction")? {
+    println!("{} matches", ids.len());
+}
 ```
+
+Namespaced attribute variants (`find_first_by_attribute_ns`,
+`find_all_by_attribute_ns`) match the `prefix:attr` name.
 
 ## Read attributes
 
