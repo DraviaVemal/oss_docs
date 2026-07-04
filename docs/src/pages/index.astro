@@ -5,147 +5,153 @@ import "./index.scss";
 ---
 
 <Layout
-	title="Home"
-	description="Open source projects by Dravia Vemal — a way of giving back to the community that taught me. OpenXML documents, Tauri remote UI and XML parsing, built and improved in the open."
+  title="Home"
+  description="Open source projects by Dravia Vemal — a way of giving back to the community that taught me. OpenXML documents, Tauri remote UI and XML parsing, built and improved in the open."
 >
-	<main class="home">
-		<section class="hero">
-			<p class="eyebrow">Open Source · Giving back · Built in the open</p>
-			<h1>Built to learn.<br />Shared to give back.</h1>
-			<p class="lede">
-				Hey, I'm <strong>Dravia Vemal</strong>. The open source community
-				taught me most of what I know — so these projects are my way of
-				paying it forward. I build them in the open, grow them one honest
-				iteration at a time, and lean on automation so they can keep
-				helping people as they mature.
-			</p>
-			<div class="hero-actions">
-				<a class="btn primary" href="#projects">Browse the projects</a>
-				<a class="btn" href="/releases">What's new</a>
-				<a
-					class="btn"
-					href="https://github.com/sponsors/DraviaVemal"
-					target="_blank"
-					rel="noopener">Sponsor ♥</a
-				>
-			</div>
-		</section>
+  <main class="home">
+    <section class="hero">
+      <p class="eyebrow">Open Source · Giving back · Built in the open</p>
+      <h1>Built to learn.<br />Shared to give back.</h1>
+      <p class="lede">
+        Hey, I'm <strong>Dravia Vemal</strong>. The open source community taught
+        me most of what I know — so these projects are my way of paying it
+        forward. I build them in the open, grow them one honest iteration at a
+        time, and lean on automation so they can keep helping people as they
+        mature.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#projects">Browse the projects</a>
+        <a class="btn" href="/releases">What's new</a>
+        <a
+          class="btn"
+          href="https://github.com/sponsors/DraviaVemal"
+          target="_blank"
+          rel="noopener">Sponsor ♥</a
+        >
+      </div>
+    </section>
 
-		<section class="ethos">
-			<div class="ethos-card">
-				<h3>Giving back</h3>
-				<p>
-					I learned in the open thanks to countless generous projects.
-					These are my small thank-you note to that community.
-				</p>
-			</div>
-			<div class="ethos-card">
-				<h3>Ship, then sharpen</h3>
-				<p>
-					Projects start small and focused. They get better through
-					real use — not from trying to predict everything on day one.
-				</p>
-			</div>
-			<div class="ethos-card">
-				<h3>Let robots do the chores</h3>
-				<p>
-					Once things settle, automation takes over testing, releases
-					and upkeep — so a project can grow without growing the busywork.
-				</p>
-			</div>
-			<div class="ethos-card">
-				<h3>Open, with a fair deal</h3>
-				<p>
-					Free and open for the community; a commercial-friendly option
-					for businesses via sponsorship. Terms vary by project and
-					version — <a href="/versioning#licensing">here's how to check</a>.
-				</p>
-			</div>
-		</section>
+    <section id="projects" class="projects">
+      <h2>Projects</h2>
+      <div class="project-grid">
+        {
+          PROJECTS.map((project) => (
+            <article class="project-card">
+              <h3>
+                <a href={project.docs}>{project.name}</a>
+              </h3>
+              <p>{project.tagline}</p>
+              <div class="project-links">
+                <a class="chip primary" href={project.docs}>
+                  Docs
+                </a>
+                <a
+                  class="chip"
+                  href={project.repo}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  GitHub
+                </a>
+                {project.packages.map((pkg) => (
+                  <a
+                    class="chip"
+                    href={pkg.href}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    {pkg.label}
+                  </a>
+                ))}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
 
-		<section id="projects" class="projects">
-			<h2>Projects</h2>
-			<div class="project-grid">
-				{
-					PROJECTS.map((project) => (
-						<article class="project-card">
-							<h3>
-								<a href={project.docs}>{project.name}</a>
-							</h3>
-							<p>{project.tagline}</p>
-							<div class="project-links">
-								<a class="chip primary" href={project.docs}>
-									Docs
-								</a>
-								<a
-									class="chip"
-									href={project.repo}
-									target="_blank"
-									rel="noopener"
-								>
-									GitHub
-								</a>
-								{project.packages.map((pkg) => (
-									<a
-										class="chip"
-										href={pkg.href}
-										target="_blank"
-										rel="noopener"
-									>
-										{pkg.label}
-									</a>
-								))}
-							</div>
-						</article>
-					))
-				}
-			</div>
-		</section>
+    <section class="standards">
+      <h2>Standards & community</h2>
+      <div class="standards-grid">
+        <a class="standard-card" href="/versioning">
+          <h3>Versioning &amp; branching →</h3>
+          <p>
+            What stable, alpha and deprecated actually mean across my projects.
+          </p>
+        </a>
+        <a class="standard-card" href="/versioning#licensing">
+          <h3>Licensing →</h3>
+          <p>
+            How to find the right terms — they vary by project and by version,
+            so check before you ship.
+          </p>
+        </a>
+        <a class="standard-card" href="/community">
+          <h3>Contributing &amp; feedback →</h3>
+          <p>
+            The same simple way to file issues, start discussions and send pull
+            requests anywhere.
+          </p>
+        </a>
+        <a class="standard-card" href="/releases">
+          <h3>Releases →</h3>
+          <p>One newest-first feed of GitHub releases across every project.</p>
+        </a>
+        <a class="standard-card" href="/security">
+          <h3>Security →</h3>
+          <p>
+            How vulnerabilities are tracked — GitHub's native alerts plus
+            per-language scanning and secret detection in the build.
+          </p>
+        </a>
+      </div>
+    </section>
 
-		<section class="standards">
-			<h2>Standards & community</h2>
-			<div class="standards-grid">
-				<a class="standard-card" href="/versioning">
-					<h3>Versioning &amp; branching →</h3>
-					<p>
-						What stable, alpha and deprecated actually mean across my
-						projects.
-					</p>
-				</a>
-				<a class="standard-card" href="/versioning#licensing">
-					<h3>Licensing →</h3>
-					<p>
-						How to find the right terms — they vary by project and by
-						version, so check before you ship.
-					</p>
-				</a>
-				<a class="standard-card" href="/community">
-					<h3>Contributing &amp; feedback →</h3>
-					<p>
-						The same simple way to file issues, start discussions and
-						send pull requests anywhere.
-					</p>
-				</a>
-				<a class="standard-card" href="/releases">
-					<h3>Releases →</h3>
-					<p>
-						One newest-first feed of GitHub releases across every
-						project.
-					</p>
-				</a>
-			</div>
-		</section>
+    <section class="ethos">
+      <div class="ethos-card">
+        <h3>Giving back</h3>
+        <p>
+          I learned in the open thanks to countless generous projects. These are
+          my small thank-you note to that community.
+        </p>
+      </div>
+      <div class="ethos-card">
+        <h3>Ship, then sharpen</h3>
+        <p>
+          Projects start small and focused. They get better through real use —
+          not from trying to predict everything on day one.
+        </p>
+      </div>
+      <div class="ethos-card">
+        <h3>Let robots do the chores</h3>
+        <p>
+          Once things settle, automation takes over testing, releases and upkeep
+          — so a project can grow without growing the busywork.
+        </p>
+      </div>
+      <div class="ethos-card">
+        <h3>Open, with a fair deal</h3>
+        <p>
+          Free and open for the community; a commercial-friendly option for
+          businesses via sponsorship. Terms vary by project and version — <a
+            href="/versioning#licensing">here's how to check</a
+          >.
+        </p>
+      </div>
+    </section>
 
-		<section class="support">
-			<h2>Like the work? Here's how to help</h2>
-			<p>
-				A ⭐ on GitHub genuinely makes my day and helps others find these
-				tools. Using one commercially? A
-				<a href="https://github.com/sponsors/DraviaVemal" target="_blank" rel="noopener"
-					>sponsorship</a
-				> keeps the lights on — and, where a project offers it, unlocks a
-				commercial-friendly license and priority support.
-			</p>
-		</section>
-	</main>
+    <section class="support">
+      <h2>Like the work? Here's how to help</h2>
+      <p>
+        A ⭐ on GitHub genuinely makes my day and helps others find these tools.
+        Using one commercially? A
+        <a
+          href="https://github.com/sponsors/DraviaVemal"
+          target="_blank"
+          rel="noopener">sponsorship</a
+        > keeps the lights on — and, where a project offers it, unlocks a commercial-friendly
+        license and priority support.
+      </p>
+    </section>
+  </main>
 </Layout>

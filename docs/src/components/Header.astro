@@ -5,166 +5,171 @@ import "./Header.scss";
 ---
 
 <header>
-	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+  <nav>
+    <h2>
+      <a href="https://draviavemal.com" target="_blank" rel="noopener"
+        >{SITE_TITLE}</a
+      >
+    </h2>
 
-		<div class="nav-actions">
-			<button
-				class="theme-toggle"
-				type="button"
-				aria-label="Toggle color theme"
-				aria-pressed="false"
-				title="Toggle color theme"
-			>
-				<svg
-					class="theme-icon theme-icon-sun"
-					viewBox="0 0 24 24"
-					aria-hidden="true"
-					width="20"
-					height="20"
-				>
-					<circle cx="12" cy="12" r="4.5" fill="currentColor"></circle>
-					<g stroke="currentColor" stroke-width="2" stroke-linecap="round">
-						<line x1="12" y1="2" x2="12" y2="5"></line>
-						<line x1="12" y1="19" x2="12" y2="22"></line>
-						<line x1="2" y1="12" x2="5" y2="12"></line>
-						<line x1="19" y1="12" x2="22" y2="12"></line>
-						<line x1="4.5" y1="4.5" x2="6.6" y2="6.6"></line>
-						<line x1="17.4" y1="17.4" x2="19.5" y2="19.5"></line>
-						<line x1="4.5" y1="19.5" x2="6.6" y2="17.4"></line>
-						<line x1="17.4" y1="6.6" x2="19.5" y2="4.5"></line>
-					</g>
-				</svg>
-				<svg
-					class="theme-icon theme-icon-moon"
-					viewBox="0 0 24 24"
-					aria-hidden="true"
-					width="20"
-					height="20"
-				>
-					<path
-						fill="currentColor"
-						d="M20.742 13.045A8.088 8.088 0 0 1 12.957 4a8.082 8.082 0 0 0 1.6 15.967 8.082 8.082 0 0 0 6.185-6.922z"
-					></path>
-				</svg>
-			</button>
+    <div class="nav-actions">
+      <button
+        class="theme-toggle"
+        type="button"
+        aria-label="Toggle color theme"
+        aria-pressed="false"
+        title="Toggle color theme"
+      >
+        <svg
+          class="theme-icon theme-icon-sun"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          width="20"
+          height="20"
+        >
+          <circle cx="12" cy="12" r="4.5" fill="currentColor"></circle>
+          <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="12" y1="2" x2="12" y2="5"></line>
+            <line x1="12" y1="19" x2="12" y2="22"></line>
+            <line x1="2" y1="12" x2="5" y2="12"></line>
+            <line x1="19" y1="12" x2="22" y2="12"></line>
+            <line x1="4.5" y1="4.5" x2="6.6" y2="6.6"></line>
+            <line x1="17.4" y1="17.4" x2="19.5" y2="19.5"></line>
+            <line x1="4.5" y1="19.5" x2="6.6" y2="17.4"></line>
+            <line x1="17.4" y1="6.6" x2="19.5" y2="4.5"></line>
+          </g>
+        </svg>
+        <svg
+          class="theme-icon theme-icon-moon"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+          width="20"
+          height="20"
+        >
+          <path
+            fill="currentColor"
+            d="M20.742 13.045A8.088 8.088 0 0 1 12.957 4a8.082 8.082 0 0 0 1.6 15.967 8.082 8.082 0 0 0 6.185-6.922z"
+          ></path>
+        </svg>
+      </button>
 
-			<button
-				class="nav-toggle"
-				type="button"
-				aria-label="Toggle navigation menu"
-				aria-controls="primary-navigation"
-				aria-expanded="false"
-			>
-				<span class="nav-toggle-bar"></span>
-				<span class="nav-toggle-bar"></span>
-				<span class="nav-toggle-bar"></span>
-			</button>
-		</div>
+      <button
+        class="nav-toggle"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-controls="primary-navigation"
+        aria-expanded="false"
+      >
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+    </div>
 
-		<div class="internal-links" id="primary-navigation">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/openxml-office">openxml-office</HeaderLink>
-			<HeaderLink href="/xml_rs">xml_rs</HeaderLink>
-			<HeaderLink href="/tauri-remote-ui">tauri-remote-ui</HeaderLink>
-			<HeaderLink href="/releases">Releases</HeaderLink>
-			<HeaderLink href="/versioning">Standards</HeaderLink>
-			<HeaderLink href="/community">Community</HeaderLink>
-		</div>
-		<div class="social-links">
-			<a href="https://github.com/DraviaVemal/oss_docs" target="_blank" rel="noopener">
-				<span class="sr-only">Docs GitHub repo</span>
-				<svg
-					viewBox="0 0 16 16"
-					aria-hidden="true"
-					width="32"
-					height="32"
-					><path
-						fill="currentColor"
-						d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-					></path></svg
-				>
-			</a>
-		</div>
-	</nav>
+    <div class="internal-links" id="primary-navigation">
+      <HeaderLink href="/">Home</HeaderLink>
+      <HeaderLink href="/openxml-office">openxml-office</HeaderLink>
+      <HeaderLink href="/xml_rs">xml_rs</HeaderLink>
+      <HeaderLink href="/tauri-remote-ui">tauri-remote-ui</HeaderLink>
+    </div>
+    <div class="social-links">
+      <a
+        href="https://github.com/DraviaVemal/oss_docs"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="sr-only">Docs GitHub repo</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
+          ><path
+            fill="currentColor"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+          ></path></svg
+        >
+      </a>
+    </div>
+  </nav>
 </header>
 
 <script>
-	const siteHeader = document.querySelector("header");
-	const navMenuToggle = siteHeader?.querySelector<HTMLButtonElement>(".nav-toggle");
-	const navMenuPanel = siteHeader?.querySelector<HTMLElement>("#primary-navigation");
+  const siteHeader = document.querySelector("header");
+  const navMenuToggle =
+    siteHeader?.querySelector<HTMLButtonElement>(".nav-toggle");
+  const navMenuPanel = siteHeader?.querySelector<HTMLElement>(
+    "#primary-navigation",
+  );
 
-	if (navMenuToggle && navMenuPanel && siteHeader) {
-		const setNavMenuOpen = (shouldOpen: boolean) => {
-			navMenuToggle.setAttribute("aria-expanded", String(shouldOpen));
-			siteHeader.classList.toggle("is-open", shouldOpen);
-		};
+  if (navMenuToggle && navMenuPanel && siteHeader) {
+    const setNavMenuOpen = (shouldOpen: boolean) => {
+      navMenuToggle.setAttribute("aria-expanded", String(shouldOpen));
+      siteHeader.classList.toggle("is-open", shouldOpen);
+    };
 
-		navMenuToggle.addEventListener("click", () => {
-			const shouldOpen = navMenuToggle.getAttribute("aria-expanded") !== "true";
-			setNavMenuOpen(shouldOpen);
-		});
+    navMenuToggle.addEventListener("click", () => {
+      const shouldOpen = navMenuToggle.getAttribute("aria-expanded") !== "true";
+      setNavMenuOpen(shouldOpen);
+    });
 
-		navMenuPanel.addEventListener("click", (clickEvent) => {
-			if ((clickEvent.target as HTMLElement).closest("a")) setNavMenuOpen(false);
-		});
+    navMenuPanel.addEventListener("click", (clickEvent) => {
+      if ((clickEvent.target as HTMLElement).closest("a"))
+        setNavMenuOpen(false);
+    });
 
-		document.addEventListener("keydown", (keyboardEvent) => {
-			if (keyboardEvent.key === "Escape") setNavMenuOpen(false);
-		});
-	}
+    document.addEventListener("keydown", (keyboardEvent) => {
+      if (keyboardEvent.key === "Escape") setNavMenuOpen(false);
+    });
+  }
 
-	const themeToggleButtons = document.querySelectorAll<HTMLButtonElement>(".theme-toggle");
-	const documentRoot = document.documentElement;
+  const themeToggleButtons =
+    document.querySelectorAll<HTMLButtonElement>(".theme-toggle");
+  const documentRoot = document.documentElement;
 
-	const syncThemeButtonState = () => {
-		const isDarkActive = documentRoot.getAttribute("data-theme") === "dark";
-		themeToggleButtons.forEach((themeButton) => {
-			themeButton.setAttribute("aria-pressed", String(isDarkActive));
-			themeButton.setAttribute(
-				"aria-label",
-				isDarkActive ? "Switch to light theme" : "Switch to dark theme",
-			);
-		});
-	};
+  const syncThemeButtonState = () => {
+    const isDarkActive = documentRoot.getAttribute("data-theme") === "dark";
+    themeToggleButtons.forEach((themeButton) => {
+      themeButton.setAttribute("aria-pressed", String(isDarkActive));
+      themeButton.setAttribute(
+        "aria-label",
+        isDarkActive ? "Switch to light theme" : "Switch to dark theme",
+      );
+    });
+  };
 
-	syncThemeButtonState();
+  syncThemeButtonState();
 
-	themeToggleButtons.forEach((themeButton) => {
-		themeButton.addEventListener("click", () => {
-			const nextTheme =
-				documentRoot.getAttribute("data-theme") === "dark" ? "light" : "dark";
-			documentRoot.setAttribute("data-theme", nextTheme);
-			try {
-				localStorage.setItem("docs-theme", nextTheme);
-			} catch (localStorageError) {
-				void localStorageError;
-			}
-			syncThemeButtonState();
-		});
-	});
+  themeToggleButtons.forEach((themeButton) => {
+    themeButton.addEventListener("click", () => {
+      const nextTheme =
+        documentRoot.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      documentRoot.setAttribute("data-theme", nextTheme);
+      try {
+        localStorage.setItem("docs-theme", nextTheme);
+      } catch (localStorageError) {
+        void localStorageError;
+      }
+      syncThemeButtonState();
+    });
+  });
 
-	if (window.matchMedia) {
-		window
-			.matchMedia("(prefers-color-scheme: dark)")
-			.addEventListener("change", (preferenceChangeEvent) => {
-				let storedThemePreference: string | null = null;
-				try {
-					storedThemePreference = localStorage.getItem("docs-theme");
-				} catch (localStorageError) {
-					void localStorageError;
-				}
-				if (
-					storedThemePreference !== "light" &&
-					storedThemePreference !== "dark"
-				) {
-					documentRoot.setAttribute(
-						"data-theme",
-						preferenceChangeEvent.matches ? "dark" : "light",
-					);
-					syncThemeButtonState();
-				}
-			});
-	}
+  if (window.matchMedia) {
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", (preferenceChangeEvent) => {
+        let storedThemePreference: string | null = null;
+        try {
+          storedThemePreference = localStorage.getItem("docs-theme");
+        } catch (localStorageError) {
+          void localStorageError;
+        }
+        if (
+          storedThemePreference !== "light" &&
+          storedThemePreference !== "dark"
+        ) {
+          documentRoot.setAttribute(
+            "data-theme",
+            preferenceChangeEvent.matches ? "dark" : "light",
+          );
+          syncThemeButtonState();
+        }
+      });
+  }
 </script>
-

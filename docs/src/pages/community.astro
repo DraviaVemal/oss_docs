@@ -5,118 +5,105 @@ import "./prose.scss";
 ---
 
 <Layout
-	title="Community & Contributing"
-	description="One shared way to contribute, report issues and start discussions across every Dravia Vemal open source project."
-	type="article"
+  title="Community & Contributing"
+  description="One shared way to contribute, report issues and start discussions across every Dravia Vemal open source project."
+  type="article"
 >
-	<main class="prose">
-		<h1>Community &amp; contributing</h1>
-		<p class="subtitle">
-			The same friendly process works for every project — pick the repo,
-			follow the steps below.
-		</p>
+  <main class="prose">
+    <h1>Community &amp; contributing</h1>
+    <p class="subtitle">
+      The same friendly process works for every project — pick the repo, follow
+      the steps below.
+    </p>
 
-		<h2 id="ways-to-help">Ways to help</h2>
-		<ul>
-			<li><strong>Star</strong> a project on GitHub — it genuinely helps.</li>
-			<li><strong>Report bugs</strong> or request features via issues.</li>
-			<li><strong>Ask questions</strong> and share ideas in Discussions.</li>
-			<li><strong>Contribute code</strong> or docs with a pull request.</li>
-			<li>
-				<strong>Sponsor</strong> to fund maintenance and unlock a
-				commercial license — see <a href="/versioning#licensing"
-					>licensing</a
-				>.
-			</li>
-		</ul>
+    <h2 id="ways-to-help">Ways to help</h2>
+    <ul>
+      <li><strong>Star</strong> a project on GitHub — it genuinely helps.</li>
+      <li><strong>Report bugs</strong> or request features via issues.</li>
+      <li><strong>Ask questions</strong> and share ideas in Discussions.</li>
+      <li><strong>Contribute code</strong> or docs with a pull request.</li>
+      <li>
+        <strong>Sponsor</strong> to fund maintenance and unlock a commercial license
+        — see <a href="/versioning#licensing">licensing</a>.
+      </li>
+    </ul>
 
-		<h2 id="per-project">Project channels</h2>
-		<p>
-			Issues, discussions and pull requests live on each project's own
-			GitHub repository:
-		</p>
-		<table>
-			<thead>
-				<tr>
-					<th>Project</th>
-					<th>Issues</th>
-					<th>Discussions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{
-					PROJECTS.map((project) => (
-						<tr>
-							<td>
-								<a href={project.docs}>{project.name}</a>
-							</td>
-							<td>
-								<a
-									href={`${project.repo}/issues`}
-									target="_blank"
-									rel="noopener"
-								>
-									Open issues
-								</a>
-							</td>
-							<td>
-								<a
-									href={`${project.repo}/discussions`}
-									target="_blank"
-									rel="noopener"
-								>
-									Start a discussion
-								</a>
-							</td>
-						</tr>
-					))
-				}
-			</tbody>
-		</table>
+    <h2 id="per-project">Project channels</h2>
+    <p>
+      Issues, discussions and pull requests live on each project's own GitHub
+      repository:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Issues</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          PROJECTS.map((project) => (
+            <tr>
+              <td>
+                <a href={project.docs}>{project.name}</a>
+              </td>
+              <td>
+                <a
+                  href={`${project.repo}/issues`}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Open issues
+                </a>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
 
-		<h2 id="contribution-workflow">Contribution workflow</h2>
-		<p>
-			All projects share the same <a href="/versioning#branching"
-				>branching model</a
-			>. Contributions target the single <code>release</code> branch:
-		</p>
-		<ol>
-			<li>
-				Fork the repository and create a feature branch from
-				<code>release</code>.
-			</li>
-			<li>
-				Make your change with clear, focused commits (e.g.
-				<code>feat: add waterfall chart</code>).
-			</li>
-			<li>Add or update tests and docs where relevant.</li>
-			<li>
-				Open a pull request against <code>release</code> describing the
-				change and the motivation. Merging the PR automatically
-				publishes a new alpha; stable releases are cut later by a
-				maintainer pushing a <code>vX.Y.Z</code> tag.
-			</li>
-		</ol>
+    <h2 id="contribution-workflow">Contribution workflow</h2>
+    <p>
+      All projects share the same <a href="/versioning#branching"
+        >branching model</a
+      >. Contributions target the single <code>release</code> branch:
+    </p>
+    <ol>
+      <li>
+        Fork the repository and create a feature branch from
+        <code>release</code>.
+      </li>
+      <li>
+        Make your change with clear, focused commits (e.g.
+        <code>feat: add waterfall chart</code>).
+      </li>
+      <li>Add or update tests and docs where relevant.</li>
+      <li>
+        Open a pull request against <code>release</code> describing the change and
+        the motivation. Merging the PR automatically publishes a new alpha; stable
+        releases are cut later by a maintainer pushing a <code>vX.Y.Z</code> tag.
+      </li>
+    </ol>
 
-		<h2 id="reporting-issues">Reporting a good issue</h2>
-		<p>A useful bug report usually includes:</p>
-		<ul>
-			<li>The project and version (stable or alpha) you're using.</li>
-			<li>A minimal, reproducible example.</li>
-			<li>What you expected vs. what happened.</li>
-			<li>Your OS, language/runtime and toolchain versions.</li>
-		</ul>
+    <h2 id="reporting-issues">Reporting a good issue</h2>
+    <p>A useful bug report usually includes:</p>
+    <ul>
+      <li>The project and version (stable or alpha) you're using.</li>
+      <li>A minimal, reproducible example.</li>
+      <li>What you expected vs. what happened.</li>
+      <li>Your OS, language/runtime and toolchain versions.</li>
+    </ul>
 
-		<h2 id="conduct">Be excellent to each other</h2>
-		<p>
-			Please keep interactions respectful and constructive. Harassment or
-			hostility isn't welcome in any project space.
-		</p>
+    <h2 id="conduct">Be excellent to each other</h2>
+    <p>
+      Please keep interactions respectful and constructive. Harassment or
+      hostility isn't welcome in any project space.
+    </p>
 
-		<h2 id="contact">Direct contact</h2>
-		<p>
-			For commercial licensing or private matters, reach out at
-			<a href="mailto:contact@draviavemal.com">contact@draviavemal.com</a>.
-		</p>
-	</main>
+    <h2 id="contact">Direct contact</h2>
+    <p>
+      For commercial licensing or private matters, reach out at
+      <a href="mailto:contact@draviavemal.com">contact@draviavemal.com</a>.
+    </p>
+  </main>
 </Layout>

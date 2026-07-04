@@ -1,0 +1,136 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "./prose.scss";
+---
+
+<Layout
+	title="Security"
+	description="How security is tracked across every Dravia Vemal open source project — GitHub's native security features plus per-language scanning and secret detection in the Azure Pipelines build."
+	type="article"
+>
+	<main class="prose">
+		<h1>Security</h1>
+		<p class="subtitle">
+			Security is handled the same way across <a href="/openxml-office"
+				>openxml-office</a
+			>, <a href="/tauri-remote-ui">tauri-remote-ui</a>,
+			<a href="/xml_rs">xml_rs</a> and future projects: GitHub's native
+			security features watch every repository, and the Azure Pipelines
+			build adds per-language scanning and secret detection on top.
+		</p>
+
+		<h2 id="github-security">GitHub security features</h2>
+		<p>
+			Every repository has GitHub's built-in security features enabled, so
+			vulnerabilities are surfaced and tracked automatically — from a
+			reported CVE in a dependency all the way to leaked malware in the
+			supply chain.
+		</p>
+		<table>
+			<thead>
+				<tr>
+					<th>Feature</th>
+					<th>What it tracks</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><strong>Private vulnerability reporting</strong></td>
+					<td>
+						A private channel for anyone to responsibly disclose a
+						vulnerability. Reports are triaged, a fix is coordinated,
+						and a security advisory is published once resolved.
+					</td>
+				</tr>
+				<tr>
+					<td><strong>Dependency graph</strong></td>
+					<td>
+						A complete map of the project's direct and transitive
+						dependencies. It's the foundation the other alerts build
+						on — nothing can be flagged unless it's known.
+					</td>
+				</tr>
+				<tr>
+					<td><strong>Dependabot alerts &amp; updates</strong></td>
+					<td>
+						Cross-references the dependency graph against the GitHub
+						Advisory Database and raises an alert — with an automated
+						fix pull request — whenever a dependency has a known
+						vulnerability.
+					</td>
+				</tr>
+				<tr>
+					<td><strong>Malware &amp; supply-chain alerts</strong></td>
+					<td>
+						Flags dependencies pulled from malicious or compromised
+						packages so a poisoned transitive dependency can't slip in
+						unnoticed.
+					</td>
+				</tr>
+				<tr>
+					<td><strong>Secret scanning</strong></td>
+					<td>
+						Watches the repository for accidentally committed tokens,
+						keys and credentials and alerts before they can be abused.
+					</td>
+				</tr>
+				<tr>
+					<td><strong>Code scanning</strong></td>
+					<td>
+						Static analysis of the source itself to catch common
+						security bugs and insecure patterns before they ship.
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2 id="pipeline-scanning">Security scanning in the pipeline</h2>
+		<p>
+			On top of GitHub's alerts, the Azure Pipelines build runs its own
+			security stage on every pull request and merge. The scan is tailored
+			<strong>per language</strong> so each project's toolchain gets the
+			checks that matter for it, and the build surfaces findings early —
+			before a change reaches an alpha or stable channel.
+		</p>
+		<ul>
+			<li>
+				<strong>Secret scanning (git leaks).</strong> The full commit
+				history and working tree are scanned for leaked secrets — API
+				keys, tokens and credentials — so nothing sensitive lands in the
+				repository.
+			</li>
+			<li>
+				<strong>Dependency vulnerability scanning.</strong> Each
+				language's dependencies are audited against known advisory
+				databases (for example <code>cargo audit</code> for Rust and the
+				equivalent audit tools for the other ecosystems) to catch
+				vulnerable packages at build time.
+			</li>
+			<li>
+				<strong>Per-language checks.</strong> Because projects span
+				multiple languages, the pipeline selects the appropriate scanners
+				for each stack rather than assuming one toolchain fits all.
+			</li>
+		</ul>
+		<p>
+			See the <a href="/versioning#branching">branching model</a> for where
+			these stages fit in the pull-request and release flow.
+		</p>
+
+		<h2 id="reporting">Reporting a vulnerability</h2>
+		<p>
+			Please <strong>don't</strong> open a public issue for a security
+			vulnerability. Instead, email the details privately to the maintainer
+			at
+			<a href="mailto:contact@draviavemal.com">contact@draviavemal.com</a>
+			so it can be triaged and fixed before any public disclosure.
+		</p>
+		<p>A useful report usually includes:</p>
+		<ul>
+			<li>The affected project and version (stable or alpha).</li>
+			<li>A description of the vulnerability and its impact.</li>
+			<li>Steps to reproduce or a minimal proof of concept.</li>
+			<li>Any suggested fix or mitigation, if you have one.</li>
+		</ul>
+	</main>
+</Layout>
