@@ -1,4 +1,4 @@
-export const SITE_TITLE = 'Dravia Vemal — Open Source Docs';
+export const SITE_TITLE = 'Dravia Vemal';
 export const SITE_DESCRIPTION =
 	'Open source projects by Dravia Vemal — a way of giving back to the community that taught me. openxml-office, tauri-remote-ui and xml_rs: built and improved in the open, with commercial sponsorship options.';
 
