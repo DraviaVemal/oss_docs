@@ -13,7 +13,7 @@
     "postbuild": "node scripts/build-sitemap-index.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/sitemap": "^3.7.3",
     "@astrojs/starlight": "^0.34.2",
     "@astrojs/starlight-tailwind": "^4.0.1",
     "@tailwindcss/vite": "^4.1.7",
