@@ -7,6 +7,60 @@ slug: 4.0/getting-started
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
+### Project Progress
+
+#### V4 Development Status
+
+| Language    | Package      | Progress |
+| ----------- | ------------ | -------- |
+| Flatbuffers | common       | 🟩⬜⬜⬜⬜    |
+| Rust        | fbs          | 🟩⬜⬜⬜⬜    |
+| Rust        | xml          | 🟩🟩🟩🟩⬜    |
+| Rust        | global       | 🟩🟩⬜⬜⬜    |
+| Rust        | spreadsheet  | 🟩🟩🟩🟩⬜    |
+| Rust        | presentation | 🟩⬜⬜⬜⬜    |
+| Rust        | document     | 🟩⬜⬜⬜⬜    |
+| Rust        | FFI          | 🟩⬜⬜⬜⬜    |
+| C#          | fbs          | 🟩⬜⬜⬜⬜    |
+| C#          | spreadsheet  | 🟩⬜⬜⬜⬜    |
+| C#          | presentation | 🟩⬜⬜⬜⬜    |
+| C#          | document     | 🟩⬜⬜⬜⬜    |
+| Python      | fbs          | 🟩⬜⬜⬜⬜    |
+| Python      | spreadsheet  | ⬜⬜⬜⬜⬜    |
+| Python      | presentation | ⬜⬜⬜⬜⬜    |
+| Python      | document     | ⬜⬜⬜⬜⬜    |
+| ----------- | -----------  | -------- |
+| PHASE 2     | PHASE 2      | PHASE 2  |
+| ----------- | -----------  | -------- |
+| Java        | fbs          | ⬜⬜⬜⬜⬜    |
+| Java        | spreadsheet  | ⬜⬜⬜⬜⬜    |
+| Java        | presentation | ⬜⬜⬜⬜⬜    |
+| Java        | document     | ⬜⬜⬜⬜⬜    |
+| Go          | fbs          | ⬜⬜⬜⬜⬜    |
+| Go          | spreadsheet  | ⬜⬜⬜⬜⬜    |
+| Go          | presentation | ⬜⬜⬜⬜⬜    |
+| Go          | document     | ⬜⬜⬜⬜⬜    |
+| TypeScript  | fbs          | ⬜⬜⬜⬜⬜    |
+| TypeScript  | spreadsheet  | ⬜⬜⬜⬜⬜    |
+| TypeScript  | presentation | ⬜⬜⬜⬜⬜    |
+| TypeScript  | document     | ⬜⬜⬜⬜⬜    |
+
+## Technical Details
+
+This release marks a significant evolution for the OpenXML-office project. The upcoming version, V4, will be a complete rewrite of this package. It aims to maintain previous release structures as much as possible, with a strong focus on minimizing migration efforts for adopters.
+
+## Inspiration
+
+This project has been in the works for nearly a year, driven by a desire to explore the OpenXML standards for office documents. Initially developed as a C# project using the OpenXML-SDK as a baseline, I have now gathered sufficient knowledge to transition into a cross-platform, multi-language supported package. This effort is a way to give back to the community that has been instrumental in my professional and personal growth.
+
+### Architecture
+
+The core system is written in Rust, ensuring optimal performance and memory usage. This system is then exposed as a "C" extern FFI, facilitating interaction with other languages. Wrappers for each supported language have been created, and the package is published in the respective package managers. For TypeScript/Javascript, `wasm` is utilized to create a Node.js package, preserving performance advantages. The data transmission is handled using FlatBuffer, following a central schema that ensures consistent patterns across all supported languages and facilitates code organization and documentation maintenance.
+
+## Support Scope
+
+This package supports `.xlsx`, `.pptx`, and `.docx` formats starting from Office 2007. Features are organized into respective modules, namespaces, and directories to provide clarity on the minimum supported version for each feature. The package is designed to be compatible with all applications that open standard OpenXML documents, including online solutions.
+
 ### Package Version Details
 
 <Tabs syncKey='language'>
