@@ -23,17 +23,62 @@ app.start_remote_ui(
 
 ## Defaults
 
-| Field | Default | Meaning |
-| --- | --- | --- |
-| `allowed_origin` | `OriginType::Localhost` | Only the local machine may connect. |
-| `port` | `None` | OS picks a free port. |
-| `bundle_path` | `None` | Falls back to `frontendDist`, then `../dist`. |
-| `primary_window_label` | `"main"` | Window the remote UI controls. |
-| `application_ui` | `false` | Native window shows the blocking screen. |
-| `minimize_app` | `false` | Host window is **not** minimized on start. |
-| `enable_info_url` | `true` | `/remote_ui_info` endpoint is available. |
-| `custom_blocking_ui` | `None` | Built-in blocking screen is used. |
-| `custom_disconnect_ui` | `None` | Built-in disconnect screen is used. |
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Default</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>allowed_origin</code></td>
+      <td><code>OriginType::Localhost</code></td>
+      <td>Only the local machine may connect.</td>
+    </tr>
+    <tr>
+      <td><code>port</code></td>
+      <td><code>None</code></td>
+      <td>OS picks a free port.</td>
+    </tr>
+    <tr>
+      <td><code>bundle_path</code></td>
+      <td><code>None</code></td>
+      <td>Falls back to <code>frontendDist</code>, then <code>../dist</code>.</td>
+    </tr>
+    <tr>
+      <td><code>primary_window_label</code></td>
+      <td><code>"main"</code></td>
+      <td>Window the remote UI controls.</td>
+    </tr>
+    <tr>
+      <td><code>application_ui</code></td>
+      <td><code>false</code></td>
+      <td>Native window shows the blocking screen.</td>
+    </tr>
+    <tr>
+      <td><code>minimize_app</code></td>
+      <td><code>false</code></td>
+      <td>Host window is <strong>not</strong> minimized on start.</td>
+    </tr>
+    <tr>
+      <td><code>enable_info_url</code></td>
+      <td><code>true</code></td>
+      <td><code>/remote_ui_info</code> endpoint is available.</td>
+    </tr>
+    <tr>
+      <td><code>custom_blocking_ui</code></td>
+      <td><code>None</code></td>
+      <td>Built-in blocking screen is used.</td>
+    </tr>
+    <tr>
+      <td><code>custom_disconnect_ui</code></td>
+      <td><code>None</code></td>
+      <td>Built-in disconnect screen is used.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Builder methods
 
@@ -110,11 +155,28 @@ RemoteUiConfig::default().set_custom_blocking_ui(Some(html))
 Injects custom HTML/CSS/JS shown on the host window while a remote session is
 active. The following placeholders are substituted before injection:
 
-| Placeholder | Replaced with |
-| --- | --- |
-| `%URLS%` | Comma-separated list of every reachable URL. |
-| `%URLS_LIST%` | Pre-rendered `<li><a href="…">…</a></li>` items for a `<ul>`/`<ol>`. |
-| `%URL_INFO%` | The `/remote_ui_info` URL. |
+<table>
+  <thead>
+    <tr>
+      <th>Placeholder</th>
+      <th>Replaced with</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>%URLS%</code></td>
+      <td>Comma-separated list of every reachable URL.</td>
+    </tr>
+    <tr>
+      <td><code>%URLS_LIST%</code></td>
+      <td>Pre-rendered <code>&lt;li&gt;&lt;a href="…"&gt;…&lt;/a&gt;&lt;/li&gt;</code> items for a <code>&lt;ul&gt;</code>/<code>&lt;ol&gt;</code>.</td>
+    </tr>
+    <tr>
+      <td><code>%URL_INFO%</code></td>
+      <td>The <code>/remote_ui_info</code> URL.</td>
+    </tr>
+  </tbody>
+</table>
 
 ### `set_custom_disconnect_ui`
 

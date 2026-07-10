@@ -37,12 +37,32 @@ let child_id = document.append_child_element_mut(
 When element order matters, insert relative to a sibling tag instead of always
 appending:
 
-| Method | Inserts the new element… |
-| --- | --- |
-| `inser_child_element_after_last_tag_mut` | after the last child with the given local tag |
-| `inser_child_element_before_first_tag_mut` | before the first child with the given local tag |
-| `inser_child_element_after_last_tag_ns_mut` | after the last child with the given namespaced tag |
-| `inser_child_element_before_first_tag_ns_mut` | before the first child with the given namespaced tag |
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Inserts the new element…</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>inser_child_element_after_last_tag_mut</code></td>
+      <td>after the last child with the given local tag</td>
+    </tr>
+    <tr>
+      <td><code>inser_child_element_before_first_tag_mut</code></td>
+      <td>before the first child with the given local tag</td>
+    </tr>
+    <tr>
+      <td><code>inser_child_element_after_last_tag_ns_mut</code></td>
+      <td>after the last child with the given namespaced tag</td>
+    </tr>
+    <tr>
+      <td><code>inser_child_element_before_first_tag_ns_mut</code></td>
+      <td>before the first child with the given namespaced tag</td>
+    </tr>
+  </tbody>
+</table>
 
 ```rust
 let id = document.inser_child_element_before_first_tag_mut(

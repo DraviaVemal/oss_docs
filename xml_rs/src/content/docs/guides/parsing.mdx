@@ -31,14 +31,40 @@ let document = XmlDeserializer::file_to_xml_doc_tree("catalog.xml")?;
 
 ## What is preserved
 
-| Input | Handling |
-| --- | --- |
-| XML declaration | `version` and `encoding` are read onto the document (encoding defaults to `utf-8`). |
-| Namespaces | Prefix → URI mappings are resolved; QNames keep their prefix. |
-| Attributes | Kept in source order. |
-| Text & mixed content | Unescaped and stored as text nodes. |
-| Comments | Preserved as comment nodes and re-emitted on serialize. |
-| Self-closing tags | Parsed as empty elements. |
+<table>
+  <thead>
+    <tr>
+      <th>Input</th>
+      <th>Handling</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>XML declaration</td>
+      <td><code>version</code> and <code>encoding</code> are read onto the document (encoding defaults to <code>utf-8</code>).</td>
+    </tr>
+    <tr>
+      <td>Namespaces</td>
+      <td>Prefix → URI mappings are resolved; QNames keep their prefix.</td>
+    </tr>
+    <tr>
+      <td>Attributes</td>
+      <td>Kept in source order.</td>
+    </tr>
+    <tr>
+      <td>Text & mixed content</td>
+      <td>Unescaped and stored as text nodes.</td>
+    </tr>
+    <tr>
+      <td>Comments</td>
+      <td>Preserved as comment nodes and re-emitted on serialize.</td>
+    </tr>
+    <tr>
+      <td>Self-closing tags</td>
+      <td>Parsed as empty elements.</td>
+    </tr>
+  </tbody>
+</table>
 
 <Aside type="caution">
 Input is treated as UTF-8. A mismatched start/end tag fails parsing with a

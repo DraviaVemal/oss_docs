@@ -17,14 +17,61 @@ generated documents target **Microsoft Office 2007 and newer**.
 Minimum runtime version required to consume each package. Stage 2 languages are
 planned and not yet published.
 
-| Language   | Stage   | Min. Supported Version | Package                      | Integration                                    |
-| ---------- | ------- | ---------------------- | ---------------------------- | ---------------------------------------------- |
-| Rust       | Stage 1 | 1.32                   | `draviavemal-openxml_office` | Crate connecting directly to the core lib      |
-| C#         | Stage 1 | .NET 10.0                 | `draviavemal.openxml-office` | Wrapper around the Rust FFI layer              |
-| Python     | Stage 1 | 3.8                    | PyPI (`cffi`)                | Wrapper around the Rust FFI layer using `cffi` |
-| Java       | Stage 2 | 1.8                    | Maven Central                | Wrapper around the Rust FFI layer              |
-| Go         | Stage 2 | 1.22                   | Go module                    | Wrapper around the Rust FFI layer              |
-| TypeScript | Stage 2 | —                      | npm                          | Node addon exposed via NAPI-RS                 |
+<table>
+  <thead>
+    <tr>
+      <th>Language</th>
+      <th>Stage</th>
+      <th>Min. Supported Version</th>
+      <th>Package</th>
+      <th>Integration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Rust</td>
+      <td>Stage 1</td>
+      <td>1.32</td>
+      <td><code>draviavemal-openxml_office</code></td>
+      <td>Crate connecting directly to the core lib</td>
+    </tr>
+    <tr>
+      <td>C#</td>
+      <td>Stage 1</td>
+      <td>.NET 10.0</td>
+      <td><code>draviavemal.openxml-office</code></td>
+      <td>Wrapper around the Rust FFI layer</td>
+    </tr>
+    <tr>
+      <td>Python</td>
+      <td>Stage 1</td>
+      <td>3.8</td>
+      <td>PyPI (<code>cffi</code>)</td>
+      <td>Wrapper around the Rust FFI layer using <code>cffi</code></td>
+    </tr>
+    <tr>
+      <td>Java</td>
+      <td>Stage 2</td>
+      <td>1.8</td>
+      <td>Maven Central</td>
+      <td>Wrapper around the Rust FFI layer</td>
+    </tr>
+    <tr>
+      <td>Go</td>
+      <td>Stage 2</td>
+      <td>1.22</td>
+      <td>Go module</td>
+      <td>Wrapper around the Rust FFI layer</td>
+    </tr>
+    <tr>
+      <td>TypeScript</td>
+      <td>Stage 2</td>
+      <td>—</td>
+      <td>npm</td>
+      <td>Node addon exposed via NAPI-RS</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Release Versions
 
@@ -36,49 +83,139 @@ reference.
 <TabItem label='Rust'>
 The Rust crate connects to the core library directly, so it has no separate FFI dependency.
 
-| Package                      | Current Stable Release | Current Alpha Release | Dependent FFI / RS Version |
-| ---------------------------- | ---------------------- | --------------------- | -------------------------- |
-| `draviavemal-openxml_office` | [![badge](https://img.shields.io/crates/v/draviavemal-openxml_office?style=flat)](https://crates.io/crates/draviavemal-openxml_office) | [![badge](https://img.shields.io/crates/v/draviavemal-openxml_office?include_prereleases&style=flat)](https://crates.io/crates/draviavemal-openxml_office) | Core (no FFI wrapper)      |
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Current Stable Release</th>
+      <th>Current Alpha Release</th>
+      <th>Dependent FFI / RS Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>draviavemal-openxml_office</code></td>
+      <td><a href="https://crates.io/crates/draviavemal-openxml_office"><img src="https://img.shields.io/crates/v/draviavemal-openxml_office?style=flat" alt="badge" /></a></td>
+      <td><a href="https://crates.io/crates/draviavemal-openxml_office"><img src="https://img.shields.io/crates/v/draviavemal-openxml_office?include_prereleases&amp;style=flat" alt="badge" /></a></td>
+      <td>Core (no FFI wrapper)</td>
+    </tr>
+  </tbody>
+</table>
 </TabItem>
 
 <TabItem label='C#'>
 The C# package wraps the Rust FFI layer and tracks the matching `rs` core version.
 
-| Package                      | Current Stable Release | Current Alpha Release | Dependent FFI / RS Version |
-| ---------------------------- | ---------------------- | --------------------- | -------------------------- |
-| `draviavemal.openxml-office` | [![badge](https://img.shields.io/nuget/v/draviavemal.openxml-office.svg)](https://www.nuget.org/packages/draviavemal.openxml-office) | [![badge](https://img.shields.io/nuget/vpre/draviavemal.openxml-office.svg)](https://www.nuget.org/packages/draviavemal.openxml-office) | `draviavemal-openxml_office` (matched)  |
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Current Stable Release</th>
+      <th>Current Alpha Release</th>
+      <th>Dependent FFI / RS Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>draviavemal.openxml-office</code></td>
+      <td><a href="https://www.nuget.org/packages/draviavemal.openxml-office"><img src="https://img.shields.io/nuget/v/draviavemal.openxml-office.svg" alt="badge" /></a></td>
+      <td><a href="https://www.nuget.org/packages/draviavemal.openxml-office"><img src="https://img.shields.io/nuget/vpre/draviavemal.openxml-office.svg" alt="badge" /></a></td>
+      <td><code>draviavemal-openxml_office</code> (matched)</td>
+    </tr>
+  </tbody>
+</table>
 </TabItem>
 
 <TabItem label="Python🚧🛠️">
 Wrapper around the Rust FFI layer using `cffi`. Release pending.
 
-| Package | Current Stable Release | Current Alpha Release | Dependent FFI / RS Version |
-| ------- | ---------------------- | --------------------- | -------------------------- |
-| Python  | —                      | TODO                  | `draviavemal-openxml_office` (matched)  |
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Current Stable Release</th>
+      <th>Current Alpha Release</th>
+      <th>Dependent FFI / RS Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Python</td>
+      <td>—</td>
+      <td>TODO</td>
+      <td><code>draviavemal-openxml_office</code> (matched)</td>
+    </tr>
+  </tbody>
+</table>
 </TabItem>
 
 <TabItem label="Go🚧🛠️">
 Phase 2
 
-| Package | Current Stable Release | Current Alpha Release | Dependent FFI / RS Version |
-| ------- | ---------------------- | --------------------- | -------------------------- |
-| Go      | —                      | Phase 2               | `draviavemal-openxml_office` (matched)  |
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Current Stable Release</th>
+      <th>Current Alpha Release</th>
+      <th>Dependent FFI / RS Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Go</td>
+      <td>—</td>
+      <td>Phase 2</td>
+      <td><code>draviavemal-openxml_office</code> (matched)</td>
+    </tr>
+  </tbody>
+</table>
 </TabItem>
 
 <TabItem label="Java🚧🛠️">
 Phase 2
 
-| Package | Current Stable Release | Current Alpha Release | Dependent FFI / RS Version |
-| ------- | ---------------------- | --------------------- | -------------------------- |
-| Java    | —                      | Phase 2               | `draviavemal-openxml_office` (matched)  |
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Current Stable Release</th>
+      <th>Current Alpha Release</th>
+      <th>Dependent FFI / RS Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Java</td>
+      <td>—</td>
+      <td>Phase 2</td>
+      <td><code>draviavemal-openxml_office</code> (matched)</td>
+    </tr>
+  </tbody>
+</table>
 </TabItem>
 
 <TabItem label="TS🚧🛠️">
 Phase 2
 
-| Package    | Current Stable Release | Current Alpha Release | Dependent FFI / RS Version |
-| ---------- | ---------------------- | --------------------- | -------------------------- |
-| TypeScript | —                      | Phase 2               | Node addon via NAPI-RS     |
+<table>
+  <thead>
+    <tr>
+      <th>Package</th>
+      <th>Current Stable Release</th>
+      <th>Current Alpha Release</th>
+      <th>Dependent FFI / RS Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>TypeScript</td>
+      <td>—</td>
+      <td>Phase 2</td>
+      <td>Node addon via NAPI-RS</td>
+    </tr>
+  </tbody>
+</table>
 </TabItem>
 </Tabs>
 
@@ -86,36 +223,169 @@ Phase 2
 
 ### V4 Development Status
 
-| Language    | Package      | Progress |
-| ----------- | ------------ | -------- |
-| Flatbuffers | common       | 🟩⬜⬜⬜⬜    |
-| Rust        | fbs          | 🟩⬜⬜⬜⬜    |
-| Rust        | xml          | 🟩🟩🟩🟩⬜    |
-| Rust        | global       | 🟩🟩⬜⬜⬜    |
-| Rust        | spreadsheet  | 🟩🟩🟩🟩⬜    |
-| Rust        | presentation | 🟩⬜⬜⬜⬜    |
-| Rust        | document     | 🟩⬜⬜⬜⬜    |
-| Rust        | FFI          | 🟩⬜⬜⬜⬜    |
-| C#          | fbs          | 🟩⬜⬜⬜⬜    |
-| C#          | spreadsheet  | 🟩⬜⬜⬜⬜    |
-| C#          | presentation | 🟩⬜⬜⬜⬜    |
-| C#          | document     | 🟩⬜⬜⬜⬜    |
-| Python      | fbs          | 🟩⬜⬜⬜⬜    |
-| Python      | spreadsheet  | ⬜⬜⬜⬜⬜    |
-| Python      | presentation | ⬜⬜⬜⬜⬜    |
-| Python      | document     | ⬜⬜⬜⬜⬜    |
-| ----------- | -----------  | -------- |
-| PHASE 2     | PHASE 2      | PHASE 2  |
-| ----------- | -----------  | -------- |
-| Java        | fbs          | ⬜⬜⬜⬜⬜    |
-| Java        | spreadsheet  | ⬜⬜⬜⬜⬜    |
-| Java        | presentation | ⬜⬜⬜⬜⬜    |
-| Java        | document     | ⬜⬜⬜⬜⬜    |
-| Go          | fbs          | ⬜⬜⬜⬜⬜    |
-| Go          | spreadsheet  | ⬜⬜⬜⬜⬜    |
-| Go          | presentation | ⬜⬜⬜⬜⬜    |
-| Go          | document     | ⬜⬜⬜⬜⬜    |
-| TypeScript  | fbs          | ⬜⬜⬜⬜⬜    |
-| TypeScript  | spreadsheet  | ⬜⬜⬜⬜⬜    |
-| TypeScript  | presentation | ⬜⬜⬜⬜⬜    |
-| TypeScript  | document     | ⬜⬜⬜⬜⬜    |
+<table>
+  <thead>
+    <tr>
+      <th>Language</th>
+      <th>Package</th>
+      <th>Progress</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Flatbuffers</td>
+      <td>common</td>
+      <td>🟩⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Rust</td>
+      <td>fbs</td>
+      <td>🟩⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Rust</td>
+      <td>xml</td>
+      <td>🟩🟩🟩🟩⬜</td>
+    </tr>
+    <tr>
+      <td>Rust</td>
+      <td>global</td>
+      <td>🟩🟩⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Rust</td>
+      <td>spreadsheet</td>
+      <td>🟩🟩🟩🟩⬜</td>
+    </tr>
+    <tr>
+      <td>Rust</td>
+      <td>presentation</td>
+      <td>🟩⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Rust</td>
+      <td>document</td>
+      <td>🟩⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Rust</td>
+      <td>FFI</td>
+      <td>🟩⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>C#</td>
+      <td>fbs</td>
+      <td>🟩⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>C#</td>
+      <td>spreadsheet</td>
+      <td>🟩⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>C#</td>
+      <td>presentation</td>
+      <td>🟩⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>C#</td>
+      <td>document</td>
+      <td>🟩⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Python</td>
+      <td>fbs</td>
+      <td>🟩⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Python</td>
+      <td>spreadsheet</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Python</td>
+      <td>presentation</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Python</td>
+      <td>document</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>-----------</td>
+      <td>-----------</td>
+      <td>--------</td>
+    </tr>
+    <tr>
+      <td>PHASE 2</td>
+      <td>PHASE 2</td>
+      <td>PHASE 2</td>
+    </tr>
+    <tr>
+      <td>-----------</td>
+      <td>-----------</td>
+      <td>--------</td>
+    </tr>
+    <tr>
+      <td>Java</td>
+      <td>fbs</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Java</td>
+      <td>spreadsheet</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Java</td>
+      <td>presentation</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Java</td>
+      <td>document</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Go</td>
+      <td>fbs</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Go</td>
+      <td>spreadsheet</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Go</td>
+      <td>presentation</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>Go</td>
+      <td>document</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>TypeScript</td>
+      <td>fbs</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>TypeScript</td>
+      <td>spreadsheet</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>TypeScript</td>
+      <td>presentation</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+    <tr>
+      <td>TypeScript</td>
+      <td>document</td>
+      <td>⬜⬜⬜⬜⬜</td>
+    </tr>
+  </tbody>
+</table>

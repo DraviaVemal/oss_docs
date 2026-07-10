@@ -91,12 +91,32 @@ While a session is active, the native window shows one of two things:
 
 ## HTTP endpoints
 
-| Path | Purpose |
-| --- | --- |
-| `/` (and your asset paths) | Serves the built frontend bundle. |
-| `/remote_ui_ws` | WebSocket upgrade for the IPC bridge. |
-| `/remote_ui_info` | Connection info endpoint (disable with [`disable_info_url`](/tauri-remote-ui/configuration/#disable_info_url)). |
-| `/remote_ui_disconnect` | Disconnect screen the browser is sent to on close. |
+<table>
+  <thead>
+    <tr>
+      <th>Path</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>/</code> (and your asset paths)</td>
+      <td>Serves the built frontend bundle.</td>
+    </tr>
+    <tr>
+      <td><code>/remote_ui_ws</code></td>
+      <td>WebSocket upgrade for the IPC bridge.</td>
+    </tr>
+    <tr>
+      <td><code>/remote_ui_info</code></td>
+      <td>Connection info endpoint (disable with <a href="/tauri-remote-ui/configuration/#disable_info_url"><code>disable_info_url</code></a>).</td>
+    </tr>
+    <tr>
+      <td><code>/remote_ui_disconnect</code></td>
+      <td>Disconnect screen the browser is sent to on close.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Where assets come from
 
