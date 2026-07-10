@@ -1,0 +1,121 @@
+---
+title: Compatibility
+description: Supported platforms, minimum runtime versions and the current stable /
+  alpha release versions for each language binding of openxml-office v4.x.
+slug: 4.0/compatibility
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+openxml-office v4.x is built on a single Rust core that is exposed to other
+languages through a Rust FFI layer. The Rust crate talks to the core directly,
+while every other language ships a thin wrapper around the FFI layer. The
+generated documents target **Microsoft Office 2007 and newer**.
+
+## Supported Platforms & Languages
+
+Minimum runtime version required to consume each package. Stage 2 languages are
+planned and not yet published.
+
+| Language   | Stage   | Min. Supported Version | Package                      | Integration                                    |
+| ---------- | ------- | ---------------------- | ---------------------------- | ---------------------------------------------- |
+| Rust       | Stage 1 | 1.32                   | `draviavemal-openxml_office` | Crate connecting directly to the core lib      |
+| C#         | Stage 1 | .NET 10.0                 | `draviavemal.openxml-office` | Wrapper around the Rust FFI layer              |
+| Python     | Stage 1 | 3.8                    | PyPI (`cffi`)                | Wrapper around the Rust FFI layer using `cffi` |
+| Java       | Stage 2 | 1.8                    | Maven Central                | Wrapper around the Rust FFI layer              |
+| Go         | Stage 2 | 1.22                   | Go module                    | Wrapper around the Rust FFI layer              |
+| TypeScript | Stage 2 | —                      | npm                          | Node addon exposed via NAPI-RS                 |
+
+## Release Versions
+
+Current stable and alpha release for each language. Wrapper languages depend on
+the shared Rust FFI / core (`rs`) build; that dependency version is listed for
+reference.
+
+<Tabs syncKey='language'>
+<TabItem label='Rust'>
+The Rust crate connects to the core library directly, so it has no separate FFI dependency.
+
+| Package                      | Current Stable Release | Current Alpha Release | Dependent FFI / RS Version |
+| ---------------------------- | ---------------------- | --------------------- | -------------------------- |
+| `draviavemal-openxml_office` | [![badge](https://img.shields.io/crates/v/draviavemal-openxml_office?style=flat)](https://crates.io/crates/draviavemal-openxml_office) | [![badge](https://img.shields.io/crates/v/draviavemal-openxml_office?include_prereleases&style=flat)](https://crates.io/crates/draviavemal-openxml_office) | Core (no FFI wrapper)      |
+</TabItem>
+
+<TabItem label='C#'>
+The C# package wraps the Rust FFI layer and tracks the matching `rs` core version.
+
+| Package                      | Current Stable Release | Current Alpha Release | Dependent FFI / RS Version |
+| ---------------------------- | ---------------------- | --------------------- | -------------------------- |
+| `draviavemal.openxml-office` | [![badge](https://img.shields.io/nuget/v/draviavemal.openxml-office.svg)](https://www.nuget.org/packages/draviavemal.openxml-office) | [![badge](https://img.shields.io/nuget/vpre/draviavemal.openxml-office.svg)](https://www.nuget.org/packages/draviavemal.openxml-office) | `draviavemal-openxml_office` (matched)  |
+</TabItem>
+
+<TabItem label="Python🚧🛠️">
+Wrapper around the Rust FFI layer using `cffi`. Release pending.
+
+| Package | Current Stable Release | Current Alpha Release | Dependent FFI / RS Version |
+| ------- | ---------------------- | --------------------- | -------------------------- |
+| Python  | —                      | TODO                  | `draviavemal-openxml_office` (matched)  |
+</TabItem>
+
+<TabItem label="Go🚧🛠️">
+Phase 2
+
+| Package | Current Stable Release | Current Alpha Release | Dependent FFI / RS Version |
+| ------- | ---------------------- | --------------------- | -------------------------- |
+| Go      | —                      | Phase 2               | `draviavemal-openxml_office` (matched)  |
+</TabItem>
+
+<TabItem label="Java🚧🛠️">
+Phase 2
+
+| Package | Current Stable Release | Current Alpha Release | Dependent FFI / RS Version |
+| ------- | ---------------------- | --------------------- | -------------------------- |
+| Java    | —                      | Phase 2               | `draviavemal-openxml_office` (matched)  |
+</TabItem>
+
+<TabItem label="TS🚧🛠️">
+Phase 2
+
+| Package    | Current Stable Release | Current Alpha Release | Dependent FFI / RS Version |
+| ---------- | ---------------------- | --------------------- | -------------------------- |
+| TypeScript | —                      | Phase 2               | Node addon via NAPI-RS     |
+</TabItem>
+</Tabs>
+
+## Project Progress
+
+### V4 Development Status
+
+| Language    | Package      | Progress |
+| ----------- | ------------ | -------- |
+| Flatbuffers | common       | 🟩⬜⬜⬜⬜    |
+| Rust        | fbs          | 🟩⬜⬜⬜⬜    |
+| Rust        | xml          | 🟩🟩🟩🟩⬜    |
+| Rust        | global       | 🟩🟩⬜⬜⬜    |
+| Rust        | spreadsheet  | 🟩🟩🟩🟩⬜    |
+| Rust        | presentation | 🟩⬜⬜⬜⬜    |
+| Rust        | document     | 🟩⬜⬜⬜⬜    |
+| Rust        | FFI          | 🟩⬜⬜⬜⬜    |
+| C#          | fbs          | 🟩⬜⬜⬜⬜    |
+| C#          | spreadsheet  | 🟩⬜⬜⬜⬜    |
+| C#          | presentation | 🟩⬜⬜⬜⬜    |
+| C#          | document     | 🟩⬜⬜⬜⬜    |
+| Python      | fbs          | 🟩⬜⬜⬜⬜    |
+| Python      | spreadsheet  | ⬜⬜⬜⬜⬜    |
+| Python      | presentation | ⬜⬜⬜⬜⬜    |
+| Python      | document     | ⬜⬜⬜⬜⬜    |
+| ----------- | -----------  | -------- |
+| PHASE 2     | PHASE 2      | PHASE 2  |
+| ----------- | -----------  | -------- |
+| Java        | fbs          | ⬜⬜⬜⬜⬜    |
+| Java        | spreadsheet  | ⬜⬜⬜⬜⬜    |
+| Java        | presentation | ⬜⬜⬜⬜⬜    |
+| Java        | document     | ⬜⬜⬜⬜⬜    |
+| Go          | fbs          | ⬜⬜⬜⬜⬜    |
+| Go          | spreadsheet  | ⬜⬜⬜⬜⬜    |
+| Go          | presentation | ⬜⬜⬜⬜⬜    |
+| Go          | document     | ⬜⬜⬜⬜⬜    |
+| TypeScript  | fbs          | ⬜⬜⬜⬜⬜    |
+| TypeScript  | spreadsheet  | ⬜⬜⬜⬜⬜    |
+| TypeScript  | presentation | ⬜⬜⬜⬜⬜    |
+| TypeScript  | document     | ⬜⬜⬜⬜⬜    |

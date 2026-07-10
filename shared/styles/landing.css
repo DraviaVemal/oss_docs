@@ -160,6 +160,17 @@
 	background: var(--sl-color-accent-high);
 }
 
+.oss-btn.alpha {
+	background: var(--sl-color-orange-low, rgba(234, 88, 12, 0.18));
+	border-color: var(--sl-color-orange, rgb(234, 88, 12));
+	color: var(--sl-color-orange-high, #ffedd5) !important;
+}
+
+.oss-btn.alpha:hover {
+	background: var(--sl-color-orange, rgb(234, 88, 12));
+	color: var(--sl-color-white) !important;
+}
+
 /* Card grids ------------------------------------------------------------- */
 .oss-grid {
 	display: grid;
