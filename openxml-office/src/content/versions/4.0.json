@@ -25,6 +25,10 @@
                     "link": "/introduction"
                 },
                 {
+                    "label": "Compatibility",
+                    "link": "/compatibility"
+                },
+                {
                     "label": "Benchmark 🚧🔨",
                     "link": "/benchmark"
                 },
