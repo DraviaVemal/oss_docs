@@ -104,19 +104,61 @@ This section outlines the options available when configuring charts with `ChartS
 
 ### `ExcelSetting` Options
 
-| Property | Type                                        | Details                                   |
-| -------- | ------------------------------------------- | ----------------------------------------- |
-| from     | [AnchorPosition](./#anchorposition-options) | Placement details for from starting point |
-| to       | [AnchorPosition](./#anchorposition-options) | Placement details for to Ending point     |
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Type</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>from</td>
+      <td><a href="./#anchorposition-options">AnchorPosition</a></td>
+      <td>Placement details for from starting point</td>
+    </tr>
+    <tr>
+      <td>to</td>
+      <td><a href="./#anchorposition-options">AnchorPosition</a></td>
+      <td>Placement details for to Ending point</td>
+    </tr>
+  </tbody>
+</table>
 
 ### `AnchorPosition` Options
 
-| Property     | Type | Details   |
-| ------------ | ---- | --------- |
-| column       | uint | Default:1 |
-| columnOffset | uint | Default:0 |
-| row          | uint | Default:1 |
-| rowOffset    | uint | Default:0 |
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Type</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>column</td>
+      <td>uint</td>
+      <td>Default:1</td>
+    </tr>
+    <tr>
+      <td>columnOffset</td>
+      <td>uint</td>
+      <td>Default:0</td>
+    </tr>
+    <tr>
+      <td>row</td>
+      <td>uint</td>
+      <td>Default:1</td>
+    </tr>
+    <tr>
+      <td>rowOffset</td>
+      <td>uint</td>
+      <td>Default:0</td>
+    </tr>
+  </tbody>
+</table>
 
 ### `ChartDataSetting` Options
 
@@ -148,13 +190,43 @@ This properties give control over the X and Y axes. (Relate placement based on y
 
 ### `ChartSeriesSetting` Options
 
-| Property    | Type    | Details                                       |
-| ----------- | ------- | --------------------------------------------- |
-| borderColor | string? | Explicit border color for current data series |
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Type</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>borderColor</td>
+      <td>string?</td>
+      <td>Explicit border color for current data series</td>
+    </tr>
+  </tbody>
+</table>
 
 ### `ChartDataPointSettings` Options
 
-| Property    | Type    | Details                                                       |
-| ----------- | ------- | ------------------------------------------------------------- |
-| fillColor   | string? | Explicit fill color for one specific data point in a series   |
-| borderColor | string? | Explicit border color for one specific data point in a series |
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Type</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>fillColor</td>
+      <td>string?</td>
+      <td>Explicit fill color for one specific data point in a series</td>
+    </tr>
+    <tr>
+      <td>borderColor</td>
+      <td>string?</td>
+      <td>Explicit border color for one specific data point in a series</td>
+    </tr>
+  </tbody>
+</table>

@@ -31,12 +31,37 @@ tauri::Builder::default()
 Extension trait implemented for `tauri::AppHandle` that manages the server
 lifecycle. All methods are `async`.
 
-| Method | Returns | Description |
-| --- | --- | --- |
-| `start_remote_ui(config: RemoteUiConfig)` | `Result<(), tauri::Error>` | Starts the server. Errors if already running. |
-| `stop_remote_ui()` | `Result<(), tauri::Error>` | Stops the server if running and reloads the window. |
-| `is_remote_ui_running()` | `bool` | Whether the server is currently active. |
-| `remote_ui_port()` | `Option<u16>` | The bound port, or `None` if not running. |
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Returns</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>start_remote_ui(config: RemoteUiConfig)</code></td>
+      <td><code>Result&lt;(), tauri::Error&gt;</code></td>
+      <td>Starts the server. Errors if already running.</td>
+    </tr>
+    <tr>
+      <td><code>stop_remote_ui()</code></td>
+      <td><code>Result&lt;(), tauri::Error&gt;</code></td>
+      <td>Stops the server if running and reloads the window.</td>
+    </tr>
+    <tr>
+      <td><code>is_remote_ui_running()</code></td>
+      <td><code>bool</code></td>
+      <td>Whether the server is currently active.</td>
+    </tr>
+    <tr>
+      <td><code>remote_ui_port()</code></td>
+      <td><code>Option&lt;u16&gt;</code></td>
+      <td>The bound port, or <code>None</code> if not running.</td>
+    </tr>
+  </tbody>
+</table>
 
 ```rust
 app.start_remote_ui(RemoteUiConfig::default().set_port(Some(9090))).await?;
@@ -55,14 +80,40 @@ the OS-chosen port to the user or a test harness.
 Extension trait implemented for `tauri::WebviewWindow<R>`. Use it to emit events
 that reach both the native window and any connected remote client.
 
-| Method | Notes |
-| --- | --- |
-| `emit(event, payload)` *(async)* | Emits over WebSocket (if remote active) **and** via Tauri's event system. |
-| `emit_to(target, event, payload)` | Standard targeted emit. |
-| `emit_str(event, payload)` | Emit with a `String` payload. |
-| `emit_str_to(target, event, payload)` | Targeted string emit. |
-| `emit_filter(event, payload, filter)` | Emit to targets passing a filter. |
-| `emit_str_filter(event, payload, filter)` | String payload variant of `emit_filter`. |
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>emit(event, payload)</code> <em>(async)</em></td>
+      <td>Emits over WebSocket (if remote active) <strong>and</strong> via Tauri's event system.</td>
+    </tr>
+    <tr>
+      <td><code>emit_to(target, event, payload)</code></td>
+      <td>Standard targeted emit.</td>
+    </tr>
+    <tr>
+      <td><code>emit_str(event, payload)</code></td>
+      <td>Emit with a <code>String</code> payload.</td>
+    </tr>
+    <tr>
+      <td><code>emit_str_to(target, event, payload)</code></td>
+      <td>Targeted string emit.</td>
+    </tr>
+    <tr>
+      <td><code>emit_filter(event, payload, filter)</code></td>
+      <td>Emit to targets passing a filter.</td>
+    </tr>
+    <tr>
+      <td><code>emit_str_filter(event, payload, filter)</code></td>
+      <td>String payload variant of <code>emit_filter</code>.</td>
+    </tr>
+  </tbody>
+</table>
 
 ```rust
 use tauri::Manager;
@@ -108,17 +159,52 @@ pub enum OriginType { Localhost, Subnet, Any }
 The crate's error type (`tauri_remote_ui::Error`, with
 `tauri_remote_ui::Result<T>`):
 
-| Variant | When |
-| --- | --- |
-| `Io` | Wrapped `std::io::Error`. |
-| `Tauri` | Wrapped `tauri::Error`. |
-| `Json` | Wrapped `serde_json::Error`. |
-| `Http` | Wrapped `hyper::http::Error`. |
-| `ServerAlreadyRunning` | `start_remote_ui` called while already running. |
-| `PrimaryWindowNotFound` | Configured primary window label does not exist. |
-| `InvalidFrontendDist` | `frontendDist` is a remote URL; a local path is required. |
-| `WebSocket` | WebSocket transport error. |
-| `Plugin` | Generic plugin error with context. |
+<table>
+  <thead>
+    <tr>
+      <th>Variant</th>
+      <th>When</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Io</code></td>
+      <td>Wrapped <code>std::io::Error</code>.</td>
+    </tr>
+    <tr>
+      <td><code>Tauri</code></td>
+      <td>Wrapped <code>tauri::Error</code>.</td>
+    </tr>
+    <tr>
+      <td><code>Json</code></td>
+      <td>Wrapped <code>serde_json::Error</code>.</td>
+    </tr>
+    <tr>
+      <td><code>Http</code></td>
+      <td>Wrapped <code>hyper::http::Error</code>.</td>
+    </tr>
+    <tr>
+      <td><code>ServerAlreadyRunning</code></td>
+      <td><code>start_remote_ui</code> called while already running.</td>
+    </tr>
+    <tr>
+      <td><code>PrimaryWindowNotFound</code></td>
+      <td>Configured primary window label does not exist.</td>
+    </tr>
+    <tr>
+      <td><code>InvalidFrontendDist</code></td>
+      <td><code>frontendDist</code> is a remote URL; a local path is required.</td>
+    </tr>
+    <tr>
+      <td><code>WebSocket</code></td>
+      <td>WebSocket transport error.</td>
+    </tr>
+    <tr>
+      <td><code>Plugin</code></td>
+      <td>Generic plugin error with context.</td>
+    </tr>
+  </tbody>
+</table>
 
 `Error` converts into `tauri::Error`, so it can be returned from the extension
 trait methods that mirror Tauri's signatures.

@@ -28,11 +28,32 @@ The [`OriginType`](/tauri-remote-ui/api/rust/#origintype) you pass to
 controls **who** may connect. It governs both the bind address and a per-request
 peer-address allow-list.
 
-| Scope | Binds to | Who can connect |
-| --- | --- | --- |
-| `Localhost` *(default)* | `127.0.0.1` | Only the local machine. Most secure. |
-| `Subnet` | `0.0.0.0` | Loopback **plus** peers within one of this host's local interface subnets. |
-| `Any` | `0.0.0.0` | Any host that can route to this machine. No peer filtering. |
+<table>
+  <thead>
+    <tr>
+      <th>Scope</th>
+      <th>Binds to</th>
+      <th>Who can connect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Localhost</code> <em>(default)</em></td>
+      <td><code>127.0.0.1</code></td>
+      <td>Only the local machine. Most secure.</td>
+    </tr>
+    <tr>
+      <td><code>Subnet</code></td>
+      <td><code>0.0.0.0</code></td>
+      <td>Loopback <strong>plus</strong> peers within one of this host's local interface subnets.</td>
+    </tr>
+    <tr>
+      <td><code>Any</code></td>
+      <td><code>0.0.0.0</code></td>
+      <td>Any host that can route to this machine. No peer filtering.</td>
+    </tr>
+  </tbody>
+</table>
 
 ### `Localhost`
 

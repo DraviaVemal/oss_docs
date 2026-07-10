@@ -17,95 +17,292 @@ use draviavemal_xml_rs::{
 
 ## Types
 
-| Type | Description |
-| --- | --- |
-| `NodeId` | `u32` identifier of a node within a document. |
-| `Tag` / `NsTag` | `String` aliases for a local and namespaced tag name. |
-| `NsAlias` / `NsUrl` | `String` aliases for a namespace prefix and its URI. |
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>NodeId</code></td>
+      <td><code>u32</code> identifier of a node within a document.</td>
+    </tr>
+    <tr>
+      <td><code>Tag</code> / <code>NsTag</code></td>
+      <td><code>String</code> aliases for a local and namespaced tag name.</td>
+    </tr>
+    <tr>
+      <td><code>NsAlias</code> / <code>NsUrl</code></td>
+      <td><code>String</code> aliases for a namespace prefix and its URI.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## `XmlDeserializer`
 
 XML → [`XmlDocument`](#xmldocument). Stateless; call the associated functions.
 
-| Function | Returns |
-| --- | --- |
-| `vec_to_xml_doc_tree(xml: Vec<u8>)` | `Result<XmlDocument>` |
-| `file_to_xml_doc_tree(path: &str)` | `Result<XmlDocument>` |
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Returns</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>vec_to_xml_doc_tree(xml: Vec&lt;u8&gt;)</code></td>
+      <td><code>Result&lt;XmlDocument&gt;</code></td>
+    </tr>
+    <tr>
+      <td><code>file_to_xml_doc_tree(path: &amp;str)</code></td>
+      <td><code>Result&lt;XmlDocument&gt;</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## `XmlSerializer`
 
 [`XmlDocument`](#xmldocument) → XML. Round-trip safe.
 
-| Function | Returns |
-| --- | --- |
-| `xml_tree_to_vec(doc: &mut XmlDocument)` | `Result<Vec<u8>>` |
-| `xml_doc_tree_to_file(doc: &mut XmlDocument, path: &str)` | `Result<()>` |
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Returns</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>xml_tree_to_vec(doc: &amp;mut XmlDocument)</code></td>
+      <td><code>Result&lt;Vec&lt;u8&gt;&gt;</code></td>
+    </tr>
+    <tr>
+      <td><code>xml_doc_tree_to_file(doc: &amp;mut XmlDocument, path: &amp;str)</code></td>
+      <td><code>Result&lt;()&gt;</code></td>
+    </tr>
+  </tbody>
+</table>
 
 ## `XmlDocument`
 
 The DOM tree and node store.
 
-| Method | Purpose |
-| --- | --- |
-| `new()` / `default()` | Create an empty document (version `1.0`, encoding `UTF-8`). |
-| `clone()` | Deep-clone the document and its node store. |
-| `get_root_id()` | `NodeId` of the root element. |
-| `get_element(id)` / `get_element_mut(id)` | Look up an element (immutable / mutable). |
-| `create_root_element_mut(tag, attrs)` | Create the root element. |
-| `append_child_element_mut(parent, tag, attrs)` | Append a child; returns its `NodeId`. |
-| `inser_child_element_after_last_tag_mut(...)` | Insert after the last matching local tag. |
-| `inser_child_element_before_first_tag_mut(...)` | Insert before the first matching local tag. |
-| `inser_child_element_after_last_tag_ns_mut(...)` | Insert after the last matching namespaced tag. |
-| `inser_child_element_before_first_tag_ns_mut(...)` | Insert before the first matching namespaced tag. |
-| `find_first_child(parent, tag)` / `find_first_child_ns(parent, tag_ns)` | First child by local / namespaced tag. |
-| `find_all_child(parent, tag)` / `find_all_child_ns(parent, tag_ns)` | All children by local / namespaced tag. |
-| `find_first_by_attribute(parent, name, value)` / `find_first_by_attribute_ns(parent, ns_name, value)` | First child matching an attribute (local / namespaced). |
-| `find_all_by_attribute(parent, name, value)` / `find_all_by_attribute_ns(parent, ns_name, value)` | All children matching an attribute (local / namespaced). |
-| `clear_element_content_mut(id)` | Remove all children of an element, keeping the element. |
-| `remove_element_mut(id)` | Remove an element and its entire subtree. |
-| `set_version_mut` / `get_version` | XML declaration version. |
-| `set_encoding_mut` / `get_encoding` | XML declaration encoding. |
-| `query_xpath(path)` | XPath querying — **experimental / work in progress**. |
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>new()</code> / <code>default()</code></td>
+      <td>Create an empty document (version <code>1.0</code>, encoding <code>UTF-8</code>).</td>
+    </tr>
+    <tr>
+      <td><code>clone()</code></td>
+      <td>Deep-clone the document and its node store.</td>
+    </tr>
+    <tr>
+      <td><code>get_root_id()</code></td>
+      <td><code>NodeId</code> of the root element.</td>
+    </tr>
+    <tr>
+      <td><code>get_element(id)</code> / <code>get_element_mut(id)</code></td>
+      <td>Look up an element (immutable / mutable).</td>
+    </tr>
+    <tr>
+      <td><code>create_root_element_mut(tag, attrs)</code></td>
+      <td>Create the root element.</td>
+    </tr>
+    <tr>
+      <td><code>append_child_element_mut(parent, tag, attrs)</code></td>
+      <td>Append a child; returns its <code>NodeId</code>.</td>
+    </tr>
+    <tr>
+      <td><code>inser_child_element_after_last_tag_mut(...)</code></td>
+      <td>Insert after the last matching local tag.</td>
+    </tr>
+    <tr>
+      <td><code>inser_child_element_before_first_tag_mut(...)</code></td>
+      <td>Insert before the first matching local tag.</td>
+    </tr>
+    <tr>
+      <td><code>inser_child_element_after_last_tag_ns_mut(...)</code></td>
+      <td>Insert after the last matching namespaced tag.</td>
+    </tr>
+    <tr>
+      <td><code>inser_child_element_before_first_tag_ns_mut(...)</code></td>
+      <td>Insert before the first matching namespaced tag.</td>
+    </tr>
+    <tr>
+      <td><code>find_first_child(parent, tag)</code> / <code>find_first_child_ns(parent, tag_ns)</code></td>
+      <td>First child by local / namespaced tag.</td>
+    </tr>
+    <tr>
+      <td><code>find_all_child(parent, tag)</code> / <code>find_all_child_ns(parent, tag_ns)</code></td>
+      <td>All children by local / namespaced tag.</td>
+    </tr>
+    <tr>
+      <td><code>find_first_by_attribute(parent, name, value)</code> / <code>find_first_by_attribute_ns(parent, ns_name, value)</code></td>
+      <td>First child matching an attribute (local / namespaced).</td>
+    </tr>
+    <tr>
+      <td><code>find_all_by_attribute(parent, name, value)</code> / <code>find_all_by_attribute_ns(parent, ns_name, value)</code></td>
+      <td>All children matching an attribute (local / namespaced).</td>
+    </tr>
+    <tr>
+      <td><code>clear_element_content_mut(id)</code></td>
+      <td>Remove all children of an element, keeping the element.</td>
+    </tr>
+    <tr>
+      <td><code>remove_element_mut(id)</code></td>
+      <td>Remove an element and its entire subtree.</td>
+    </tr>
+    <tr>
+      <td><code>set_version_mut</code> / <code>get_version</code></td>
+      <td>XML declaration version.</td>
+    </tr>
+    <tr>
+      <td><code>set_encoding_mut</code> / <code>get_encoding</code></td>
+      <td>XML declaration encoding.</td>
+    </tr>
+    <tr>
+      <td><code>query_xpath(path)</code></td>
+      <td>XPath querying — <strong>experimental / work in progress</strong>.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## `XmlElement`
 
 A single element node.
 
-| Method | Purpose |
-| --- | --- |
-| `get_id()` / `get_parent_id()` | Node id / parent id. |
-| `get_tag()` / `get_tag_ns()` | Local / namespaced tag name. |
-| `get_attribute(name)` / `get_attribute_ns(ns_name)` | Read an attribute. |
-| `get_child_contents()` / `get_child_contents_mut()` | The list of [`XmlElementContentType`](#xmlelementcontenttype) (immutable / mutable). |
-| `get_child_element_count()` | Count of child elements only. |
-| `find_first_child(tag)` / `find_first_child_ns(tag_ns)` | First child element by local / namespaced tag. |
-| `find_all_child(tag)` / `find_all_child_ns(tag_ns)` | All child elements by local / namespaced tag. |
-| `add_attribute_mut(attr)` | Add an attribute; errors if the name already exists. |
-| `add_replace_attribute_mut(attr)` | Add an attribute, replacing any existing one with the same name. |
-| `set_attribute_mut(attrs)` | Set initial attributes; errors if attributes already exist. |
-| `remove_attribute_mut(name)` / `remove_attribute_ns_mut(ns_name)` | Remove an attribute. |
-| `clear_attribute_mut()` | Remove all attributes; returns the count removed. |
-| `add_text_mut(text)` | Add a text node. |
-| `add_comments_mut(comment)` | Add a comment node. |
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>get_id()</code> / <code>get_parent_id()</code></td>
+      <td>Node id / parent id.</td>
+    </tr>
+    <tr>
+      <td><code>get_tag()</code> / <code>get_tag_ns()</code></td>
+      <td>Local / namespaced tag name.</td>
+    </tr>
+    <tr>
+      <td><code>get_attribute(name)</code> / <code>get_attribute_ns(ns_name)</code></td>
+      <td>Read an attribute.</td>
+    </tr>
+    <tr>
+      <td><code>get_child_contents()</code> / <code>get_child_contents_mut()</code></td>
+      <td>The list of <a href="#xmlelementcontenttype"><code>XmlElementContentType</code></a> (immutable / mutable).</td>
+    </tr>
+    <tr>
+      <td><code>get_child_element_count()</code></td>
+      <td>Count of child elements only.</td>
+    </tr>
+    <tr>
+      <td><code>find_first_child(tag)</code> / <code>find_first_child_ns(tag_ns)</code></td>
+      <td>First child element by local / namespaced tag.</td>
+    </tr>
+    <tr>
+      <td><code>find_all_child(tag)</code> / <code>find_all_child_ns(tag_ns)</code></td>
+      <td>All child elements by local / namespaced tag.</td>
+    </tr>
+    <tr>
+      <td><code>add_attribute_mut(attr)</code></td>
+      <td>Add an attribute; errors if the name already exists.</td>
+    </tr>
+    <tr>
+      <td><code>add_replace_attribute_mut(attr)</code></td>
+      <td>Add an attribute, replacing any existing one with the same name.</td>
+    </tr>
+    <tr>
+      <td><code>set_attribute_mut(attrs)</code></td>
+      <td>Set initial attributes; errors if attributes already exist.</td>
+    </tr>
+    <tr>
+      <td><code>remove_attribute_mut(name)</code> / <code>remove_attribute_ns_mut(ns_name)</code></td>
+      <td>Remove an attribute.</td>
+    </tr>
+    <tr>
+      <td><code>clear_attribute_mut()</code></td>
+      <td>Remove all attributes; returns the count removed.</td>
+    </tr>
+    <tr>
+      <td><code>add_text_mut(text)</code></td>
+      <td>Add a text node.</td>
+    </tr>
+    <tr>
+      <td><code>add_comments_mut(comment)</code></td>
+      <td>Add a comment node.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## `XmlAttribute`
 
-| Member | Purpose |
-| --- | --- |
-| `new(name, value)` | Construct; a `prefix:name` is split into prefix + local name. |
-| `get_name()` | Local name without prefix. |
-| `get_ns_name()` | Namespaced name (`prefix:name`) when a prefix is present. |
-| `get_value()` | Attribute value. |
+<table>
+  <thead>
+    <tr>
+      <th>Member</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>new(name, value)</code></td>
+      <td>Construct; a <code>prefix:name</code> is split into prefix + local name.</td>
+    </tr>
+    <tr>
+      <td><code>get_name()</code></td>
+      <td>Local name without prefix.</td>
+    </tr>
+    <tr>
+      <td><code>get_ns_name()</code></td>
+      <td>Namespaced name (<code>prefix:name</code>) when a prefix is present.</td>
+    </tr>
+    <tr>
+      <td><code>get_value()</code></td>
+      <td>Attribute value.</td>
+    </tr>
+  </tbody>
+</table>
 
 ## `XmlElementContentType`
 
 Enum of an element's possible children:
 
-| Variant | Holds |
-| --- | --- |
-| `Element((NodeId, Tag, NsTag))` | A child element reference. |
-| `Text(String)` | A text node. |
-| `Comment(String)` | A comment node. |
+<table>
+  <thead>
+    <tr>
+      <th>Variant</th>
+      <th>Holds</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Element((NodeId, Tag, NsTag))</code></td>
+      <td>A child element reference.</td>
+    </tr>
+    <tr>
+      <td><code>Text(String)</code></td>
+      <td>A text node.</td>
+    </tr>
+    <tr>
+      <td><code>Comment(String)</code></td>
+      <td>A comment node.</td>
+    </tr>
+  </tbody>
+</table>
 
 <Aside type="note">
 Method names containing `inser_` reflect the current crate spelling and are kept
