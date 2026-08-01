@@ -6,98 +6,70 @@ slug: 4.0/presentation/powerpoint
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-The `Powerpoint` class, a core component of the `OpenXMLOffice.Presentation` library, empowers developers to create, open, and manipulate PowerPoint (.pptx) files with ease. Whether generating new presentations or working with existing ones, this class provides a simple yet powerful interface for efficient content manipulation. Once modifications are complete, users can effortlessly save the updated presentation.
+The `PowerPoint` class/struct is the entry point for creating and opening PowerPoint (`.pptx`) presentations. In the current alpha the presentation engine supports creating a new blank presentation, opening an existing presentation and saving it back out. Slide-level authoring is in active development.
 
-### Usage, Options and Examples
+### Methods
 
-Create or open a pptx file from path
+<table><thead><tr><th width="260">Rust</th><th width="240">C#</th><th>Function</th></tr></thead><tbody>
+<tr><td><code>PowerPoint::new(path, props)</code></td><td><code>new PowerPoint(props)</code> / <code>new PowerPoint(path, props)</code></td><td>Create a new presentation or open an existing file</td></tr>
+<tr><td><code>save_as(path)</code></td><td><code>SaveAs(path)</code></td><td>Save the presentation to a file</td></tr>
+</tbody></table>
 
-<Tabs>
-<TabItem label='C#'>
-```csharp
-public static CreateNew(){
-    PowerPoint powerPoint = new();
-    powerPoint.SaveAs("test.pptx");
-}
+### Basic Code Samples
 
-public static OpenExisting(){
-    PowerPoint powerPoint = new("test.pptx",true, null);
-    powerPoint.SaveAs("/NewPath/file.pptx");
-}
+<Tabs syncKey='language'>
+<TabItem label='Rust'>
+```rust
+use draviavemal_openxml_office::presentation_2007::{PowerPoint, PowerPointPropertiesModel};
+
+// Create a new blank presentation (pass Some(path) to open an existing file)
+let file = PowerPoint::new(None, PowerPointPropertiesModel::default())
+    .expect("Create New File Failed");
+file.save_as("./output.pptx").expect("Failed to save presentation");
 ```
 </TabItem>
-</Tabs>
-
-Create or open a pptx object using a stream
-
-<Tabs>
 <TabItem label='C#'>
 ```csharp
-public static CreateUsingStream(Stream stream){
-    PowerPoint powerPoint = new();
-    powerPoint.SaveAs(stream);
-}
+using draviavemal.openxml_office.presentation_2007;
+
+// Create a new blank presentation
+PowerPoint powerPoint = new(new()
+{
+    IsInMemory = false
+});
+powerPoint.SaveAs("./output.pptx");
+
+// Open an existing presentation
+PowerPoint existing = new("basic_test.pptx", new()
+{
+    IsInMemory = false
+});
+existing.SaveAs("./edited.pptx");
 ```
 </TabItem>
-</Tabs>
-
-Sample using most of the exposed functions
-
-<Tabs>
-<TabItem label='C#'>
-```csharp
-public static CreateNew(){
-    PowerPoint powerPoint = new();
-    // Add Blank Slide To the Blank Presentation
-    // Return Slide Object that can be used to do slide level operation
-    Slide slide = powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK);
-    powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK);
-    Slide slide1 = powerPoint.GetSlideByIndex(1);
-    // Move the Slide Order
-    powerPoint.MoveSlideByIndex(1,0);
-    // Remove Slide and its content from Presentation
-    powerPoint.RemoveSlideByIndex(0);
-    // Save the Opened Presentation
-    powerPoint.SaveAs("test.pptx");
-}
-```
+<TabItem label="Go🚧🛠️">
+Not yet available.
+</TabItem>
+<TabItem label="Python🚧🛠️">
+Not yet available.
+</TabItem>
+<TabItem label="Java🚧🛠️">
+Not yet available.
+</TabItem>
+<TabItem label="TS🚧🛠️">
+Not yet available.
 </TabItem>
 </Tabs>
 
 ### `PresentationProperties` Options
 
-<table>
-  <thead>
-    <tr>
-      <th>Property</th>
-      <th>Type</th>
-      <th>Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>settings</td>
-      <td><a href="powerpoint.md#presentationsettings-options">PresentationSettings</a></td>
-      <td>Provides Presentation setting options</td>
-    </tr>
-    <tr>
-      <td>slideMasters</td>
-      <td>Dictionary\<string, PresentationSlideMaster>?</td>
-      <td>Multi-slide master support is in pipeline</td>
-    </tr>
-    <tr>
-      <td>theme</td>
-      <td>ThemePallet</td>
-      <td>Color template for overall presentation</td>
-    </tr>
-  </tbody>
-</table>
-
-### `PresentationSettings` Options
-
-<table><thead><tr><th width="318">Property</th><th width="85">Type</th><th>Details</th></tr></thead><tbody><tr><td>isMultiSlideMasterPartPresentation</td><td>bool</td><td>Get or Set Multi-slide master option</td></tr><tr><td>isMultiThemePresentation</td><td>bool</td><td>Get or Set Multi-theme option</td></tr></tbody></table>
+<table><thead><tr><th width="220">C#</th><th width="90">Type</th><th>Details</th></tr></thead><tbody>
+<tr><td><code>IsInMemory</code></td><td>bool</td><td>Keep the presentation buffered in memory instead of on disk</td></tr>
+</tbody></table>
 
 ### TODO
 
+* Slide add / get / move / remove operations
+* Shapes, tables, charts, pictures and text boxes
 * Multi Slide Master Support
 * Each Slide Master Theme Support

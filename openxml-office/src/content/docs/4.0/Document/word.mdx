@@ -4,9 +4,66 @@ description: A reference page in my new Starlight docs site.
 slug: 4.0/document/word
 ---
 
-Reference pages are ideal for outlining how things work in terse and clear terms.
-Less concerned with telling a story or addressing a specific use case, they should give a comprehensive outline of what you're documenting.
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-## Further reading
+The `Word` class/struct is the entry point for creating and opening Word (`.docx`) documents. In the current alpha the document engine supports creating a new blank document, opening an existing document and saving it back out. Rich content editing is in active development.
 
-* Read [about reference](https://diataxis.fr/reference/) in the Diátaxis framework
+### Methods
+
+<table><thead><tr><th width="240">Rust</th><th width="220">C#</th><th>Function</th></tr></thead><tbody>
+<tr><td><code>Word::new(path, props)</code></td><td><code>new Word(props)</code> / <code>new Word(path, props)</code></td><td>Create a new document or open an existing file</td></tr>
+<tr><td><code>save_as(path)</code></td><td><code>SaveAs(path)</code></td><td>Save the document to a file</td></tr>
+</tbody></table>
+
+### Basic Code Samples
+
+<Tabs syncKey='language'>
+<TabItem label='Rust'>
+```rust
+use draviavemal_openxml_office::document_2007::{Word, WordPropertiesModel};
+
+// Create a new blank document (pass Some(path) to open an existing file)
+let file = Word::new(None, WordPropertiesModel::default())
+    .expect("Blank File Open Failed");
+file.save_as("./output.docx").expect("Save Result Failed");
+```
+</TabItem>
+<TabItem label='C#'>
+```csharp
+using draviavemal.openxml_office.document_2007;
+
+// Create a new blank document
+Word word = new(new()
+{
+    IsInMemory = false
+});
+word.SaveAs("./output.docx");
+
+// Open an existing document
+Word existing = new("basic_test.docx", new()
+{
+    IsInMemory = false
+});
+existing.SaveAs("./edited.docx");
+```
+</TabItem>
+<TabItem label="Go🚧🛠️">
+Not yet available.
+</TabItem>
+<TabItem label="Python🚧🛠️">
+Not yet available.
+</TabItem>
+<TabItem label="Java🚧🛠️">
+Not yet available.
+</TabItem>
+<TabItem label="TS🚧🛠️">
+Not yet available.
+</TabItem>
+</Tabs>
+
+### `WordProperties` Options
+
+<table><thead><tr><th width="220">C#</th><th width="90">Type</th><th>Details</th></tr></thead><tbody>
+<tr><td><code>IsInMemory</code></td><td>bool</td><td>Keep the document buffered in memory instead of on disk</td></tr>
+</tbody></table>
+
