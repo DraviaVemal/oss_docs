@@ -6,130 +6,269 @@ slug: 4.0/spreadsheet/worksheet
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-Adding, Modifying a sheet from spreadsheet is handled by this class object
+A worksheet is returned from `add_sheet_mut` / `AddSheet` (new sheet) or `get_worksheet_mut` (existing sheet). All cell, row, column, merge, hyperlink and picture operations are performed through the worksheet object.
+
+:::note
+In Rust and Go, call `flush` / `Flush` on the worksheet before saving the workbook to make sure the sheet data is written. In C# the worksheet implements `IDisposable`, so a `using` block flushes it automatically.
+:::
 
 ### Methods
 
-<table><thead><tr><th width="185">Method</th><th width="263">Parameter/Return</th><th>Function</th></tr></thead><tbody><tr><td>GetSheetId</td><td>/string</td><td>Return current sheet id</td></tr><tr><td>GetSheetName</td><td>/string</td><td>Return current sheet name </td></tr><tr><td>SetColumn</td><td>cilumn,ColumnProperty</td><td>Set column property</td></tr><tr><td>SetRow</td><td>cellid,cellData,RowProperty</td><td>Set row property and data</td></tr><tr><td>AddPicture</td><td>filePath,PictureSetting/Picture</td><td>Add Picture to current slide</td></tr><tr><td>AddChart</td><td>DataRange,chartSetting/Chart</td><td>Add Chart to current slide</td></tr><tr><td>GetMergeCellList</td><td>/List&#x3C;MergeCellRange></td><td>Get existing merge range from current sheet</td></tr><tr><td>SetMergeCell</td><td>MergeCellRange/bool</td><td>Set new merge range if not affecting existing</td></tr><tr><td>RemoveMergeCell</td><td>MergeCellRange/bool</td><td>Remove any existing range within the caller range</td></tr></tbody></table>
+The table below lists worksheet methods currently available and exercised by the language test suites. A dash (—) means the method is not yet surfaced for that language.
+
+<table><thead><tr><th width="260">Rust</th><th width="210">C#</th><th width="180">Go</th><th>Function</th></tr></thead><tbody>
+<tr><td><code>set_cell_index_value_mut(row, col, cells)</code></td><td>—</td><td>—</td><td>Set cell values starting at a row/column index</td></tr>
+<tr><td><code>set_cell_ref_value_mut(ref, cells)</code></td><td><code>SetCellRefValues(ref, cells)</code></td><td><code>SetCellRefValues(ref, cells)</code></td><td>Set cell values starting at a cell reference (e.g. <code>A1</code>)</td></tr>
+<tr><td><code>set_row_index_properties_mut(row, props)</code></td><td>—</td><td>—</td><td>Set row properties by index</td></tr>
+<tr><td><code>set_column_index_properties_mut(col, props)</code></td><td><code>SetColumnRefProperties(ref, props)</code></td><td>—</td><td>Set column properties</td></tr>
+<tr><td><code>list_merge_cell_()</code></td><td>—</td><td>—</td><td>List merged cell ranges</td></tr>
+<tr><td><code>set_merge_cell_mut(range)</code></td><td>—</td><td>—</td><td>Merge a cell range</td></tr>
+<tr><td><code>remove_merge_cell_mut(range)</code></td><td>—</td><td>—</td><td>Remove a merged cell range</td></tr>
+<tr><td><code>list_hyperlinks()</code></td><td>—</td><td>—</td><td>List hyperlinks in the sheet</td></tr>
+<tr><td><code>set_hyperlink_mut(text, url, range)</code></td><td>—</td><td>—</td><td>Add a hyperlink</td></tr>
+<tr><td><code>remove_hyperlink_mut(range)</code></td><td>—</td><td>—</td><td>Remove a hyperlink</td></tr>
+<tr><td><code>get_range_cell_properties(range)</code></td><td>—</td><td>—</td><td>Read cell properties for a range</td></tr>
+<tr><td><code>add_picture(path, setting)</code></td><td>—</td><td>—</td><td>Add a picture (see <a href="/openxml-office/4.0/spreadsheet/picture/">Picture</a>)</td></tr>
+<tr><td><code>delete_sheet_mut()</code></td><td>—</td><td>—</td><td>Delete this worksheet</td></tr>
+<tr><td><code>flush()</code></td><td><code>Dispose()</code> (via <code>using</code>)</td><td><code>Flush()</code></td><td>Write pending sheet data</td></tr>
+</tbody></table>
 
 ### Sheet Code Samples
 
-To add, remove and get sheet from excel
+To add, get, rename and delete a sheet from the workbook.
 
-<Tabs>
+<Tabs syncKey='language'>
 <TabItem label='Rust'>
 ```rust
-    let mut file = crate::spreadsheet_2007::Excel::new(
-        None,
-        crate::spreadsheet_2007::ExcelPropertiesModel::default(),
-    )
+use draviavemal_openxml_office::spreadsheet_2007::{Excel, ExcelPropertiesModel};
+
+let mut file = Excel::new(None, ExcelPropertiesModel::default())
     .expect("Create New File Failed");
-	// Add Sheet with custom name
-    file.add_sheet_mut(Some("Test".to_string()))
-        .expect("Failed to add static Sheet");
-	// Add Sheet with default name
-	file.add_sheet_mut(None)
-        .expect("Failed to add static Sheet");
-	// Save the result file
-	file.save_as(&get_save_file(None))
-        .expect("File Save Failed");
+// Add Sheet with custom name
+file.add_sheet_mut(Some("Test".to_string()))
+    .expect("Failed to add Sheet");
+// Add Sheet with default name
+file.add_sheet_mut(None)
+    .expect("Failed to add Sheet");
+// Rename an existing sheet
+file.rename_sheet_name_mut("Test".to_string(), "Renamed".to_string())
+    .expect("Failed to rename the sheet");
+// Get an existing sheet and delete it
+let sheet = file.get_worksheet_mut("Renamed".to_string())
+    .expect("Failed to get worksheet");
+sheet.delete_sheet_mut().expect("Failed to delete sheet");
+file.save_as("./output.xlsx").expect("File Save Failed");
 ```
 </TabItem>
 <TabItem label='C#'>
 ```csharp
-// Adding new sheet to excel
-Worksheet worksheet = excel.AddSheet();
-Worksheet worksheet = excel.AddSheet("Data Sheet 2");
-// Get an existing sheet from Excel
-Worksheet worksheet = excel.GetWorksheet("Data Sheet 3");
-// Remove existing sheet from Excel
-Worksheet worksheet = excel.RemoveSheet("Sheet 1");
-// Rename existing sheet
-Worksheet worksheet = excel.RenameSheet("Data Sheet 2", "Sheet 1");
+// Add a new sheet (optional name)
+using Worksheet worksheet = excel.AddSheet("Data Sheet 2");
+// Rename an existing sheet
+excel.RenameSheet("Data Sheet 2", "Sheet 1");
+```
+</TabItem>
+<TabItem label='Go'>
+```go
+worksheet, err := excel.AddSheet("Test")
+if err != nil {
+    panic(err)
+}
+// ... set data ...
+if err := worksheet.Flush(); err != nil {
+    panic(err)
+}
 ```
 </TabItem>
 </Tabs>
 
-### Sheet Column Settings Code Sample
+### Cell Values Code Sample
 
-<Tabs>
-<TabItem label='C#'>
-```csharp
-Worksheet worksheet = excel.AddSheet();
-// Set Column property
-worksheet.SetColumn("A1", new ColumnProperties()
-	{
-		width = 30
-	});
+<Tabs syncKey='language'>
+<TabItem label='Rust'>
+```rust
+use draviavemal_openxml_office::spreadsheet_2007::models::CellProperty;
+
+let mut sheet = file.add_sheet_mut(Some("Data".to_string()))
+    .expect("Failed to add Sheet");
+// Set by row/column index (row, column)
+sheet.set_cell_index_value_mut(
+    1, 1,
+    vec![
+        CellProperty::default().set_value(Some("Value 1".to_string())),
+        CellProperty::default().set_value(Some("Value 2".to_string())),
+        CellProperty::default().set_formula(Some("=SUM(A1:B1)".to_string())),
+    ],
+).expect("Failed to set value");
+// Set by cell reference
+sheet.set_cell_ref_value_mut(
+    "A3",
+    vec![CellProperty::default().set_value(Some("Ref value".to_string()))],
+).expect("Failed to set value");
+sheet.flush().expect("Failed to write Data");
 ```
 </TabItem>
-<TabItem label='C🚧🔨'>
-```c
+<TabItem label='C#'>
+```csharp
+using Worksheet worksheet = excel.AddSheet("Data");
+StyleId styleId = excel.GetStyleId(new CellStyleSetting()
+{
+    CustomNumberFormat = "00.000",
+});
+worksheet.SetCellRefValues("A1", new CellProperty[3]{
+    new(){ Value = "test1", DataType = CellDataType.String },
+    new(){ Value = "test2", DataType = CellDataType.String },
+    new(){ Value = "2.51", DataType = CellDataType.Number, StyleId = styleId },
+});
+```
+</TabItem>
+<TabItem label='Go'>
+```go
+cells := []spreadsheet_2007.CellProperty{
+    { Value: "10", DataType: spreadsheet_2007.CellDataTypeNumber },
+    { Value: "20", DataType: spreadsheet_2007.CellDataTypeNumber },
+}
+if err := worksheet.SetCellRefValues("A1", cells); err != nil {
+    panic(err)
+}
+```
+</TabItem>
+</Tabs>
+
+### `CellProperty` Options
+
+<table><thead><tr><th width="150">Rust</th><th width="120">C# / Go</th><th width="120">Type</th><th>Details</th></tr></thead><tbody>
+<tr><td><code>set_value(value)</code></td><td><code>Value</code></td><td>string?</td><td>Cell value, parsed based on the data type</td></tr>
+<tr><td>—</td><td><code>DataType</code></td><td>CellDataType</td><td>Data type of the value (<code>String</code>, <code>Number</code>, …)</td></tr>
+<tr><td><code>set_formula(value)</code></td><td>—</td><td>string?</td><td>Cell formula (e.g. <code>=SUM(A1:B1)</code>)</td></tr>
+<tr><td><code>set_style_id(id)</code></td><td><code>StyleId</code></td><td>StyleId?</td><td>Style id returned from the <a href="/openxml-office/4.0/spreadsheet/style/">Style</a> component</td></tr>
+</tbody></table>
+
+### Column Properties Code Sample
+
+<Tabs syncKey='language'>
+<TabItem label='Rust'>
+```rust
+use draviavemal_openxml_office::spreadsheet_2007::models::ColumnProperties;
+
+sheet.set_column_index_properties_mut(
+    &1,
+    Some(ColumnProperties::default().set_width(Some(200.0))),
+).expect("Failed to set column width");
+sheet.set_column_index_properties_mut(
+    &3,
+    Some(ColumnProperties::default().set_hidden(Some(true))),
+).expect("Failed to hide column");
+```
+</TabItem>
+<TabItem label='C#'>
+```csharp
+worksheet.SetColumnRefProperties("A1", new ColumnProperties()
+{
+    Width = 30
+});
+worksheet.SetColumnRefProperties("C4", new ColumnProperties()
+{
+    Width = 30,
+    BestFit = true
+});
+worksheet.SetColumnRefProperties("G7", new ColumnProperties()
+{
+    Hidden = true
+});
 ```
 </TabItem>
 </Tabs>
 
 ### `ColumnProperties` Options
 
-<table><thead><tr><th width="120">Property</th><th width="107">Type</th><th>Details</th></tr></thead><tbody><tr><td>bestFit</td><td>bool</td><td>Auto bit column width based on content.</td></tr><tr><td>hidden</td><td>bool</td><td>Hide the column</td></tr><tr><td>width</td><td>double?</td><td>Set manual column width.</td></tr></tbody></table>
+<table><thead><tr><th width="180">Rust</th><th width="120">C#</th><th width="100">Type</th><th>Details</th></tr></thead><tbody>
+<tr><td><code>set_width(value)</code></td><td><code>Width</code></td><td>float?</td><td>Set manual column width</td></tr>
+<tr><td><code>set_best_fit(value)</code></td><td><code>BestFit</code></td><td>bool?</td><td>Auto-fit column width based on content</td></tr>
+<tr><td><code>set_hidden(value)</code></td><td><code>Hidden</code></td><td>bool?</td><td>Hide the column</td></tr>
+</tbody></table>
 
-### Sheet Row Data and Settings Code Sample
+### Row Properties Code Sample
 
-<Tabs>
-<TabItem label='C#'>
-```csharp
-Worksheet worksheet = excel.AddSheet();
-// Set Row data and setting starting from A1 Cell and move right
-worksheet.SetRow("A1", 
-	new DataCell[6]{
-		new DataCell(){
-			cellValue = "test1",
-			dataType = CellDataType.STRING
-		},
-		 new DataCell(){
-			cellValue = "test2",
-			dataType = CellDataType.STRING
-		},
-		 new DataCell(){
-			cellValue = "test3",
-			dataType = CellDataType.STRING
-		},
-		 new DataCell(){
-			cellValue = "test4",
-			dataType = CellDataType.STRING,
-			styleSetting = new(){
-				fontSize = 20
-			}
-		},
-		 new DataCell(){
-			cellValue = "2.51",
-			dataType = CellDataType.NUMBER,
-			styleSetting = new(){
-				numberFormat = "00.000",
-			}
-		},new(){
-			cellValue = "5.51",
-			dataType = CellDataType.NUMBER,
-			styleSetting = new(){
-				numberFormat = "₹ #,##0.00;₹ -#,##0.00",
-			}
-		}
-	}, new RowProperties()
-	{
-		height = 20
-	});
-```
-</TabItem>
-<TabItem label='C🚧🔨'>
-```c
+<Tabs syncKey='language'>
+<TabItem label='Rust'>
+```rust
+use draviavemal_openxml_office::spreadsheet_2007::models::RowProperties;
+
+sheet.set_row_index_properties_mut(
+    &1,
+    RowProperties::default().set_height(Some(100.0)),
+).expect("Failed to set row height");
+sheet.set_row_index_properties_mut(
+    &3,
+    RowProperties::default().set_hidden(Some(true)),
+).expect("Failed to hide row");
 ```
 </TabItem>
 </Tabs>
 
-### `DataCell` Options.
-
-<table><thead><tr><th width="191">Property</th><th width="179">Type</th><th>Details</th></tr></thead><tbody><tr><td>cellValue</td><td>string?</td><td>Can be any value or null. Will be parsed based on <code>dataType</code></td></tr><tr><td>dataType</td><td>CellDataType</td><td>Refer to the data type present in <code>cellValue</code> property</td></tr><tr><td>styleSetting</td><td><a href="style.md#cellstylesetting-options">CellStyleSetting</a>?</td><td><strong>AVOID USING THIS.</strong> Used to set specific cell style. For optimised performance refer <a href="style.md">Style Component</a></td></tr><tr><td>styleId</td><td>uint?</td><td>Insert the style Id returened from <a href="style.md">Style Componenet</a></td></tr><tr><td>hyperlinkProperties</td><td><a href="shared.md#hyperlinkproperties-setting">HyperlinkProperties</a></td><td>Set hyperlink property for the current cell</td></tr></tbody></table>
-
 ### `RowProperties` Options
 
-<table><thead><tr><th width="116">Property</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>height</td><td>double?</td><td>Set row height property</td></tr><tr><td>hidden</td><td>bool</td><td>Hide the row</td></tr></tbody></table>
+<table><thead><tr><th width="200">Rust</th><th width="100">Type</th><th>Details</th></tr></thead><tbody>
+<tr><td><code>set_height(value)</code></td><td>float?</td><td>Set row height</td></tr>
+<tr><td><code>set_hidden(value)</code></td><td>bool?</td><td>Hide the row</td></tr>
+<tr><td><code>set_thick_top(value)</code></td><td>bool?</td><td>Thick top border for the row</td></tr>
+<tr><td><code>set_thick_bottom(value)</code></td><td>bool?</td><td>Thick bottom border for the row</td></tr>
+</tbody></table>
+
+### Merge Cells Code Sample
+
+<Tabs syncKey='language'>
+<TabItem label='Rust'>
+```rust
+use draviavemal_openxml_office::spreadsheet_2007::models::ReferenceRange;
+
+sheet.set_merge_cell_mut(ReferenceRange {
+    column_start: 1,
+    column_end: 3,
+    row_start: 1,
+    row_end: 2,
+}).expect("Failed to set merge range");
+// List existing merges
+let merges = sheet.list_merge_cell_();
+// Remove a merge
+sheet.remove_merge_cell_mut(ReferenceRange {
+    column_start: 1,
+    column_end: 3,
+    row_start: 1,
+    row_end: 2,
+}).expect("Failed to remove merge range");
+```
+</TabItem>
+</Tabs>
+
+### Hyperlink Code Sample
+
+<Tabs syncKey='language'>
+<TabItem label='Rust'>
+```rust
+use draviavemal_openxml_office::spreadsheet_2007::models::ReferenceRange;
+
+sheet.set_hyperlink_mut(
+    Some("OpenXML-Office".to_string()),
+    "https://openxml-office.draviavemal.com/".to_string(),
+    ReferenceRange { column_start: 1, column_end: 1, row_start: 1, row_end: 1 },
+).expect("Failed to set hyperlink");
+// List existing hyperlinks
+let links = sheet.list_hyperlinks();
+// Remove a hyperlink
+sheet.remove_hyperlink_mut(
+    ReferenceRange { column_start: 1, column_end: 1, row_start: 1, row_end: 1 },
+).expect("Failed to remove hyperlink");
+```
+</TabItem>
+</Tabs>
+
+### `ReferenceRange` Options
+
+<table><thead><tr><th width="160">Property</th><th width="100">Type</th><th>Details</th></tr></thead><tbody>
+<tr><td><code>column_start</code></td><td>u32</td><td>Start column index (1-based)</td></tr>
+<tr><td><code>column_end</code></td><td>u32</td><td>End column index (1-based)</td></tr>
+<tr><td><code>row_start</code></td><td>u32</td><td>Start row index (1-based)</td></tr>
+<tr><td><code>row_end</code></td><td>u32</td><td>End row index (1-based)</td></tr>
+</tbody></table>

@@ -10,29 +10,22 @@ Details about adding and manipulating picture to a worksheet
 
 ### Basic Code Sample
 
-<Tabs>
-<TabItem label='C#'>
-```csharp
-public void AddPicture()
-	{
-		Worksheet worksheet = excel.AddSheet("Data4");
-		worksheet.AddPicture("./TestFiles/tom_and_jerry.jpg", new()
-		{
-			imageType = ImageType.JPEG,
-			from = new()
-			{
-				column = 6,
-				row = 6
-			},
-			to = new()
-			{
-				column = 8,
-				row = 8
-			}
-		});
-		Assert.IsTrue(true);
-	}
+<Tabs syncKey='language'>
+<TabItem label='Rust'>
+```rust
+use draviavemal_openxml_office::spreadsheet_2007::models::ExcelPictureSetting;
+
+let mut sheet = excel
+    .get_worksheet_mut("image".to_string())
+    .expect("Failed to get sheet");
+sheet
+    .add_picture("./tom_and_jerry.jpg", ExcelPictureSetting::default())
+    .expect("Failed to add image");
+sheet.flush().expect("Failed to save sheet");
 ```
+</TabItem>
+<TabItem label="C#🚧🛠️">
+Not yet available.
 </TabItem>
 </Tabs>
 
