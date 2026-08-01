@@ -13,54 +13,99 @@ It is highly recommended to use this strategy and reduce the number of cycle the
 ### Sample Code
 
 <Tabs syncKey='language'>
-<TabItem label='Rust'>
-```rust
-use draviavemal_openxml_office::spreadsheet_2007::models::{CellProperty, CellStyleSetting};
+    <TabItem label='Rust'>
+        ```rust
+        use draviavemal_openxml_office::spreadsheet_2007::models::{CellProperty, CellStyleSetting};
 
-// Register styles and keep the returned ids
-let bold_id = file
-    .get_style_id_mut(CellStyleSetting::default().set_is_bold(true))
-    .expect("Failed to get style id");
-let wrap_id = file
-    .get_style_id_mut(CellStyleSetting::default().set_is_wrap_text(true))
-    .expect("Failed to get style id");
-// Apply the style id to a cell
-sheet.set_cell_ref_value_mut(
-    "A1",
-    vec![
+        // Register styles and keep the returned ids
+        let bold_id = file
+        .get_style_id_mut(CellStyleSetting::default().set_is_bold(true))
+        .expect("Failed to get style id");
+        let wrap_id = file
+        .get_style_id_mut(CellStyleSetting::default().set_is_wrap_text(true))
+        .expect("Failed to get style id");
+        // Apply the style id to a cell
+        sheet.set_cell_ref_value_mut(
+        "A1",
+        vec![
         CellProperty::default()
-            .set_value(Some("Bold".to_string()))
-            .set_style_id(Some(bold_id)),
-    ],
-).expect("Failed to set value");
-```
-</TabItem>
-<TabItem label='C#'>
-```csharp
-// Register a style and keep the returned id
-StyleId styleId = excel.GetStyleId(new CellStyleSetting()
-{
-    CustomNumberFormat = "00.000",
-    FontSize = 20,
-});
-// Apply the style id to a cell
-worksheet.SetCellRefValues("A1", new CellProperty[1]{
-    new(){ Value = "2.51", DataType = CellDataType.Number, StyleId = styleId }
-});
-```
-</TabItem>
+        .set_value(Some("Bold".to_string()))
+        .set_style_id(Some(bold_id)),
+        ],
+        ).expect("Failed to set value");
+        ```
+    </TabItem>
+    <TabItem label='C#'>
+        ```csharp
+        // Register a style and keep the returned id
+        StyleId styleId = excel.GetStyleId(new CellStyleSetting()
+        {
+        CustomNumberFormat = "00.000",
+        FontSize = 20,
+        });
+        // Apply the style id to a cell
+        worksheet.SetCellRefValues("A1", new CellProperty[1]{
+        new(){ Value = "2.51", DataType = CellDataType.Number, StyleId = styleId }
+        });
+        ```
+    </TabItem>
 </Tabs>
 
 ### `CellStyleSetting` Options
 
 The setters below are currently available and covered by the test suites.
 
-<table><thead><tr><th width="230">Rust</th><th width="200">C#</th><th width="90">Type</th><th>Details</th></tr></thead><tbody>
-<tr><td><code>set_is_bold(value)</code></td><td><code>IsBold</code></td><td>bool</td><td>Bold cell content</td></tr>
-<tr><td><code>set_is_italic(value)</code></td><td><code>IsItalic</code></td><td>bool</td><td>Italic cell content</td></tr>
-<tr><td><code>set_is_underline(value)</code></td><td><code>IsUnderline</code></td><td>bool</td><td>Underline cell content</td></tr>
-<tr><td><code>set_is_double_underline(value)</code></td><td><code>IsDoubleUnderline</code></td><td>bool</td><td>Double underline cell content</td></tr>
-<tr><td><code>set_is_wrap_text(value)</code></td><td><code>IsWrapText</code></td><td>bool</td><td>Auto-wrap cell content</td></tr>
-<tr><td>—</td><td><code>FontSize</code></td><td>uint</td><td>Font size of the cell content</td></tr>
-<tr><td>—</td><td><code>CustomNumberFormat</code></td><td>string</td><td>Number format for the cell content</td></tr>
-</tbody></table>
+<table>
+    <thead>
+        <tr>
+            <th width="230">Rust</th>
+            <th width="200">C#</th>
+            <th width="90">Type</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><code>set_is_bold(value)</code></td>
+            <td><code>IsBold</code></td>
+            <td>bool</td>
+            <td>Bold cell content</td>
+        </tr>
+        <tr>
+            <td><code>set_is_italic(value)</code></td>
+            <td><code>IsItalic</code></td>
+            <td>bool</td>
+            <td>Italic cell content</td>
+        </tr>
+        <tr>
+            <td><code>set_is_underline(value)</code></td>
+            <td><code>IsUnderline</code></td>
+            <td>bool</td>
+            <td>Underline cell content</td>
+        </tr>
+        <tr>
+            <td><code>set_is_double_underline(value)</code></td>
+            <td><code>IsDoubleUnderline</code></td>
+            <td>bool</td>
+            <td>Double underline cell content</td>
+        </tr>
+        <tr>
+            <td><code>set_is_wrap_text(value)</code></td>
+            <td><code>IsWrapText</code></td>
+            <td>bool</td>
+            <td>Auto-wrap cell content</td>
+        </tr>
+        <tr>
+            <td>—</td>
+            <td><code>FontSize</code></td>
+            <td>uint</td>
+            <td>Font size of the cell content</td>
+        </tr>
+        <tr>
+            <td>—</td>
+            <td><code>CustomNumberFormat</code></td>
+            <td>string</td>
+            <td>Number format for the cell content</td>
+        </tr>
+    </tbody>
+</table>
