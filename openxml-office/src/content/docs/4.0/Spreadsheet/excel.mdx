@@ -19,89 +19,229 @@ The `Excel` class/struct, an integral part of the library, facilitates seamless 
 
 The table below lists the workbook-level methods that are currently available and covered by the language test suites. Method names follow each language's own naming convention.
 
-<table><thead><tr><th width="220">Rust</th><th width="200">C#</th><th width="160">Go</th><th>Function</th></tr></thead><tbody>
-<tr><td><code>Excel::new(path, props)</code></td><td><code>new Excel()</code> / <code>new Excel(props)</code></td><td><code>NewExcel()</code></td><td>Create a new workbook or open an existing file</td></tr>
-<tr><td><code>add_sheet_mut(name)</code></td><td><code>AddSheet(name)</code></td><td><code>AddSheet(name)</code></td><td>Add a worksheet (optional name)</td></tr>
-<tr><td><code>get_worksheet_mut(name)</code></td><td>—</td><td>—</td><td>Get an existing worksheet by name</td></tr>
-<tr><td><code>rename_sheet_name_mut(old, new)</code></td><td><code>RenameSheet(old, new)</code></td><td>—</td><td>Rename an existing worksheet</td></tr>
-<tr><td><code>set_active_sheet_mut(name)</code></td><td>—</td><td>—</td><td>Set the active worksheet</td></tr>
-<tr><td><code>hide_sheet_mut(name)</code></td><td>—</td><td>—</td><td>Hide a worksheet</td></tr>
-<tr><td><code>minimize_workbook_mut(bool)</code></td><td>—</td><td>—</td><td>Minimize the workbook ribbon</td></tr>
-<tr><td><code>set_visibility_mut(bool)</code></td><td>—</td><td>—</td><td>Set workbook window visibility</td></tr>
-<tr><td><code>hide_horizontal_scroll_mut(bool)</code></td><td>—</td><td>—</td><td>Show/hide horizontal scrollbar</td></tr>
-<tr><td><code>hide_vertical_scroll_mut(bool)</code></td><td>—</td><td>—</td><td>Show/hide vertical scrollbar</td></tr>
-<tr><td><code>hide_sheet_tabs_mut(bool)</code></td><td>—</td><td>—</td><td>Show/hide worksheet tabs</td></tr>
-<tr><td><code>get_style_id_mut(setting)</code></td><td><code>GetStyleId(setting)</code></td><td>—</td><td>Register a cell style and get its id (see <a href="/openxml-office/4.0/spreadsheet/style/">Style</a>)</td></tr>
-<tr><td><code>save_as(path)</code></td><td><code>SaveAs(path)</code></td><td><code>SaveAs(path)</code></td><td>Save the workbook to a file</td></tr>
-</tbody></table>
+<table>
+    <thead>
+        <tr>
+            <th width="220">Rust</th>
+            <th width="200">C#</th>
+            <th width="160">Go</th>
+            <th>Function</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <code>Excel::new(path, props)</code>
+            </td>
+            <td>
+                <code>new Excel()</code> / <code>new Excel(props)</code>
+            </td>
+            <td>
+                <code>NewExcel()</code>
+            </td>
+            <td>Create a new workbook or open an existing file</td>
+        </tr>
+        <tr>
+            <td>
+                <code>add_sheet_mut(name)</code>
+            </td>
+            <td>
+                <code>AddSheet(name)</code>
+            </td>
+            <td>
+                <code>AddSheet(name)</code>
+            </td>
+            <td>Add a worksheet (optional name)</td>
+        </tr>
+        <tr>
+            <td>
+                <code>get_worksheet_mut(name)</code>
+            </td>
+            <td>—</td>
+            <td>—</td>
+            <td>Get an existing worksheet by name</td>
+        </tr>
+        <tr>
+            <td>
+                <code>rename_sheet_name_mut(old, new)</code>
+            </td>
+            <td>
+                <code>RenameSheet(old, new)</code>
+            </td>
+            <td>—</td>
+            <td>Rename an existing worksheet</td>
+        </tr>
+        <tr>
+            <td>
+                <code>set_active_sheet_mut(name)</code>
+            </td>
+            <td>—</td>
+            <td>—</td>
+            <td>Set the active worksheet</td>
+        </tr>
+        <tr>
+            <td>
+                <code>hide_sheet_mut(name)</code>
+            </td>
+            <td>—</td>
+            <td>—</td>
+            <td>Hide a worksheet</td>
+        </tr>
+        <tr>
+            <td>
+                <code>minimize_workbook_mut(bool)</code>
+            </td>
+            <td>—</td>
+            <td>—</td>
+            <td>Minimize the workbook ribbon</td>
+        </tr>
+        <tr>
+            <td>
+                <code>set_visibility_mut(bool)</code>
+            </td>
+            <td>—</td>
+            <td>—</td>
+            <td>Set workbook window visibility</td>
+        </tr>
+        <tr>
+            <td>
+                <code>hide_horizontal_scroll_mut(bool)</code>
+            </td>
+            <td>—</td>
+            <td>—</td>
+            <td>Show/hide horizontal scrollbar</td>
+        </tr>
+        <tr>
+            <td>
+                <code>hide_vertical_scroll_mut(bool)</code>
+            </td>
+            <td>—</td>
+            <td>—</td>
+            <td>Show/hide vertical scrollbar</td>
+        </tr>
+        <tr>
+            <td>
+                <code>hide_sheet_tabs_mut(bool)</code>
+            </td>
+            <td>—</td>
+            <td>—</td>
+            <td>Show/hide worksheet tabs</td>
+        </tr>
+        <tr>
+            <td>
+                <code>get_style_id_mut(setting)</code>
+            </td>
+            <td>
+                <code>GetStyleId(setting)</code>
+            </td>
+            <td>
+                —
+            </td>
+            <td>
+                Register a cell style and get its id (see <a href="/openxml-office/4.0/spreadsheet/style/">Style</a>)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>save_as(path)</code>
+            </td>
+            <td>
+                <code>SaveAs(path)</code>
+            </td>
+            <td>
+                <code>SaveAs(path)</code>
+            </td>
+            <td>Save the workbook to a file</td>
+        </tr>
+    </tbody>
+</table>
 
 ### Basic Code Samples
 
 <Tabs syncKey='language'>
-<TabItem label='Rust'>
-```rust
-use draviavemal_openxml_office::spreadsheet_2007::{Excel, ExcelPropertiesModel};
+    <TabItem label='Rust'>
+        ```rust
+        use draviavemal_openxml_office::spreadsheet_2007::{Excel, ExcelPropertiesModel};
 
-// Create a new workbook (pass Some(path) to open an existing file)
-let mut file = Excel::new(None, ExcelPropertiesModel::default())
-    .expect("File Created Failed");
-// Add Sheet with custom name
-file.add_sheet_mut(Some("Test".to_string()))
-    .expect("Failed to add Sheet");
-// Add Sheet with default name
-file.add_sheet_mut(None)
-    .expect("Failed to add Sheet");
-// Save the result file
-file.save_as("./output.xlsx")
-    .expect("File Save Failed");
-```
-</TabItem>
-<TabItem label='C#'>
-```csharp
-using draviavemal.openxml_office.spreadsheet_2007;
+        // Create a new workbook (pass Some(path) to open an existing file)
+        let mut file = Excel::new(None, ExcelPropertiesModel::default())
+        .expect("File Created Failed");
+        // Add Sheet with custom name
+        file.add_sheet_mut(Some("Test".to_string()))
+        .expect("Failed to add Sheet");
+        // Add Sheet with default name
+        file.add_sheet_mut(None)
+        .expect("Failed to add Sheet");
+        // Save the result file
+        file.save_as("./output.xlsx")
+        .expect("File Save Failed");
+        ```
+    </TabItem>
+    <TabItem label='C#'>
+        ```csharp
+        using draviavemal.openxml_office.spreadsheet_2007;
 
-Excel excel = new Excel();
-using Worksheet worksheet = excel.AddSheet("Test");
-excel.SaveAs("./output.xlsx");
-```
-</TabItem>
+        Excel excel = new Excel();
+        using Worksheet worksheet = excel.AddSheet("Test");
+        excel.SaveAs("./output.xlsx");
+        ```
+    </TabItem>
 
-<TabItem label='Go'>
-```go
-import "draviavemal_openxml_office/spreadsheet/spreadsheet_2007"
+    <TabItem label='Go'>
+        ```go
+        import "draviavemal_openxml_office/spreadsheet/spreadsheet_2007"
 
-excel, err := spreadsheet_2007.NewExcel()
-if err != nil {
-    panic(err)
-}
-worksheet, err := excel.AddSheet("Test")
-if err != nil {
-    panic(err)
-}
-if err := worksheet.Flush(); err != nil {
-    panic(err)
-}
-if err := excel.SaveAs("./output.xlsx"); err != nil {
-    panic(err)
-}
-```
-</TabItem>
+        excel, err := spreadsheet_2007.NewExcel()
+        if err != nil {
+        panic(err)
+        }
+        worksheet, err := excel.AddSheet("Test")
+        if err != nil {
+        panic(err)
+        }
+        if err := worksheet.Flush(); err != nil {
+        panic(err)
+        }
+        if err := excel.SaveAs("./output.xlsx"); err != nil {
+        panic(err)
+        }
+        ```
+    </TabItem>
 
-<TabItem label="Python🚧🛠️">
-Not yet available.
-</TabItem>
+    <TabItem label="Python🚧🛠️">
+        Not yet available.
+    </TabItem>
 
-<TabItem label="Java🚧🛠️">
-Not yet available.
-</TabItem>
+    <TabItem label="Java🚧🛠️">
+        Not yet available.
+    </TabItem>
 
-<TabItem label="TS🚧🛠️">
-Not yet available.
-</TabItem>
+    <TabItem label="TS🚧🛠️">
+        Not yet available.
+    </TabItem>
 </Tabs>
 
 ### `ExcelProperties` Options
 
-<table><thead><tr><th width="200">Rust</th><th width="160">C#</th><th width="90">Type</th><th>Details</th></tr></thead><tbody>
-<tr><td><code>is_editable</code></td><td><code>isEditable</code></td><td>bool</td><td>Open the source file in editable mode when a path is supplied</td></tr>
-</tbody></table>
+<table>
+    <thead>
+        <tr>
+            <th width="200">Rust</th>
+            <th width="160">C#</th>
+            <th width="90">Type</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <code>is_editable</code>
+            </td>
+            <td>
+                <code>isEditable</code>
+            </td>
+            <td>bool</td>
+            <td>Open the source file in editable mode when a path is supplied</td>
+        </tr>
+    </tbody>
+</table>
