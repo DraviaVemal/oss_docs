@@ -1,12 +1,13 @@
 ---
 title: Parsing
 description: Parse XML strings, byte vectors and files into an xml_rs document tree.
+slug: 2.0/guides/parsing
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-[`XmlDeserializer`](/xml_rs/api-reference/#xmldeserializer) turns XML input into
-an [`XmlDocument`](/xml_rs/api-reference/#xmldocument) tree. It reads the XML
+[`XmlDeserializer`](/xml_rs/2.0/api-reference/#xmldeserializer) turns XML input into
+an [`XmlDocument`](/xml_rs/2.0/api-reference/#xmldocument) tree. It reads the XML
 declaration, normalizes line breaks, resolves namespaces and preserves comments.
 
 ## From a byte vector or string
@@ -84,5 +85,5 @@ let prolog = document.get_prolog_comments();   // comments before the root
 
 ## Next
 
-- [Navigating & querying](/xml_rs/guides/navigating/) the parsed tree.
-- [Building & editing](/xml_rs/guides/building/) documents from scratch.
+- [Navigating & querying](/xml_rs/2.0/guides/navigating/) the parsed tree.
+- [Building & editing](/xml_rs/2.0/guides/building/) documents from scratch.

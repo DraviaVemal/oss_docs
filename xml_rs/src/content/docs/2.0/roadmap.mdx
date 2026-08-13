@@ -1,0 +1,127 @@
+---
+title: Roadmap
+description: Planned work for the xml_rs v2.x line, headlined by native XPath query support.
+slug: 2.0/roadmap
+---
+
+import { Aside, Badge } from '@astrojs/starlight/components';
+
+<Aside type="caution">
+This page describes the **v2.x (Alpha)** direction. Items here are planned or in
+progress and may change before a stable release. Track progress on
+[GitHub](https://github.com/DraviaVemal/xml_rs).
+</Aside>
+
+The v2.x line builds on the stable, round-trip-safe DOM from v1.x. Its headline
+goal is **native XPath querying**, plus supporting ergonomics for selecting and
+extracting data from a parsed tree.
+
+## Headline: XPath support <Badge text="Planned" variant="caution" />
+
+Today you navigate the tree with structural helpers such as
+[`find_first_child`](/xml_rs/2.0/guides/navigating/#find-children),
+`get_elements_by_tag_name` and `find_first_by_attribute`. v2 aims to add a
+single expression-based entry point so you can locate nodes with familiar XPath
+syntax instead of chaining calls.
+
+The target API is a `query_xpath` method on
+[`XmlDocument`](/xml_rs/2.0/api-reference/#xmldocument):
+
+```rust
+// Target API — not yet available.
+let titles = document.query_xpath("//book[@id='bk101']/title")?;
+for node_id in titles {
+    let title = document.get_element(node_id)?;
+    println!("{}", title.get_text_content());
+}
+```
+
+### Planned expression coverage
+
+<table>
+  <thead>
+    <tr>
+      <th>Capability</th>
+      <th>Example</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Child &amp; descendant steps</td>
+      <td><code>/catalog/book</code>, <code>//title</code></td>
+      <td><Badge text="Planned" variant="caution" /></td>
+    </tr>
+    <tr>
+      <td>Attribute predicates</td>
+      <td><code>book[@id='bk101']</code></td>
+      <td><Badge text="Planned" variant="caution" /></td>
+    </tr>
+    <tr>
+      <td>Positional predicates</td>
+      <td><code>book[1]</code>, <code>book[last()]</code></td>
+      <td><Badge text="Planned" variant="caution" /></td>
+    </tr>
+    <tr>
+      <td>Wildcards</td>
+      <td><code>/catalog/&ast;</code>, <code>@&ast;</code></td>
+      <td><Badge text="Planned" variant="caution" /></td>
+    </tr>
+    <tr>
+      <td>Namespace-qualified steps</td>
+      <td><code>//t:book</code> via a bound prefix map</td>
+      <td><Badge text="Exploring" variant="note" /></td>
+    </tr>
+    <tr>
+      <td>Text &amp; node tests</td>
+      <td><code>//title/text()</code></td>
+      <td><Badge text="Exploring" variant="note" /></td>
+    </tr>
+  </tbody>
+</table>
+
+### Design goals
+
+- **Zero-copy over the existing DOM** — XPath evaluation returns
+  [`NodeId`](/xml_rs/2.0/api-reference/#types) values into the current tree, with
+  no separate document model.
+- **Namespace-aware** — expressions resolve prefixes through the same
+  [`NamespaceDeclaration`](/xml_rs/2.0/api-reference/#namespacedeclaration)
+  scope used elsewhere, keeping results round-trip-safe.
+- **No `unsafe`** — consistent with the rest of the crate.
+- **Incremental** — child/descendant axes and attribute predicates ship first;
+  richer axes and functions follow.
+
+## Beyond XPath
+
+<table>
+  <thead>
+    <tr>
+      <th>Area</th>
+      <th>Intent</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Streaming / SAX-style reader</td>
+      <td>Event callbacks for very large documents without building a full DOM.</td>
+      <td><Badge text="Exploring" variant="note" /></td>
+    </tr>
+    <tr>
+      <td>Pretty-printing option</td>
+      <td>Optional indentation on serialize alongside the existing compact output.</td>
+      <td><Badge text="Exploring" variant="note" /></td>
+    </tr>
+    <tr>
+      <td>Broader encoding support</td>
+      <td>Read non-UTF-8 declarations by transcoding to UTF-8 on parse.</td>
+      <td><Badge text="Exploring" variant="note" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<Aside type="tip">
+Have a use case that would shape the XPath surface? Open an issue or discussion
+on [github.com/DraviaVemal/xml_rs](https://github.com/DraviaVemal/xml_rs).
+</Aside>

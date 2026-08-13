@@ -1,12 +1,13 @@
 ---
 title: Navigating & Querying
 description: Walk the xml_rs DOM tree, read attributes and find elements by tag or attribute value.
+slug: 2.0/guides/navigating
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-Every node in an [`XmlDocument`](/xml_rs/api-reference/#xmldocument) has a
-[`NodeId`](/xml_rs/api-reference/#types) (a `u32`). You start from the root and
+Every node in an [`XmlDocument`](/xml_rs/2.0/api-reference/#xmldocument) has a
+[`NodeId`](/xml_rs/2.0/api-reference/#types) (a `u32`). You start from the root and
 look up elements by id.
 
 ## Start at the root
@@ -34,7 +35,7 @@ if let Some(book_ids) = document.find_all_child(root_id, "book")? {
 
 Each finder has a namespace-aware `_ns` counterpart. Instead of a `prefix:tag`
 string, these take the **local name** plus a
-[`NamespaceDeclaration`](/xml_rs/api-reference/#namespacedeclaration), so the
+[`NamespaceDeclaration`](/xml_rs/2.0/api-reference/#namespacedeclaration), so the
 match is resolved against the document's live namespace scope regardless of the
 exact prefix used in the source:
 
@@ -89,6 +90,11 @@ To search the **entire subtree** (not just direct children) for a tag, use
 let all_titles = document.get_elements_by_tag_name(root_id, "title")?;
 ```
 
+<Aside type="tip">
+Need full path expressions like `//book[@id='bk101']/title`? Native XPath
+querying is on the [Roadmap](/xml_rs/2.0/roadmap/) for the v2.x line.
+</Aside>
+
 ## Read attributes
 
 ```rust
@@ -112,7 +118,7 @@ let lang = element.get_attribute_value_ns("lang", &TEST_NS);
 ## Read content (text, elements, comments)
 
 An element's children are a list of
-[`XmlElementContentType`](/xml_rs/api-reference/#xmlelementcontenttype) values.
+[`XmlElementContentType`](/xml_rs/2.0/api-reference/#xmlelementcontenttype) values.
 Match on the variant you care about:
 
 ```rust
@@ -141,5 +147,5 @@ the whole subtree.
 
 <Aside type="tip">
 `get_element` returns an immutable reference for reading. Use
-[`get_element_mut`](/xml_rs/api-reference/#xmldocument) when you intend to edit.
+[`get_element_mut`](/xml_rs/2.0/api-reference/#xmldocument) when you intend to edit.
 </Aside>

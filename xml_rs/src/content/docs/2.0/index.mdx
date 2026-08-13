@@ -1,0 +1,101 @@
+---
+title: xml_rs
+description: A fast, low-memory, namespace-aware XML DOM parser and serializer for Rust with round-trip-safe output.
+template: splash
+slug: "2.0"
+---
+
+import logo from '../../../../../assets/logo.svg';
+
+<div class="oss-landing">
+
+<section class="oss-hero">
+	<img class="oss-hero-logo" src={logo.src} alt="xml_rs logo" />
+	<p class="eyebrow">Rust · XML DOM parser &amp; serializer · v2.x (Alpha)</p>
+	<h1>Fast, low-memory XML for Rust</h1>
+	<p class="lede">
+		<code>xml_rs</code> parses documents into an ID-based DOM tree, lets you
+		navigate and edit them, and serializes back to XML while preserving
+		namespace prefixes and attribute order. It powers XML processing in
+		<a href="/openxml-office/">openxml-office</a>.
+	</p>
+	<p class="lede">
+		This is the <strong>v2.x alpha</strong> line. It carries the same API as
+		the stable v1.x docs and tracks upcoming work — most notably native
+		<a href="/xml_rs/2.0/roadmap/">XPath support</a>.
+	</p>
+	<div class="oss-hero-actions">
+		<a class="oss-btn primary" href="/xml_rs/2.0/getting-started/">Get started</a>
+		<a class="oss-btn" href="/xml_rs/2.0/roadmap/">Roadmap</a>
+		<a class="oss-btn" href="https://github.com/DraviaVemal/xml_rs" target="_blank" rel="noopener">View on GitHub</a>
+		<a class="oss-btn" href="https://crates.io/crates/draviavemal-xml_rs" target="_blank" rel="noopener">crates.io</a>
+	</div>
+</section>
+
+<section>
+	<h2>Features</h2>
+	<div class="oss-grid">
+		<article class="oss-card">
+			<h3>Namespace-aware</h3>
+			<p>
+				Full namespace resolution with a prefix → URI stack and correct
+				QName parsing.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Round-trip safe</h3>
+			<p>
+				Serialization preserves original namespace prefixes and attribute
+				order, so parse → serialize stays faithful.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Low memory</h3>
+			<p>
+				An ID-based tree model (arena-like) keeps allocations flat for large
+				documents — with no <code>unsafe</code> code.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Order-preserving attributes</h3>
+			<p>
+				Attributes keep their source order via an index map, important for
+				deterministic output.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Comments &amp; mixed content</h3>
+			<p>
+				Elements, text, mixed content and comments are all preserved in the
+				DOM.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>UTF-8 focused</h3>
+			<p>
+				Reads the XML declaration (version, encoding, standalone) and
+				normalizes line breaks.
+			</p>
+		</article>
+	</div>
+</section>
+
+<section>
+	<h2>Next steps</h2>
+	<div class="oss-grid">
+		<a class="oss-card" href="/xml_rs/2.0/getting-started/">
+			<h3>Install &amp; parse →</h3>
+			<p>Add the crate and parse your first document.</p>
+		</a>
+		<a class="oss-card" href="/xml_rs/2.0/api-reference/">
+			<h3>API reference →</h3>
+			<p>Browse the public types and methods.</p>
+		</a>
+		<a class="oss-card" href="/xml_rs/2.0/roadmap/">
+			<h3>Roadmap →</h3>
+			<p>What's planned for the v2.x line, including XPath.</p>
+		</a>
+	</div>
+</section>
+
+</div>

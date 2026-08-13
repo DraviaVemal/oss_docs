@@ -1,5 +1,6 @@
 import sitemap from '@astrojs/sitemap';
 import starlight from '@astrojs/starlight';
+import starlightVersions from 'starlight-versions';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 import rehypeExternalLinks from 'rehype-external-links';
@@ -30,11 +31,11 @@ export default defineConfig({
 		starlight({
 			title: 'xml_rs',
 			components: {
-				Banner: "../components/BannerNoVersion.astro",
+				Banner: "../components/Banner.astro",
 				Head: "../components/Head.astro",
 				PageSidebar: "../components/RightSidebar.astro",
-				PageTitle: "../components/PageTitleNoVersion.astro",
-				Sidebar: "../components/SidebarNoVersion.astro",
+				PageTitle: "../components/PageTitle.astro",
+				Sidebar: "../components/Sidebar.astro",
 				ThemeSelect: "../components/ThemeSelect.astro",
 			},
 			social: [
@@ -75,6 +76,19 @@ export default defineConfig({
 				}
 			],
 			sidebar: sidebar,
+			plugins: [
+				starlightVersions({
+					versions: [
+						{
+							slug: "2.0",
+							label: "v2.x (Alpha)",
+							redirect: "root"
+						}],
+					current: {
+						label: "v1.x (Stable)",
+						redirect: "root"
+					}
+				})],
 			customCss: ["./src/styles/global.css"]
 		}),
 	]
