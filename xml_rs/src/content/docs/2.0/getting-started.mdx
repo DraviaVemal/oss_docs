@@ -1,9 +1,15 @@
 ---
 title: Getting Started
 description: Install draviavemal-xml_rs and parse, navigate and serialize your first XML document in Rust.
+slug: 2.0/getting-started
 ---
 
 import { Aside, Steps } from '@astrojs/starlight/components';
+
+<Aside type="caution">
+You're reading the **v2.x (Alpha)** docs. The public API matches the stable
+v1.x line; see the [Roadmap](/xml_rs/2.0/roadmap/) for what's changing.
+</Aside>
 
 `xml_rs` is published on crates.io as **`draviavemal-xml_rs`** and imported in
 code as `draviavemal_xml_rs`.
@@ -59,9 +65,9 @@ code as `draviavemal_xml_rs`.
 ## Parse, read and serialize
 
 The three building blocks are
-[`XmlDeserializer`](/xml_rs/api-reference/#xmldeserializer) (XML → DOM),
-[`XmlDocument`](/xml_rs/api-reference/#xmldocument) (the tree) and
-[`XmlSerializer`](/xml_rs/api-reference/#xmlserializer) (DOM → XML).
+[`XmlDeserializer`](/xml_rs/2.0/api-reference/#xmldeserializer) (XML → DOM),
+[`XmlDocument`](/xml_rs/2.0/api-reference/#xmldocument) (the tree) and
+[`XmlSerializer`](/xml_rs/2.0/api-reference/#xmlserializer) (DOM → XML).
 
 ```rust
 use draviavemal_xml_rs::{XmlDeserializer, XmlSerializer};
@@ -105,7 +111,7 @@ XmlSerializer::xml_doc_tree_to_file(&document, "output.xml")?;
 
 <Aside type="tip">
 Need compacter namespaces on output? Pass a
-[`SerializeOptions`](/xml_rs/api-reference/#serializeoptions) with
+[`SerializeOptions`](/xml_rs/2.0/api-reference/#serializeoptions) with
 `optimize_namespaces: true` to `xml_tree_to_vec_with` /
 `xml_doc_tree_to_file_with` to hoist prefixed declarations to their lowest
 common ancestor and drop unused ones.
@@ -113,7 +119,8 @@ common ancestor and drop unused ones.
 
 ## Where to next
 
-- [Parsing](/xml_rs/guides/parsing/) — turn XML into a document tree.
-- [Navigating & querying](/xml_rs/guides/navigating/) — walk the DOM and find nodes.
-- [Building & editing](/xml_rs/guides/building/) — construct and modify documents.
-- [API Reference](/xml_rs/api-reference/) — the full public surface.
+- [Parsing](/xml_rs/2.0/guides/parsing/) — turn XML into a document tree.
+- [Navigating & querying](/xml_rs/2.0/guides/navigating/) — walk the DOM and find nodes.
+- [Building & editing](/xml_rs/2.0/guides/building/) — construct and modify documents.
+- [API Reference](/xml_rs/2.0/api-reference/) — the full public surface.
+- [Roadmap](/xml_rs/2.0/roadmap/) — upcoming features, including XPath.

@@ -1,3 +1,3 @@
-// Single-version site. See ../../shared/README.md.
-export { collections } from "../../shared/content.config";
+// Versioned site (starlight-versions). See ../../shared/README.md.
+export { versionedCollections as collections } from "../../shared/content.config";
 

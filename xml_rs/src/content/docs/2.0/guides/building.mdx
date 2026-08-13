@@ -1,13 +1,14 @@
 ---
 title: Building & Editing
 description: Construct xml_rs documents from scratch, add elements, attributes, text and comments, then serialize.
+slug: 2.0/guides/building
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
 You can build a document programmatically and serialize it, or edit a parsed
 tree in place. Mutating methods end in `_mut` and most return the new node's
-[`NodeId`](/xml_rs/api-reference/#types).
+[`NodeId`](/xml_rs/2.0/api-reference/#types).
 
 ## Create a document and root
 
@@ -35,7 +36,7 @@ let child_id = document.append_child_element_mut(
 ## Namespace-aware creation
 
 Prefer the `_ns` variants for round-trip-safe namespaces: pass the **local name**
-and a [`NamespaceDeclaration`](/xml_rs/api-reference/#namespacedeclaration), and
+and a [`NamespaceDeclaration`](/xml_rs/2.0/api-reference/#namespacedeclaration), and
 the crate resolves (or declares) the alias against the live scope for you.
 
 ```rust
