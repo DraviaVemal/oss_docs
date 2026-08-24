@@ -97,24 +97,24 @@
                     "link": "/spreadsheet/excel"
                 },
                 {
-                    "label": "Worksheet 🚧🔨",
+                    "label": "Worksheet",
                     "link": "/spreadsheet/worksheet"
+                },
+                {
+                    "label": "Style",
+                    "link": "/spreadsheet/style"
+                },
+                {
+                    "label": "Picture",
+                    "link": "/spreadsheet/picture"
                 },
                 {
                     "label": "Shape 🚧🔨",
                     "link": "/spreadsheet/shape"
                 },
                 {
-                    "label": "Picture 🚧🔨",
-                    "link": "/spreadsheet/picture"
-                },
-                {
                     "label": "Table 🚧🔨",
                     "link": "/spreadsheet/table"
-                },
-                {
-                    "label": "Style 🚧🔨",
-                    "link": "/spreadsheet/style"
                 },
                 {
                     "label": "Chart 🚧🔨",
@@ -126,7 +126,7 @@
             "label": "Presentation 🚧🔨",
             "items": [
                 {
-                    "label": "PowerPoint 🚧🔨",
+                    "label": "PowerPoint",
                     "link": "/presentation/powerpoint"
                 },
                 {
@@ -159,7 +159,7 @@
             "label": "Document 🚧🔨",
             "items": [
                 {
-                    "label": "Word 🚧🔨",
+                    "label": "Word",
                     "link": "/document/word"
                 },
                 {
@@ -181,19 +181,19 @@
             ]
         },
         {
-            "label": "FFI 🚧🔨",
+            "label": "FFI",
             "collapsed": true,
             "items": [
                 {
-                    "label": "Spreadsheet 🚧🔨",
+                    "label": "Spreadsheet",
                     "link": "/ffi/spreadsheet"
                 },
                 {
-                    "label": "Presentation 🚧🔨",
+                    "label": "Presentation",
                     "link": "/ffi/presentation"
                 },
                 {
-                    "label": "Document 🚧🔨",
+                    "label": "Document",
                     "link": "/ffi/document"
                 }
             ]

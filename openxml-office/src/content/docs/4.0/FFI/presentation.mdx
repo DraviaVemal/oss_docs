@@ -1,107 +1,74 @@
 ---
-title: Presentation
-description: The page furnishes comprehensive installation instructions, guiding you
-  through the process of incorporating the package dependency.
+title: Presentation FFI
+description: Install and use the OpenXML-Office v4 presentation wrapper for each supported language.
 slug: 4.0/ffi/presentation
 ---
 
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 
-<Tabs>
+The Presentation FFI page covers installing the language wrapper and using the presentation API. The core logic lives in the Rust library (`draviavemal-openxml_office`); each wrapper communicates with it over a C ABI + FlatBuffers transport.
+
+For full API reference see the [PowerPoint](/openxml-office/4.0/presentation/powerpoint/) page.
+
+### Installation
+
+<Tabs syncKey='language'>
+<TabItem label='Rust'>
+
+```bash
+cargo add draviavemal-openxml_office
+```
+
+</TabItem>
 <TabItem label='C#'>
-The library is available on NuGet. You can install it using the following command
-
-```shell
-#Using Package Manager
-Install-Package OpenXMLOffice
-```
 
 ```bash
-# For Pre Release
-dotnet add package OpenXMLOffice.Presentation
+# Stable
+dotnet add package draviavemal.openxml-office
+
+# Pre-release / alpha
+dotnet add package draviavemal.openxml-office --prerelease
 ```
 
-```bash
-# For Pre Release
-dotnet add package OpenXMLOffice.Presentation --prerelease
-```
+</TabItem>
+<TabItem label='Go'>
 
 ```bash
-#Using .NET CLI
-dotnet add package OpenXMLOffice.Excel
+go get draviavemal_openxml_office
 ```
 
-```bash
-# For Pre Release
-dotnet add package OpenXMLOffice.Excel--prerelease
-```
+</TabItem>
+<TabItem label="Python🚧🛠️">
+Not yet available.
+</TabItem>
+<TabItem label="TypeScript🚧🛠️">
+Not yet available.
+</TabItem>
+<TabItem label="Java🚧🛠️">
+Not yet available.
 </TabItem>
 </Tabs>
 
 ### Package Version Details
 
-<Tabs>
-<TabItem label='C#'>
-The official release NuGet packages for OpenXMLOffice on NuGet.org:
+<Tabs syncKey='language'>
+<TabItem label='Rust'>
 
-<table>
-<thead>
-<tr>
-<th>Package</th>
-<th width="133">Maintanance</th>
-<th>Current Stable Version</th>
-<th>Current Alpha Version</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>OpenXMLOffice.Presentation</td>
-<td>Not Active</td>
-<td><a href="https://www.nuget.org/packages/OpenXMLOffice.Presentation" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/nuget/v/OpenXMLOffice.Presentation.svg" alt="NuGet"/></a></td>
-<td><a href="https://www.nuget.org/packages/OpenXMLOffice.Presentation" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/nuget/vpre/OpenXMLOffice.Presentation.svg" alt="NuGet"/></a></td>
-</tr>
-<tr>
-<td>OpenXMLOffice.Excel</td><td>Not Active</td>
-<td><a href="https://www.nuget.org/packages/OpenXMLOffice.Excel" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/nuget/v/OpenXMLOffice.Excel.svg" alt="NuGet"/></a></td>
-<td><a href="https://www.nuget.org/packages/OpenXMLOffice.Excel" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/nuget/vpre/OpenXMLOffice.Excel.svg" alt="NuGet"/></a></td>
-</tr>
-<tr>
-<td>OpenXMLOffice.Document</td>
-<td>Not Active</td>
-<td><a href="https://www.nuget.org/packages/OpenXMLOffice.Document" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/nuget/v/OpenXMLOffice.Document.svg" alt="NuGet"/></a></td>
-<td><a href="https://www.nuget.org/packages/OpenXMLOffice.Document" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/nuget/vpre/OpenXMLOffice.Document.svg" alt="NuGet"/></a></td>
-</tr>
-</tbody>
-</table>
+| Package | Maintenance | Stable | Alpha |
+|---|---|---|---|
+| `draviavemal-openxml_office` | Active | [![crates.io](https://img.shields.io/crates/v/draviavemal-openxml_office)](https://crates.io/crates/draviavemal-openxml_office) | [![crates.io](https://img.shields.io/crates/v/draviavemal-openxml_office)](https://crates.io/crates/draviavemal-openxml_office) |
+
 </TabItem>
-</Tabs>
-
-Once Installed the package should be direct use availabel like below example. More samples can be seen in test project's of the repo or check other parts of the documents
-
-<Tabs>
 <TabItem label='C#'>
-```csharp
-using OpenXMLOffice.Presentation;
 
-public static main(){
-    PowerPoint powerPoint = new(string.Format("../../test-{0}.pptx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")), null);
-    powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK);
-    powerPoint.save();
-}
-```
+| Package | Maintenance | Stable | Alpha |
+|---|---|---|---|
+| `draviavemal.openxml-office` | Active | [![NuGet](https://img.shields.io/nuget/v/draviavemal.openxml-office.svg)](https://www.nuget.org/packages/draviavemal.openxml-office) | [![NuGet](https://img.shields.io/nuget/vpre/draviavemal.openxml-office.svg)](https://www.nuget.org/packages/draviavemal.openxml-office) |
+
 </TabItem>
-</Tabs>
+<TabItem label='Go'>
 
-<Tabs>
-<TabItem label='C#'>
-```csharp
-using OpenXMLOffice.Excel;
+The Go wrapper is distributed as part of the repository. See the [README](https://github.com/DraviaVemal/OpenXML-Office/tree/main/go) for build instructions.
 
-public static main(){
-    Spreadsheet spreadsheet = new(string.Format("../../test-{0}.xlsx", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss")));
-    spreadsheet.AddSheet("Sheet1");
-    spreadsheet.save();
-}
-```
 </TabItem>
 </Tabs>
