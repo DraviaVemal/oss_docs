@@ -1,83 +1,11 @@
 ---
 title: Combo
-description: A reference page in my new Starlight docs site.
+description: Global Combo Chart support in OpenXML-Office v4.
 slug: 4.0/global/chart/combo
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-
-Add chart method present in slide component or you can replace the chart using shape component.
-This type is bit different from previous core chart types. Combo setting act as organizer for adding other base type chart to single chart component along with additional options
-
-<img src="/img/combo.webp" alt=""/>
-
-### Basic Code Sample
-
-<Tabs>
-<TabItem label='C#'>
-```csharp
-G.ComboChartSetting<G.PresentationSetting> comboChartSetting = new()
-{
-	titleOptions = new()
-	{
-		title = "Combo Chart"
-	},
-};
-comboChartSetting.AddComboChartsSetting(new G.AreaChartSetting<G.PresentationSetting>());
-comboChartSetting.AddComboChartsSetting(new G.BarChartSetting<G.PresentationSetting>());
-comboChartSetting.AddComboChartsSetting(new G.ColumnChartSetting<G.PresentationSetting>());
-comboChartSetting.AddComboChartsSetting(new G.LineChartSetting<G.PresentationSetting>()
-{
-	isSecondaryAxis = true
-});
-comboChartSetting.AddComboChartsSetting(new G.PieChartSetting<G.PresentationSetting>());
-
-powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-	.AddChart(CreateDataCellPayload(10), comboChartSetting);
-```
-
-Above code is example to add each data series as different type of chart graphics combined as combo chart
-</TabItem>
-</Tabs>
-
-### `ComboChartSetting<G.PresentationSetting>` Options
-
-<table>
-  <thead>
-    <tr>
-      <th>Property</th>
-      <th>Type</th>
-      <th>Details</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>secondaryAxisPosition</td>
-      <td>AxisPosition</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>chartAxesOptions</td>
-      <td>ChartAxesOptions</td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>AddComboChartsSetting</td>
-      <td>function</td>
-      <td>Method accepts core chart type's setting as input. This provides flexibility to handle all options of each chart style. <a href="combo.md#list-of-supported-chart-that-can-be-inserted-into-combo-chart">Supported List</a>.</td>
-    </tr>
-  </tbody>
-</table>
-
-<details>
-
-<summary>List of supported chart that can be inserted into combo chart</summary>
-
-* [Area Chart](area)
-* [Bar Chart](bar)
-* [Column Chart](column)
-* [Line Chart](line)
-* [Pie Chart](pie)
-* Scatter Chart (TODO)
+:::caution[🚧 Work in Progress]
+Combo Chart support is not yet available in v4. This page will be updated once the feature lands.
+:::
 
 </details>

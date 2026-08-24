@@ -1,47 +1,10 @@
 ---
 title: Slide
-description: A reference page in my new Starlight docs site.
+description: Presentation Slide support in OpenXML-Office v4.
 slug: 4.0/presentation/slide
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-
-### Slide Class Overview
-
-The `Slide` class, a vital component of the `OpenXMLOffice.Presentation` library, serves as a versatile tool for manipulating individual slides within a PowerPoint presentation. Whether extracted from an existing presentation or added new, this class provides a convenient handle for developers to modify the content of a single slide.
-
-#### Key Features
-
-1. **Content Manipulation:** The `Slide` class facilitates the addition of various elements to a slide, including charts, tables, and text. Developers can seamlessly enhance the visual richness of the presentation by incorporating diverse content types.
-2. **Integration with PowerPoint Templates:** This class seamlessly integrates with existing PowerPoint templates, allowing developers to maintain a consistent look and feel throughout the presentation.
-
-#### Example Usage
-
-<Tabs>
-<TabItem label='C#'>
-```csharp
-using OpenXMLOffice.Presentation;
-
-public static SlideManipulation(Slide slide, DataCell[][] DataCells, AreaChartSetting AreaChartSetting){
-    // Add New Chart To the Slide
-    // Follow chart document for more info
-    Chart chart = slide.AddChart(DataCells, AreaChartSetting);
-    // To Add picture to the slide
-    Picture picture = slide.AddPicture("sample.jpg", PictureSetting PictureSetting);
-    // To Add Table
-    Table table = slide.AddTable(DataCells, TableSetting TableSetting);
-    // To Find a shape based on text from PPTX
-    Shape shape = slide.FindShapeByText("shape_id");
-}
-```
-</TabItem>
-</Tabs>
-
-### TODO
-
-Slide Setting Object for slide options
-
-* Background
-* Header/Footer
-* Size
+:::caution[🚧 Work in Progress]
+Slide authoring for the presentation module is not yet available in v4. This page will be updated once the feature lands.
+:::
 * Border, etc...

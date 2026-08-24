@@ -1,27 +1,9 @@
 ---
 title: Waterfall
-description: A reference page in my new Starlight docs site.
+description: Global Waterfall Chart support in OpenXML-Office v4.
 slug: 4.0/global/chart/waterfall
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-
-Add chart method present in slide component or you can replace the chart using shape component.
-Base supported version for this type of chart is office 2016&#x20;
-
-<img src="/img/waterfall.webp" alt=""/>
-
-### Basic Code Sample
-
-<Tabs>
-<TabItem label='C#'>
-```csharp
-powerPoint.AddSlide(PresentationConstants.SlideLayoutType.BLANK)
-    .AddChart(data, new WaterfallChartSetting<G.PresentationSetting>());
-```
-</TabItem>
-</Tabs>
-
-### `WaterfallChartSetting<G.PresentationSetting>` Options
-
-At this moment waterfall supports base setting from[`ChartSetting`](./#chartsetting-options) future updates will get updated below.
+:::caution[🚧 Work in Progress]
+Waterfall Chart support is not yet available in v4. This page will be updated once the feature lands.
+:::
