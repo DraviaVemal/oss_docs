@@ -2,43 +2,37 @@
 import starlightConfig from "virtual:starlight/user-config";
 import starlightVersionsConfig from "virtual:starlight-versions-config";
 
-import {
-  getVersionFromSlug,
-  getVersionURL,
-} from "../node_modules/starlight-versions/libs/versions";
+import { getVersionURL } from "../node_modules/starlight-versions/libs/versions";
 
-const { id } = (Astro.locals as any).starlightRoute;
-
-const pageVersion = getVersionFromSlug(
-  starlightVersionsConfig,
-  starlightConfig,
-  id
-);
+const pageVersion = parseFloat(Astro.url.pathname.split("/")[2]);
 ---
 
 <starlight-version-select>
   <label>
     <span class="sr-only">Select version</span>
-    <select value={pageVersion?.label ?? "current"} autocomplete="off">
+    <select
+      value={isNaN(pageVersion) ? "current" : pageVersion}
+      autocomplete="off"
+    >
       <option
-        selected={pageVersion === undefined}
+        selected={isNaN(pageVersion)}
         value={getVersionURL(
           starlightVersionsConfig,
           starlightConfig,
           Astro.url,
-          undefined
+          undefined,
         ).pathname}>{starlightVersionsConfig.current.label}</option
       >
       {
         starlightVersionsConfig.versions.map((version) => (
           <option
-            selected={version.slug === pageVersion?.slug}
+            selected={parseFloat(version.slug) === pageVersion}
             value={
               getVersionURL(
                 starlightVersionsConfig,
                 starlightConfig,
                 Astro.url,
-                version
+                version,
               ).pathname
             }
           >
@@ -120,6 +114,6 @@ const pageVersion = getVersionFromSlug(
           }
         });
       }
-    }
+    },
   );
 </script>
