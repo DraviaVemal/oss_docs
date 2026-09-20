@@ -1,0 +1,164 @@
+---
+title: Getting Started
+description: Install BitForge with the curl script and bootstrap your first Yocto workspace.
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+`BitForge` is a single, self-contained binary. You install it by downloading a
+prebuilt release asset with the install script — there is no Python virtualenv,
+package manager or global toolchain to set up first.
+
+<table>
+  <thead>
+    <tr>
+      <th>Resource</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Releases</td>
+      <td><a href="https://github.com/DraviaVemal/BitForge/releases">github.com/DraviaVemal/BitForge/releases</a></td>
+    </tr>
+    <tr>
+      <td>Source & issues</td>
+      <td><a href="https://github.com/DraviaVemal/BitForge">github.com/DraviaVemal/BitForge</a></td>
+    </tr>
+  </tbody>
+</table>
+
+## Requirements
+
+- Linux `x86_64` (the supported release target)
+- `curl` and `git` on your `PATH`
+- A working Yocto host environment (build-essential, `gawk`, `diffstat`,
+  `chrpath`, etc. — see the [Yocto quick start](https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html))
+
+## Install
+
+<Steps>
+
+1. Download and install the latest stable binary:
+
+   ```shell
+   curl -fsSL https://raw.githubusercontent.com/DraviaVemal/BitForge/release/install.sh | sh
+   ```
+
+   The script detects your OS/arch, downloads the matching
+   `bitforge-linux-x86_64` asset and installs it to `~/.local/bin/bitforge`.
+
+2. Make sure the install directory is on your `PATH`:
+
+   ```shell
+   export PATH="$HOME/.local/bin:$PATH"
+   bitforge --version
+   ```
+
+</Steps>
+
+<Aside type="tip">
+Prefer the latest pre-release? Pass `--beta`, and use `--dir` to install
+somewhere else:
+
+```shell
+curl -fsSL https://raw.githubusercontent.com/DraviaVemal/BitForge/release/install.sh | sh -s -- --beta
+curl -fsSL https://raw.githubusercontent.com/DraviaVemal/BitForge/release/install.sh | sh -s -- --dir=/usr/local/bin
+```
+</Aside>
+
+<Aside type="note">
+Already installed? Update in place with `bitforge --update` (add `--beta` for
+the pre-release channel). See [Building & Web UI](/bitforge/guides/building/#updating-bitforge).
+</Aside>
+
+## Bootstrap your first workspace
+
+<Steps>
+
+1. Create a new project. BitForge initializes a git repository, clones
+   OpenEmbedded-core + BitBake, scaffolds a starter layer and writes a
+   `BitForge.toml`:
+
+   ```shell
+   bitforge --init my-distro
+   cd my-distro
+   ```
+
+   To base the workspace on **poky** instead of OpenEmbedded-core, pass a poky
+   release:
+
+   ```shell
+   bitforge --init my-distro --poky scarthgap
+   ```
+
+2. Start BitForge. It generates the BitBake config, verifies the sources and
+   launches the web UI:
+
+   ```shell
+   bitforge
+   ```
+
+   The console prints the local URL (for example `http://0.0.0.0:PORT`). Open it
+   to watch and control builds.
+
+3. Kick off a build — either from the web UI, or directly from the CLI:
+
+   ```shell
+   bitforge --build core-image-minimal
+   ```
+
+</Steps>
+
+<Aside type="caution">
+Run `bitforge` from inside a workspace directory (one that contains a
+`BitForge.toml`). Outside of `--init` / `--version` / `--update`, BitForge
+expects a git-tracked project and exits if none is found.
+</Aside>
+
+## What gets created
+
+After `--init`, your project looks like this:
+
+<table>
+  <thead>
+    <tr>
+      <th>Path</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>BitForge.toml</code></td>
+      <td>Project manifest — workspace, layers and dependencies. You edit this (directly or via commands).</td>
+    </tr>
+    <tr>
+      <td><code>BitForge.lock</code></td>
+      <td>Lockfile pinning every dependency layer to an exact commit.</td>
+    </tr>
+    <tr>
+      <td><code>layers/</code></td>
+      <td>Your own layers. The starter layer is scaffolded here.</td>
+    </tr>
+    <tr>
+      <td><code>conf/</code></td>
+      <td>Generated <code>local.conf</code> and <code>bblayers.conf</code>.</td>
+    </tr>
+    <tr>
+      <td><code>ForgeSource/</code></td>
+      <td>Cloned poky/OE-core, BitBake and upstream layers (git-ignored).</td>
+    </tr>
+    <tr>
+      <td><code>build/</code></td>
+      <td>BitBake build output (git-ignored).</td>
+    </tr>
+  </tbody>
+</table>
+
+## Where to next
+
+- [Workspace & Projects](/bitforge/guides/workspace/) — how init works and the project layout.
+- [Layers & Dependencies](/bitforge/guides/layers/) — add upstream layers and pin them.
+- [Building & Web UI](/bitforge/guides/building/) — run builds and use the server.
+- [CLI Reference](/bitforge/cli-reference/) — every command and flag.
+- [Configuration](/bitforge/configuration/) — the full `BitForge.toml` schema.

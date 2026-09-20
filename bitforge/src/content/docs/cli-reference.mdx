@@ -1,0 +1,156 @@
+---
+title: CLI Reference
+description: Every BitForge command-line flag, its arguments and behaviour.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+BitForge is driven entirely by flags. With no action flag, running `bitforge`
+inside a workspace loads the project and starts the web server.
+
+```
+bitforge [flags]
+```
+
+<Aside type="note">
+All commands except `--init`, `--version` and `--update` require a workspace: a
+git-tracked directory containing a `BitForge.toml`.
+</Aside>
+
+## Commands
+
+<table>
+  <thead>
+    <tr>
+      <th>Flag</th>
+      <th>Argument</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>--init</code></td>
+      <td><code>[name]</code></td>
+      <td>Bootstrap a workspace in <code>name</code> (or the current directory). Clones the base sources and writes the manifest.</td>
+    </tr>
+    <tr>
+      <td><code>--poky</code></td>
+      <td><code>[release]</code></td>
+      <td>Used with <code>--init</code>: base the workspace on poky at <code>release</code> instead of OpenEmbedded-core.</td>
+    </tr>
+    <tr>
+      <td><code>--build</code></td>
+      <td><code>[target]</code></td>
+      <td>Start a build for <code>target</code>, or the <code>[default]</code> image when omitted.</td>
+    </tr>
+    <tr>
+      <td><code>--add-layer</code></td>
+      <td><code>&lt;name&gt;</code></td>
+      <td>Scaffold and register a new layer you own under <code>layers/</code>.</td>
+    </tr>
+    <tr>
+      <td><code>--remove-layer</code></td>
+      <td><code>&lt;name&gt;</code></td>
+      <td>Remove one of your own layers and de-register it.</td>
+    </tr>
+    <tr>
+      <td><code>--dependency-add</code></td>
+      <td><code>&lt;spec&gt;</code></td>
+      <td>Clone and link upstream layers. See the <a href="/bitforge/guides/layers/#dependency-spec-syntax">spec syntax</a>.</td>
+    </tr>
+    <tr>
+      <td><code>--dependency-remove</code></td>
+      <td><code>&lt;name&gt;</code></td>
+      <td>Remove a tracked dependency, its lock entry and its clone.</td>
+    </tr>
+    <tr>
+      <td><code>--update</code></td>
+      <td>—</td>
+      <td>Download and install the latest release in place.</td>
+    </tr>
+    <tr>
+      <td><code>--version</code></td>
+      <td>—</td>
+      <td>Print the installed BitForge version and exit.</td>
+    </tr>
+  </tbody>
+</table>
+
+## Modifier flags
+
+<table>
+  <thead>
+    <tr>
+      <th>Flag</th>
+      <th>Applies to</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>--force</code></td>
+      <td><code>--init</code></td>
+      <td>Initialize even when the target directory is not empty.</td>
+    </tr>
+    <tr>
+      <td><code>--beta</code></td>
+      <td><code>--update</code></td>
+      <td>Use the latest pre-release instead of the newest stable build.</td>
+    </tr>
+  </tbody>
+</table>
+
+## Argument forms
+
+Flags that take a value accept both an inline and a spaced form, and values may
+be quoted:
+
+```shell
+bitforge --init my-distro
+bitforge --init=my-distro
+bitforge --init "demo poky"
+bitforge --poky=scarthgap
+```
+
+## Environment variables
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Used by</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>BITFORGE_REPO</code></td>
+      <td><code>--update</code>, install script</td>
+      <td>Override the <code>owner/name</code> GitHub repository (default <code>DraviaVemal/BitForge</code>).</td>
+    </tr>
+    <tr>
+      <td><code>BITFORGE_INSTALL_DIR</code></td>
+      <td>install script</td>
+      <td>Install location (default <code>~/.local/bin</code>).</td>
+    </tr>
+  </tbody>
+</table>
+
+## Examples
+
+```shell
+# Bootstrap a poky workspace and enter it
+bitforge --init my-distro --poky scarthgap
+cd my-distro
+
+# Add layers and a dependency
+bitforge --add-layer sensors
+bitforge --dependency-add https://git.openembedded.org/meta-openembedded#meta-oe,meta-python
+
+# Start the server, then build an image
+bitforge
+bitforge --build core-image-minimal
+
+# Keep the tool current
+bitforge --update
+```

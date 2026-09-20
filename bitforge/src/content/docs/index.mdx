@@ -1,0 +1,95 @@
+---
+title: BitForge
+description: A single-binary Yocto/BitBake workspace manager with declarative layers, a lockfile and a live build web UI.
+template: splash
+---
+
+import logo from '../../../../assets/logo.svg';
+
+<div class="oss-landing">
+
+<section class="oss-hero">
+	<img class="oss-hero-logo" src={logo.src} alt="BitForge logo" />
+	<p class="eyebrow">Yocto · BitBake workspace manager</p>
+	<h1>Reproducible Yocto builds, one binary</h1>
+	<p class="lede">
+		<code>BitForge</code> scaffolds a Yocto workspace, manages poky /
+		OpenEmbedded layers declaratively in <code>BitForge.toml</code>, pins every
+		layer in a lockfile, generates your BitBake config, and serves a live web
+		UI to launch and watch builds.
+	</p>
+	<div class="oss-hero-actions">
+		<a class="oss-btn primary" href="/bitforge/getting-started/">Get started</a>
+		<a class="oss-btn" href="https://github.com/DraviaVemal/BitForge" target="_blank" rel="noopener">View on GitHub</a>
+	</div>
+</section>
+
+<section>
+	<h2>Features</h2>
+	<div class="oss-grid">
+		<article class="oss-card">
+			<h3>One-command bootstrap</h3>
+			<p>
+				<code>bitforge --init</code> clones poky or OpenEmbedded-core plus
+				BitBake, scaffolds a starter layer and writes a working config.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Declarative layers</h3>
+			<p>
+				Add and remove upstream layers with one command; the manifest and
+				<code>bblayers.conf</code> stay in sync automatically.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Locked &amp; reproducible</h3>
+			<p>
+				Every dependency is pinned to an exact commit in
+				<code>BitForge.lock</code>, so a checkout rebuilds the same tree.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Live build web UI</h3>
+			<p>
+				A built-in server streams BitBake output in real time — start builds
+				from the CLI or the browser.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Single static binary</h3>
+			<p>
+				No Python venv or global installs to manage — download one binary
+				with the install script and run it.
+			</p>
+		</article>
+		<article class="oss-card">
+			<h3>Self-updating</h3>
+			<p>
+				<code>bitforge --update</code> fetches the latest release, with a
+				<code>--beta</code> channel for early builds.
+			</p>
+		</article>
+	</div>
+</section>
+
+<section>
+	<h2>Next steps</h2>
+	<div class="oss-grid">
+		<a class="oss-card" href="/bitforge/getting-started/">
+			<h3>Install &amp; init →</h3>
+			<p>Install the binary and bootstrap your first workspace.</p>
+		</a>
+		<a class="oss-card" href="/bitforge/guides/layers/">
+			<h3>Manage layers →</h3>
+			<p>Add upstream layers and pin them with the lockfile.</p>
+		</a>
+		<a class="oss-card" href="/bitforge/cli-reference/">
+			<h3>CLI reference →</h3>
+			<p>Browse every command and flag.</p>
+		</a>
+	</div>
+</section>
+
+</div>
+
+
