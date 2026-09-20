@@ -1,0 +1,165 @@
+---
+title: Workspace & Projects
+description: How bitforge --init bootstraps a Yocto workspace and what the generated project layout means.
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+A BitForge *workspace* is a git repository that contains a `BitForge.toml`
+manifest. Everything else — the BitBake config, the cloned sources and the build
+tree — is derived from that manifest so a fresh checkout rebuilds the same
+project.
+
+## Initializing a workspace
+
+```shell
+bitforge --init my-distro
+```
+
+`--init` will:
+
+<Steps>
+
+1. Create the target directory (or use the current one) and initialize a git
+   repository.
+2. Scaffold a starter layer under `layers/` compatible with the chosen release.
+3. Write a `BitForge.toml` manifest and a `.gitignore`.
+4. Clone BitBake and the base source (OpenEmbedded-core by default) into
+   `ForgeSource/`.
+5. Generate `conf/local.conf` and `conf/bblayers.conf`.
+
+</Steps>
+
+Omit the name to initialize in the current directory:
+
+```shell
+mkdir my-distro && cd my-distro
+bitforge --init
+```
+
+<Aside type="caution">
+`--init` refuses to run in a non-empty directory. Pass `--force` to initialize
+anyway:
+
+```shell
+bitforge --init --force
+```
+</Aside>
+
+## OpenEmbedded-core vs poky
+
+By default the workspace is based on **OpenEmbedded-core**. Pass `--poky` with a
+Yocto release to base it on **poky** instead — this also clones `meta-poky` and
+`meta-yocto-bsp` and sets `DISTRO = "poky"` in `local.conf`:
+
+```shell
+bitforge --init my-distro --poky scarthgap
+```
+
+<table>
+  <thead>
+    <tr>
+      <th>Base</th>
+      <th>Command</th>
+      <th>Layers cloned</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>OpenEmbedded-core</td>
+      <td><code>bitforge --init my-distro</code></td>
+      <td><code>meta</code></td>
+    </tr>
+    <tr>
+      <td>poky</td>
+      <td><code>bitforge --init my-distro --poky &lt;release&gt;</code></td>
+      <td><code>meta</code>, <code>meta-poky</code>, <code>meta-yocto-bsp</code></td>
+    </tr>
+  </tbody>
+</table>
+
+When no release is given, BitForge uses `scarthgap`.
+
+## Project layout
+
+<table>
+  <thead>
+    <tr>
+      <th>Path</th>
+      <th>Tracked in git?</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>BitForge.toml</code></td>
+      <td>Yes</td>
+      <td>The manifest you edit — workspace, layers and dependencies.</td>
+    </tr>
+    <tr>
+      <td><code>BitForge.lock</code></td>
+      <td>Yes</td>
+      <td>Exact commit for every dependency layer.</td>
+    </tr>
+    <tr>
+      <td><code>layers/</code></td>
+      <td>Yes</td>
+      <td>Your own layers (the starter layer lives here).</td>
+    </tr>
+    <tr>
+      <td><code>conf/</code></td>
+      <td>Yes</td>
+      <td>Generated <code>local.conf</code> and <code>bblayers.conf</code>.</td>
+    </tr>
+    <tr>
+      <td><code>ForgeSource/</code></td>
+      <td>No (git-ignored)</td>
+      <td>Cloned poky/OE-core, BitBake and upstream dependency layers.</td>
+    </tr>
+    <tr>
+      <td><code>build/</code></td>
+      <td>No (git-ignored)</td>
+      <td>BitBake's build output (`tmp`, `sstate-cache`, downloads).</td>
+    </tr>
+  </tbody>
+</table>
+
+<Aside type="note">
+`ForgeSource/` and `build/` are rebuilt from the manifest and lockfile, so they
+stay out of git. Commit `BitForge.toml` and `BitForge.lock` together — that pair
+is enough for a teammate to reproduce your sources.
+</Aside>
+
+## The manifest at a glance
+
+A freshly initialized OpenEmbedded-core manifest looks like this:
+
+```toml
+[workspace]
+name = "my-distro"
+bitbake = "2.8"
+yocto_release = "scarthgap"
+
+[[layers]]
+name = "meta-my-distro"
+path = "layers/meta-my-distro"
+priority = 6
+
+[dependency.openembedded-core.meta]
+giturl = "https://git.openembedded.org/openembedded-core"
+branch = "scarthgap"
+```
+
+- `[workspace]` names the project and pins the BitBake and Yocto release.
+- `[[layers]]` entries are **your** layers, kept under `layers/`.
+- `[dependency.*]` entries are **upstream** layers cloned into `ForgeSource/`.
+
+See [Configuration](/bitforge/configuration/) for the complete schema, and
+[Layers & Dependencies](/bitforge/guides/layers/) for how to add more.
+
+## Regenerating derived files
+
+BitForge keeps `conf/bblayers.conf` in sync whenever you change layers or
+dependencies. Running `bitforge` in an existing workspace re-validates the
+sources, ensures BitBake is present and refreshes the generated config before
+starting the server.
