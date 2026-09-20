@@ -32,6 +32,17 @@ export const SITE_KEYWORDS = [
 /** Project registry shared by the hub pages (landing, releases, etc.). */
 export const PROJECTS = [
 	{
+		slug: 'bitforge',
+		name: 'BitForge',
+		tagline:
+			'A single-binary Yocto/BitBake workspace manager with declarative layers, a lockfile and a live build web UI.',
+		docs: '/bitforge',
+		repo: 'https://github.com/DraviaVemal/BitForge',
+		packages: [
+			{ label: 'Releases', href: 'https://github.com/DraviaVemal/BitForge/releases' },
+		],
+	},
+	{
 		slug: 'openxml-office',
 		name: 'openxml-office',
 		tagline:
