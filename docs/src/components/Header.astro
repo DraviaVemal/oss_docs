@@ -68,6 +68,7 @@ import "./Header.scss";
 
     <div class="internal-links" id="primary-navigation">
       <HeaderLink href="/">Home</HeaderLink>
+      <HeaderLink href="/bitforge">BitForge</HeaderLink>
       <HeaderLink href="/openxml-office">openxml-office</HeaderLink>
       <HeaderLink href="/xml_rs">xml_rs</HeaderLink>
       <HeaderLink href="/tauri-remote-ui">tauri-remote-ui</HeaderLink>
@@ -142,7 +143,7 @@ import "./Header.scss";
         documentRoot.getAttribute("data-theme") === "dark" ? "light" : "dark";
       documentRoot.setAttribute("data-theme", nextTheme);
       try {
-        localStorage.setItem("docs-theme", nextTheme);
+        localStorage.setItem("starlight-theme", nextTheme);
       } catch (localStorageError) {
         void localStorageError;
       }
@@ -156,7 +157,7 @@ import "./Header.scss";
       .addEventListener("change", (preferenceChangeEvent) => {
         let storedThemePreference: string | null = null;
         try {
-          storedThemePreference = localStorage.getItem("docs-theme");
+          storedThemePreference = localStorage.getItem("starlight-theme");
         } catch (localStorageError) {
           void localStorageError;
         }

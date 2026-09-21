@@ -1,0 +1,157 @@
+---
+title: Configuration
+description: The complete BitForge.toml schema — workspace, layers, dependencies, defaults and the web server.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Every workspace is described by a single `BitForge.toml` at its root. BitForge
+reads it on start and rewrites the derived `conf/bblayers.conf` whenever layers
+or dependencies change. This page documents each section.
+
+## `[workspace]`
+
+Identifies the project and pins the toolchain versions.
+
+```toml
+[workspace]
+name = "my-distro"
+bitbake = "2.8"
+yocto_release = "scarthgap"
+```
+
+<table>
+  <thead>
+    <tr><th>Key</th><th>Type</th><th>Default</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>name</code></td><td>string</td><td>—</td><td>Workspace name.</td></tr>
+    <tr><td><code>bitbake</code></td><td>string</td><td><code>"2.8"</code></td><td>BitBake branch to clone into <code>ForgeSource/</code>.</td></tr>
+    <tr><td><code>yocto_release</code></td><td>string</td><td>—</td><td>Default release/branch used for layers that don't set their own ref.</td></tr>
+  </tbody>
+</table>
+
+## `[[layers]]`
+
+Your own layers, one entry per layer, scaffolded under `layers/`.
+
+```toml
+[[layers]]
+name = "meta-my-distro"
+path = "layers/meta-my-distro"
+priority = 6
+```
+
+<table>
+  <thead>
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>name</code></td><td>string</td><td>Layer name (normalized to the <code>meta-</code> convention).</td></tr>
+    <tr><td><code>path</code></td><td>string</td><td>Path to the layer within the workspace.</td></tr>
+    <tr><td><code>priority</code></td><td>integer</td><td>BitBake layer priority.</td></tr>
+  </tbody>
+</table>
+
+<Aside type="tip">
+Manage these with `bitforge --add-layer` / `--remove-layer` rather than editing
+by hand — the layer directory and `bblayers.conf` are updated together.
+</Aside>
+
+## `[dependency.<name>.<layer>]`
+
+Upstream layers cloned into `ForgeSource/`. The table is keyed by a repository
+name and then by each linked layer.
+
+```toml
+[dependency.meta-openembedded.meta-oe]
+giturl = "https://git.openembedded.org/meta-openembedded"
+branch = "scarthgap"
+
+[dependency.meta-openembedded.meta-python]
+giturl = "https://git.openembedded.org/meta-openembedded"
+branch = "scarthgap"
+```
+
+<table>
+  <thead>
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>giturl</code></td><td>string</td><td>Repository URL.</td></tr>
+    <tr><td><code>branch</code></td><td>string</td><td>Branch to check out (mutually exclusive with <code>tag</code>/<code>commit</code>).</td></tr>
+    <tr><td><code>tag</code></td><td>string</td><td>Tag to check out.</td></tr>
+    <tr><td><code>commit</code></td><td>string</td><td>Exact commit to check out.</td></tr>
+    <tr><td><code>path</code></td><td>string</td><td>Sub-directory within the repo when the layer is nested.</td></tr>
+  </tbody>
+</table>
+
+<Aside type="note">
+Add and remove these with `bitforge --dependency-add` / `--dependency-remove`.
+The resolved commit is pinned in `BitForge.lock`.
+</Aside>
+
+## `[default]`
+
+The image used when `--build` is run without a target.
+
+```toml
+[default]
+image = "core-image-minimal"
+```
+
+## `[server]`
+
+Controls the built-in web server. All keys are optional.
+
+```toml
+[server]
+host = "0.0.0.0"
+port = 8080
+shutdown_grace_secs = 20
+activity_timeout = 3
+http1_keep_alive = true
+```
+
+<table>
+  <thead>
+    <tr><th>Key</th><th>Type</th><th>Default</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>host</code></td><td>string</td><td><code>"0.0.0.0"</code></td><td>Interface to bind.</td></tr>
+    <tr><td><code>port</code></td><td>integer</td><td><code>0</code> (auto)</td><td>Port to bind; <code>0</code> picks a free port.</td></tr>
+    <tr><td><code>shutdown_grace_secs</code></td><td>integer</td><td><code>20</code></td><td>Seconds to wait for in-flight work on shutdown.</td></tr>
+    <tr><td><code>activity_timeout</code></td><td>integer</td><td><code>3</code></td><td>Idle timeout in minutes.</td></tr>
+    <tr><td><code>http1_keep_alive</code></td><td>bool</td><td><code>true</code></td><td>Enable HTTP/1 keep-alive.</td></tr>
+    <tr><td><code>http2_keep_alive_secs</code></td><td>integer</td><td>unset</td><td>HTTP/2 keep-alive interval in seconds.</td></tr>
+  </tbody>
+</table>
+
+## Full example
+
+```toml
+[workspace]
+name = "my-distro"
+bitbake = "2.8"
+yocto_release = "scarthgap"
+
+[[layers]]
+name = "meta-my-distro"
+path = "layers/meta-my-distro"
+priority = 6
+
+[dependency.openembedded-core.meta]
+giturl = "https://git.openembedded.org/openembedded-core"
+branch = "scarthgap"
+
+[dependency.meta-openembedded.meta-oe]
+giturl = "https://git.openembedded.org/meta-openembedded"
+branch = "scarthgap"
+
+[default]
+image = "core-image-minimal"
+
+[server]
+host = "0.0.0.0"
+port = 8080
+```

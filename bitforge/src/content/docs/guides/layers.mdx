@@ -1,0 +1,160 @@
+---
+title: Layers & Dependencies
+description: Add and remove your own layers and upstream layer dependencies, with an exact-commit lockfile.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+BitForge distinguishes **your layers** (scaffolded under `layers/` and tracked
+in git) from **dependency layers** (upstream repositories cloned into
+`ForgeSource/`). Both are described in `BitForge.toml`; BitForge keeps
+`bblayers.conf` and `BitForge.lock` in sync as you change them.
+
+## Your own layers
+
+Create a new layer in the workspace:
+
+```shell
+bitforge --add-layer sensors
+```
+
+This scaffolds `layers/meta-sensors`, registers it under `[[layers]]` and adds
+it to `bblayers.conf`. Layer names are normalized to the `meta-` convention.
+
+Remove one (deletes the directory and de-registers it):
+
+```shell
+bitforge --remove-layer sensors
+```
+
+<Aside type="note">
+`--remove-layer` only operates on layers you own (the `[[layers]]` entries). To
+drop an upstream repository, use `--dependency-remove`.
+</Aside>
+
+## Adding upstream dependencies
+
+Add one or more upstream layers with `--dependency-add` and a spec:
+
+```shell
+bitforge --dependency-add https://git.openembedded.org/meta-openembedded#meta-oe,meta-python,meta-networking
+```
+
+BitForge clones the repository into `ForgeSource/layers/<name>`, records it under
+`[dependency.<name>]`, pins the resolved commit in `BitForge.lock` and links the
+selected layers into `bblayers.conf`.
+
+### Dependency spec syntax
+
+```
+<giturl>[@<ref>][#<layer>[@<ref>][,<layer>…]]
+```
+
+<table>
+  <thead>
+    <tr>
+      <th>Part</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>&lt;giturl&gt;</code></td>
+      <td>Repository to clone (required).</td>
+    </tr>
+    <tr>
+      <td><code>@&lt;ref&gt;</code> after the URL</td>
+      <td>Default ref for every layer in this repo.</td>
+    </tr>
+    <tr>
+      <td><code>#layer,layer,…</code></td>
+      <td>Which sub-directories to link as layers. Omit to use the repo as a single layer.</td>
+    </tr>
+    <tr>
+      <td><code>path/to/layer</code></td>
+      <td>A nested layer path; the last segment becomes the layer name.</td>
+    </tr>
+    <tr>
+      <td><code>@&lt;ref&gt;</code> after a layer</td>
+      <td>Per-layer ref that overrides the repo default.</td>
+    </tr>
+  </tbody>
+</table>
+
+A ref is one of:
+
+<table>
+  <thead>
+    <tr>
+      <th>Ref</th>
+      <th>Selects</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>@b:&lt;branch&gt;</code></td>
+      <td>A branch.</td>
+    </tr>
+    <tr>
+      <td><code>@t:&lt;tag&gt;</code></td>
+      <td>A tag.</td>
+    </tr>
+    <tr>
+      <td><code>@c:&lt;commit&gt;</code></td>
+      <td>An exact commit.</td>
+    </tr>
+  </tbody>
+</table>
+
+When no ref is given, BitForge uses the workspace's `yocto_release` as the
+branch.
+
+### Examples
+
+```shell
+# Whole repo as one layer, tracking the workspace release
+bitforge --dependency-add https://git.yoctoproject.org/meta-raspberrypi
+
+# Several layers from one repo on the scarthgap branch
+bitforge --dependency-add https://git.openembedded.org/meta-openembedded@b:scarthgap#meta-oe,meta-python
+
+# Pin a single layer to a tag
+bitforge --dependency-add https://github.com/rust-embedded/meta-rust-bin#meta-rust-bin@t:scarthgap
+
+# Per-layer refs override the repo default
+bitforge --dependency-add https://example.org/vendor-bsp@b:main#meta-bsp,meta-bsp-extra@c:0a1b2c3
+```
+
+The resulting manifest entry looks like:
+
+```toml
+[dependency.meta-openembedded.meta-oe]
+giturl = "https://git.openembedded.org/meta-openembedded"
+branch = "scarthgap"
+
+[dependency.meta-openembedded.meta-python]
+giturl = "https://git.openembedded.org/meta-openembedded"
+branch = "scarthgap"
+```
+
+## Removing a dependency
+
+```shell
+bitforge --dependency-remove meta-openembedded
+```
+
+This drops the `[dependency.<name>]` block, removes it from the lockfile and
+`bblayers.conf`, and deletes its clone from `ForgeSource/`.
+
+## The lockfile
+
+`BitForge.lock` records the exact commit resolved for every dependency layer, so
+re-cloning on another machine reproduces the same sources even if upstream
+branches have moved. Commit it alongside `BitForge.toml`.
+
+<Aside type="tip">
+When two layers declare the same BitBake collection, BitForge keeps the newly
+added one **on disk** but delinks it from `bblayers.conf` to avoid a
+duplicate-collection error, and logs a warning telling you which layer already
+provides it.
+</Aside>

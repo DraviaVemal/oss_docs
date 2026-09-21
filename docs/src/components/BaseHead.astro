@@ -113,7 +113,7 @@ const jsonLd = {
 <script is:inline>
 	(function applyPersistedTheme() {
 		try {
-			var storedThemePreference = localStorage.getItem("docs-theme");
+			var storedThemePreference = localStorage.getItem("starlight-theme");
 			var resolvedTheme =
 				storedThemePreference === "light" || storedThemePreference === "dark"
 					? storedThemePreference

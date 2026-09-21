@@ -1,0 +1,87 @@
+---
+title: Building & Web UI
+description: Run BitBake builds from the CLI or the live web UI, configure the server, and keep BitForge updated.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Running `bitforge` inside a workspace starts a local web server and, unless you
+ask for a build, warms up the default image. The server streams BitBake output
+so you can launch and monitor builds from your browser.
+
+## Starting BitForge
+
+```shell
+cd my-distro
+bitforge
+```
+
+On start BitForge:
+
+- Loads `BitForge.toml` and ensures the project layout exists.
+- Makes sure BitBake and the configured sources are present.
+- Refreshes `conf/local.conf` and `conf/bblayers.conf`.
+- Records a git revision and starts the web server.
+
+The console prints the URL to open, e.g. `BitForge is running at http://0.0.0.0:PORT`.
+
+<Aside type="note">
+The default port is chosen automatically. Pin a fixed host and port in the
+`[server]` section of `BitForge.toml` — see [Configuration](/bitforge/configuration/#server).
+</Aside>
+
+## Running a build
+
+Start a build from the CLI by naming an image or target:
+
+```shell
+bitforge --build core-image-minimal
+```
+
+If you omit the target, BitForge uses the `[default]` image from the manifest:
+
+```toml
+[default]
+image = "core-image-minimal"
+```
+
+```shell
+bitforge --build
+```
+
+<Aside type="caution">
+With no target on the command line and no `[default]` image configured, the
+build cannot start. Set a default image or pass one explicitly.
+</Aside>
+
+You can also start builds from the web UI once the server is running — the same
+build engine drives both.
+
+## Stopping
+
+Press `Ctrl+C` to shut down gracefully; BitForge waits for the configured grace
+period to let in-flight work settle. Press `Ctrl+C` again to force an immediate
+exit.
+
+## Updating BitForge
+
+BitForge updates itself in place from GitHub releases:
+
+```shell
+bitforge --update
+```
+
+Add `--beta` to take the latest pre-release instead of the newest stable build:
+
+```shell
+bitforge --update --beta
+```
+
+The updater downloads the matching release asset, replaces the running binary
+and reports the new version. It only replaces the binary when the release is
+newer than what you have installed.
+
+<Aside type="tip">
+`--update` requires `curl`. To point at a fork, set `BITFORGE_REPO=owner/name`
+before running the command.
+</Aside>
