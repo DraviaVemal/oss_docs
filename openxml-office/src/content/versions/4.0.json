@@ -29,7 +29,7 @@
                     "link": "/compatibility"
                 },
                 {
-                    "label": "Benchmark 🚧🔨",
+                    "label": "Benchmark",
                     "link": "/benchmark"
                 },
                 {
@@ -37,7 +37,7 @@
                     "link": "/status-badge"
                 },
                 {
-                    "label": "Privacy Policy",
+                    "label": "Privacy Policy 🚧🔨",
                     "link": "/privacy-policy"
                 },
                 {
@@ -47,7 +47,7 @@
             ]
         },
         {
-            "label": "Global 🚧🔨",
+            "label": "Global",
             "collapsed": true,
             "items": [
                 {
@@ -123,7 +123,7 @@
             ]
         },
         {
-            "label": "Presentation 🚧🔨",
+            "label": "Presentation",
             "items": [
                 {
                     "label": "PowerPoint",
@@ -156,7 +156,7 @@
             ]
         },
         {
-            "label": "Document 🚧🔨",
+            "label": "Document",
             "items": [
                 {
                     "label": "Word",
